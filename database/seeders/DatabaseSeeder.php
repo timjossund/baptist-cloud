@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
           'Religion',
           'Doctrine',
           'Culture',
-          'Church',
+          'Baptist',
           'Evangelism',
         ];
 
