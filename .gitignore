@@ -28,3 +28,4 @@ Homestead.json
 auth.json
 .idea/laravel-idea.xml
 /.idea
+*.iml
