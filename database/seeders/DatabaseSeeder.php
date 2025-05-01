@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Post;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,12 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory()->create([
+            'name' => 'Tim Jossund',
+            'email' => 'timjossund@gmail.com'
+        ]);
+
         $categories = [
-          'Religion',
-          'Doctrine',
-          'Culture',
-          'Baptist',
-          'Evangelism',
+            'Religion',
+            'Doctrine',
+            'Culture',
+            'Baptist',
+            'Evangelism',
+            'Politics',
         ];
 
         foreach ($categories as $category) {
