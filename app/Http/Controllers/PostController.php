@@ -13,7 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('dashboard', ['posts' => Post::latest()->get(), 'categories' => Category::get()]);
+        $posts = Post::latest();
+        $categories = Category::get();
+        return view('dashboard', ['posts' => $posts->paginate(15), 'categories' => $categories]);
     }
 
     /**

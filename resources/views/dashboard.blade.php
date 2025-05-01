@@ -62,6 +62,9 @@
                     </article>
                     @endforeach
                 </div>
+                <div class="mt-6 pagination-wrapper">
+                    {{ $posts->links() }}
+                </div>
             </div>
         </div>
     </div>
