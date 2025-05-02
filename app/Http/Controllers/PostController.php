@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         $posts = Post::latest();
         $categories = Category::get();
-        return view('dashboard', ['posts' => $posts->paginate(15), 'categories' => $categories]);
+        return view('dashboard', ['posts' => $posts->simplePaginate(15), 'categories' => $categories]);
     }
 
     /**

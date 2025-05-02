@@ -24,7 +24,6 @@
                 <p class="mt-2 text-lg/8 text-gray-600">Learn how to grow your business with our expert advice.</p>
                 <div class="mt-16 space-y-10 lg:mt-20 lg:space-y-10">
                     @foreach($posts as $post)
-
                     <article class="relative isolate flex flex-col gap-8 lg:flex-row border-b pb-12">
                         <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
                             <img src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80" alt="" class="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover">
