@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         $posts = Post::latest();
         $categories = Category::get();
-        return view('dashboard', ['posts' => $posts->simplePaginate(5), 'categories' => $categories]);
+        return view('home-page', ['posts' => $posts->simplePaginate(5), 'categories' => $categories]);
     }
 
     /**
@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('create-post');
     }
 
     /**
@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

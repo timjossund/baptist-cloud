@@ -8,7 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home-page', [PostController::class, 'index'])->name('home-page');
+    Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
+    Route::post('post/save-post', [PostController::class, 'store'])->name('save-post');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
