@@ -11,7 +11,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home-page', [PostController::class, 'index'])->name('home-page');
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
-    Route::post('post/save-post', [PostController::class, 'store'])->name('save-post');
+    Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
 });
 
 Route::middleware('auth')->group(function () {
