@@ -2,12 +2,12 @@
     <section class="container mx-auto px-6 py-8 flex justify-center">
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
-                <h2 class="text-4xl mb-8">Create a new post</h2>
+                <h2 class="text-4xl font-bold mb-8">Create a new post</h2>
                 <form action="/post/create-post" method="POST" enctype="multipart/form-data" class="m-auto w-full max-w-4xl flex flex-col gap-4">
                     @csrf
 {{--                    Post Image--}}
                     <div>
-                        <x-input-label class="block mb-2 text-sm font-medium text-gray-900" for="image">Featured Image</x-input-label>
+                        <x-input-label class="block mb-2" for="image">Featured Image</x-input-label>
                         <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="image" type="file" name="image" >
                         <p class="mt-1 text-sm text-gray-500" id="file_input_help">Supported format: JPG (MAX. 800x400px).</p>
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />

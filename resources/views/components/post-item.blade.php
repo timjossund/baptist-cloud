@@ -5,7 +5,7 @@
     </div>
     <div>
         <div class="flex items-center gap-x-4 text-xs">
-            <time datetime="2020-03-16" class="text-gray-500">{{ $post->created_at }}</time>
+            <time datetime="2020-03-16" class="text-gray-500">Published on {{ $post->created_at->format('n/j/Y') }}</time>
             <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"></a>
         </div>
         <div class="group relative w-full ">
@@ -15,7 +15,7 @@
                     {{ $post->title }}
                 </a>
             </h3>
-            <p class="mt-5 text-lg text-gray-600">{{ Str::words($post->content, 20) }}</p>
+            <p class="mt-5 text-lg text-gray-600">{{ Str::words($post->content, 24) }}</p>
         </div>
         <div class="mt-6 flex border-t border-gray-900/5 pt-6">
             <div class="relative flex items-center gap-x-4">
@@ -27,7 +27,6 @@
                             {{ $post->user_id }}
                         </a>
                     </p>
-                    <p class="text-gray-600">Co-Founder / CTO</p>
                 </div>
             </div>
         </div>

@@ -9,9 +9,13 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home-page', [PostController::class, 'index'])->name('home-page');
+    Route::get('/home', [PostController::class, 'index'])->name('home-page');
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
+    Route::get('/post/{post}', [PostController::class, 'show'])->name('single-post');
+    Route::get('/post/{post}/edit', [PostController::class, 'edit'])->name('edit-post');
+    Route::patch('/post/{post}', [PostController::class, 'update'])->name('update-post');
+    Route::delete('/post/{post}', [PostController::class, 'destroy'])->name('delete-post');
 });
 
 Route::middleware('auth')->group(function () {
@@ -20,4 +24,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
