@@ -12,7 +12,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [PostController::class, 'index'])->name('home-page');
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
-    Route::get('/post/{post}', [PostController::class, 'show'])->name('single-post');
+    Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
     Route::get('/post/{post}/edit', [PostController::class, 'edit'])->name('edit-post');
     Route::patch('/post/{post}', [PostController::class, 'update'])->name('update-post');
     Route::delete('/post/{post}', [PostController::class, 'destroy'])->name('delete-post');

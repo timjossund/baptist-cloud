@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -48,4 +49,15 @@ class User extends Authenticatable implements MustVerifyEmail {
             'password' => 'hashed',
         ];
     }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+
+    public function imageUrl() {
+        if ($this->avatar) {
+            return Storage::url($this->avatar);
+        }
+    }
+
 }

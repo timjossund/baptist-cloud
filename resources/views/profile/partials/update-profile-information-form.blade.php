@@ -21,7 +21,7 @@
             @if(auth()->user()->avatar)
                 <img src="{{ auth()->user()->avatar }}" alt="user-avatar" class="rounded-full w-20 h-20">
             @endif
-            <x-input-label class="block mb-2" for="avatar">Your Avatar</x-input-label>
+            <x-input-label class="block mb-2" for="avatar">Current Avatar</x-input-label>
             <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="avatar" type="file" name="avatar" >
             <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
         </div>

@@ -34,7 +34,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:16048',
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
@@ -57,9 +57,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(string $username, Post $post)
     {
-        return view('single-post', );
+        return view('single-post', ['post' => $post]);
     }
 
     /**
