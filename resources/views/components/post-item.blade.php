@@ -1,4 +1,4 @@
-<article class="relative isolate flex flex-col gap-8 lg:flex-row border-b pb-12 w-full">
+<article class="relative isolate flex flex-col gap-8 lg:flex-row border-b py-12 w-full">
     <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
         <img src="{{ $post->image }}" alt="" class="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover">
         <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>

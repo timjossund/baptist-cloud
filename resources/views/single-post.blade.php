@@ -9,7 +9,7 @@
                     <div class="flex gap-2 items-center mb-">
                         <p class="">Written by</p>
                         <img src="{{ $post->user->imageUrl() }}" class="size-10 rounded-full bg-gray-50" alt="{{ $post->user->name }}"/>
-                        <p>{{ $post->user->name }} - {{ $post->user->bio }}</p>
+                        <p><a href="{{ route('public-profile', $post->user) }}">{{ $post->user->name }}</a> - {{ $post->user->bio }}</p>
                     </div>
                     <p>Published {{ $post->created_at->format('M d Y') }} in <span class="text-gray-500 rounded-2xl bg-gray-200 px-6 py-1">{{ $post->category->title }}</span></p>
                 </div>
