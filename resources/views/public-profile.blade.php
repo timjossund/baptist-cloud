@@ -6,11 +6,11 @@
                     <div class="py-5 border-b-2 mb-2">
                         <h1 class="text-4xl">{{ $user->name }}'s Profile</h1>
                     </div>
-                    <h1 class="text-3xl my-3">Recent Posts:</h1>
+                    <h4 class="text-3xl my-3">Recent Posts:</h4>
                     @forelse($posts as $post)
                         <x-post-item :post="$post" />
                     @empty
-                        <h3>No Posts Found</h3>
+                        <h4>No Posts Found</h4>
                     @endforelse
                 </div>
                 <div class="w-1/4 px-10 flex flex-col border-l items-center">
@@ -22,11 +22,11 @@
                             @if(!$user->followers)
                                 <p class="text-lg text-center">No Followers Yet</p>
                             @else
-                                <p class="text-lg text-center">
+                                <p class="text-lg text-center">{{ $user->followers()->count() }}
                                     @if($user->followers()->count() == 1)
-                                        {{ $user->followers()->count() }} Follower
+                                         Follower
                                     @else
-                                        {{ $user->followers()->count() }} Followers
+                                         Followers
                                     @endif
                                 </p>
                             @endif
