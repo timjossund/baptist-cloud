@@ -5,13 +5,13 @@
 
                 <h1 class="text-5xl">{{ $post->title }}</h1>
                 <p class="text-gray-500 mb-4">Around {{ $post->readTime() }} minutes read time.</p>
-                <div class="flex flex-col justify-center gap-1 mb-8">
-                    <div class="flex gap-2 items-center mb-">
-                        <p class="">Written by</p>
+                <div class="flex flex-col justify-center gap-1 mb-4">
+                    <p>Published {{ $post->created_at->format('M d Y') }} </p>
+                    <div class="flex gap-2 pb-6 items-center mb-">
                         <x-user-avatar :user="$post->user" />
                         <p><a href="{{ route('public-profile', $post->user) }}">{{ $post->user->name }}</a> - {{ $post->user->bio }}</p>
                     </div>
-                    <p>Published {{ $post->created_at->format('M d Y') }} in <span class="text-gray-500 rounded-2xl bg-gray-200 px-6 py-1">{{ $post->category->title }}</span></p>
+                    <p> <span class="text-gray-500 rounded-2xl bg-gray-200 px-6 py-1">{{ $post->category->title }}</span></p>
                 </div>
                 <div class="flex border-t border-b mb-4 gap-2 py-2">
                     Like this post:

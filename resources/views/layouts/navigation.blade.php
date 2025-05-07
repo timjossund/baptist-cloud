@@ -24,6 +24,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-md leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -57,6 +58,14 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                <div class="flex gap-4">
+                    <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 text-black border border-black">Log in</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="inline-block px-5 py-1.5 text-black border border-black">Register</a>
+                    @endif
+                </div>
+                @endauth
             </div>
 
             <!-- Hamburger -->
@@ -82,8 +91,10 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
+                @auth
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                @endauth
             </div>
 
             <div class="mt-3 space-y-1">

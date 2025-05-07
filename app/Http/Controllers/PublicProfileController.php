@@ -10,6 +10,9 @@ class PublicProfileController extends Controller
     public function show(User $user)
     {
         $posts = $user->posts()->latest()->paginate(5);
+
+//        dd($user->followers);
+
         return view('public-profile', [
             'user' => $user, 'posts' => $posts
         ]);

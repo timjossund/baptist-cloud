@@ -10,9 +10,9 @@ Route::get('/', function () {
 });
 
 Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
+Route::get('/home', [PostController::class, 'index'])->name('home-page');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home', [PostController::class, 'index'])->name('home-page');
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
