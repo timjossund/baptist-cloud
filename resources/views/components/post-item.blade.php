@@ -23,12 +23,11 @@
         </div>
         <div class="mt-2 flex border-t border-gray-900/5 pt-2">
             <div class="relative flex items-center gap-x-4">
-                <img src="{{ $post->user->imageUrl() }}" alt="" class="size-10 rounded-full bg-gray-50">
+{{--                <img src="{{ $post->user->imageUrl() }}" alt="" class="size-10 rounded-full bg-gray-50">--}}
+                <x-user-avatar :user="$post->user" />
                 <div class="text-sm/6">
                     <p class="font-semibold text-gray-900">
-                        <a href="#">
-                            {{ $post->user->name }}
-                        </a>
+                        <a href="{{ route('public-profile', $post->user) }}" class="hover:underline">{{ $post->user->name }}</a>
                         <br>
                         {{ $post->user->bio }}
                     </p>

@@ -27,11 +27,12 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $data = $request->validated();
-
         $image = $data['avatar'] ?? null;
+        if ($image) {
+            $imagePath = $image->store('avatars', 'public');
+            $data['avatar'] = $imagePath;
+        }
 
-        $imagePath = $image->store('avatars', 'public');
-        $data['avatar'] = $imagePath;
 
         $request->user()->fill($data);
 
