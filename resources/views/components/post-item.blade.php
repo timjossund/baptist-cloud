@@ -21,7 +21,7 @@
             </h3>
             <p class="mt-2 text-md text-gray-600">{{ Str::words($post->content, 16) }}</p>
         </div>
-        <div class="mt-2 flex border-t border-gray-900/5 pt-2 mb-4">
+        <div class=" flex border-t border-gray-900/5 pt-2 mb-6">
             <div class="relative flex items-center gap-x-4">
 {{--                <img src="{{ $post->user->imageUrl() }}" alt="" class="size-10 rounded-full bg-gray-50">--}}
                 <x-user-avatar :user="$post->user" />
@@ -36,12 +36,12 @@
             <a href="{{ route('single-post', [
             "username" => $post->user->username,
             "post" => $post->slug
-            ]) }}" class="bg-gray-600 text-white py-2 px-6 rounded-lg">
+            ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-lg">
                 Read More
             </a>
         @else
-            <a href="{{ route('login') }}" class="bg-gray-600 text-white py-2 px-6 rounded-lg">
-                Login to read more.
+            <a href="{{ route('login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-lg">
+                Login to read more
             </a>
         @endauth
 
