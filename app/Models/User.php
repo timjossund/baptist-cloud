@@ -9,10 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable implements MustVerifyEmail {
+class User extends Authenticatable implements MustVerifyEmail, HasMedia {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +53,23 @@ class User extends Authenticatable implements MustVerifyEmail {
         ];
     }
 
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('avatar')
+            ->width(80)
+            ->crop(80, 80);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')->singleFile();
+    }
+
+    public function avatarUrl() {
+        return $this->getFirstMedia('avatar')?->getUrl('avatar');
+    }
+
     public function posts() {
         return $this->hasMany(Post::class);
     }
@@ -66,12 +86,12 @@ class User extends Authenticatable implements MustVerifyEmail {
         return $this->followers()->where('follower_id', $user->id)->exists();
     }
 
-    public function imageUrl() {
-        if ($this->avatar) {
-            return Storage::url($this->avatar);
-        }
-        return null;
-    }
+//    public function imageUrl() {
+//        if ($this->avatar) {
+//            return Storage::url($this->avatar);
+//        }
+//        return null;
+//    }
 
     public function hasLiked(Post $post) {
         return $post->likes()->where('user_id', $this->id)->exists();

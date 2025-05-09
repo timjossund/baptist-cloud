@@ -20,7 +20,7 @@
                     <p> <span class="text-gray-500 rounded-2xl bg-gray-200 px-6 py-1">{{ $post->category->title }}</span></p>
                 </div>
                 <x-like-btn :post="$post" />
-                <img src="{{ Storage::url($post->image) }}" alt="Featured Image" class="w-full h-96 rounded-xl object-cover mb-12">
+                <img src="{{ $post->imageUrl('large') }}" alt="Featured Image" class="w-full h-96 rounded-xl object-cover mb-12">
                 <p class="text-lg">{{ $post->content }}</p>
             </div>
             <p class="my-10">

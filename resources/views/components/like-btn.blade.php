@@ -15,7 +15,6 @@
             });
         }
     }">
-{{--    {{ dd(auth()->user()->hasLiked($post))  }}--}}
     Like this post:
     <button @click="like()" class="cursor-pointer">
         <template x-if="!hasLiked">
