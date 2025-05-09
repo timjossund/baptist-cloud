@@ -38,20 +38,22 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $image = $request['avatar'] ?? null;
-
-        $imagePath = $image->store('avatars', 'public');
+//        $image = $request['avatar'] ?? null;
+//
+//        $imagePath = $image->store('avatars', 'public');
 
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'bio' => $request->bio,
-            'avatar' => $imagePath,
+            'avatar' => $request->avatar,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
+
+        $user->addMediaFromRequest('avatar')->toMediaCollection('avatar');
 
         Auth::login($user);
 

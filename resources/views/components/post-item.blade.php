@@ -15,10 +15,9 @@
                     "post" => $post->slug
                     ]) }}">
                     <span class="absolute inset-0"></span>
-                    {{ $post->title }}
-                    <span class="text-gray-500 mb-2 text-sm">(Read time: {{ $post->readTime() }} minutes)</span>
+                    {{ Str::limit($post->title, 70) }}
                 </a>
-            </h3>
+            </h3><p class="text-gray-500 mb-2 text-sm">(Read time: {{ $post->readTime() }} minutes)</p>
             <p class="mt-2 text-md text-gray-600">{{ Str::words($post->content, 45) }}</p>
         </div>
         <div class=" flex border-t border-gray-900/5 pt-2 mb-6">
