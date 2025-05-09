@@ -18,8 +18,8 @@
         @method('patch')
 
         <div>
-            @if(auth()->user()->avatarUrl())
-                <img src="{{ auth()->user()->avatarUrl() }}" alt="user-avatar" class="rounded-full w-20 h-20">
+            @if($user->avatarUrl())
+                <img src="{{ $user->avatarUrl() }}" alt="user-avatar" class="rounded-full w-20 h-20">
             @endif
             <x-input-label class="block mb-2" for="avatar">Current Avatar</x-input-label>
             <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="avatar" type="file" name="avatar" >
