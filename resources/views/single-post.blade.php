@@ -26,7 +26,6 @@
             <p class="my-10">
                 <span class="text-gray-500 rounded-2xl bg-gray-200 px-6 py-1">{{ $post->category->title }}</span>
             </p>
-            <x-like-btn :post="$post" />
         </div>
     </div>
 </x-app-layout>

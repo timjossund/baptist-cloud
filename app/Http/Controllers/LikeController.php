@@ -7,8 +7,22 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function likeUnlike(Post $post) {
-        $post->likes()->toggle(auth()->user());
+    public function like(Post $post) {
+
+        $hasLiked = auth()->user()->hasLiked($post);
+
+        if ($hasLiked) {
+            $post->likes()->delete(['user_id' => auth()->id()]);
+        } else {
+            $post->likes()->create(['user_id' => auth()->id()]);
+        }
+
+
+
+        return response()->json(['likesCount' => $post->likes()->count() ]);
+    }
+    public function unlike(Post $post) {
+        $post->likes()->delete(['user_id' => auth()->id()]);
 
         return response()->json(['likesCount' => $post->likes()->count() ]);
     }
