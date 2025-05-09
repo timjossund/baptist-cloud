@@ -29,3 +29,4 @@ auth.json
 .idea/laravel-idea.xml
 /.idea
 *.iml
+.idea/inspectionProfiles/Project_Default.xml
