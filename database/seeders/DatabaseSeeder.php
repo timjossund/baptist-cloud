@@ -15,11 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Tim Jossund',
-            'email' => 'timjossund@gmail.com',
-            'username' => 'timjossund'
-        ]);
+//        User::factory()->create([
+//            'name' => 'Tim Jossund',
+//            'email' => 'timjossund@gmail.com',
+//            'username' => 'timjossund',
+//            'avatar' => 'default-avatar.jpg',
+//        ]);
 
         $categories = [
             'Religion',

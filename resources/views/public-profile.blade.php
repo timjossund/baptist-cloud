@@ -18,7 +18,7 @@
                     @endforelse
                 </div>
                 <div class="w-1/4 px-10 flex flex-col border-l items-center">
-                    <img src="{{ $user->avatarUrl() }}" alt="{{ $user->username }}" class="rounded-full h-24 w-24">
+                    <img src="{{ $user->avatar }}" alt="{{ $user->username }}" class="rounded-full h-24 w-24">
                     <div class="flex flex-col mt-4">
                         <h4 class="text-2xl text-center">{{ $user->name }}</h4>
                         <p class="text-md text-center">{{ $user->bio }}</p>

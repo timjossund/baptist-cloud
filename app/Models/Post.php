@@ -2,20 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Image\Enums\Fit;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model implements HasMedia
+class Post extends Model
 {
     use HasFactory;
-    use InteractsWithMedia;
 
     protected $fillable = [
-//        'image',
+        'image',
         'title',
         'content',
         'slug',
@@ -24,18 +20,20 @@ class Post extends Model implements HasMedia
         'published_at',
     ];
 
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('preview')
-            ->width(250);
-        $this
-            ->addMediaConversion('large')
-            ->width(1200);
-    }
+//    public function registerMediaConversions(?Media $media = null): void
+//    {
+//        $this
+//            ->addMediaConversion('preview')
+//            ->width(250);
+//        $this
+//            ->addMediaConversion('large')
+//            ->width(1200);
+//    }
 
-    public function imageUrl($conversionName = '') {
-            return $this->getFirstMedia()?->getUrl($conversionName);
+    public function image(): Attribute {
+        return Attribute::make(get: function($value) {
+            return $value ? '/storage/images/' . $value : '/default-avatar.png';
+        });
     }
 
     public function readTime() {

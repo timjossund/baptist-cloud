@@ -10,6 +10,7 @@
             </div>
         </div>
     </div>
+{{--    <img src="/default-avatar.jpg" alt="">--}}
     <div class="max-w-7xl mx-auto px-5">
         <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">

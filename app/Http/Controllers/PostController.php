@@ -6,7 +6,10 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class PostController extends Controller
 {
@@ -20,7 +23,7 @@ class PostController extends Controller
         });
 
         $user = auth()->user();
-        $query = Post::with(['user', 'media'])->latest();
+        $query = Post::latest();
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
@@ -52,16 +55,27 @@ class PostController extends Controller
         ]);
 
 //        $image = $data['image'];
-        unset($data['image']);
-        $data['user_id'] = auth()->id();
+        //unset($data['image']);
         $data['slug'] = Str::slug($data['title']);
+
+        $featureImage = "post-image" . $data['slug'] . ".jpg";
+
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($data['image']);
+        $imgNew = $image->cover(1200, 400)->toJpeg();
+        Storage::disk('public')->put("images/".$featureImage, $imgNew);
+
+        $data['image'] = $featureImage;
+
+        $data['user_id'] = auth()->id();
+
 
 //        $imagePath = $image->store('posts', 'public');
 //        $data['image'] = $imagePath;
 
-        $post = Post::create($data);
+        Post::create($data);
 
-        $post->addMediaFromRequest('image')->toMediaCollection();
+//        $post->addMediaFromRequest('image')->toMediaCollection();
 
         return redirect()->route('home-page');
     }

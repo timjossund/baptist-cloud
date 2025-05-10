@@ -9,8 +9,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class RegisteredUserController extends Controller
 {
@@ -38,22 +41,25 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-//        $image = $request['avatar'] ?? null;
-//
-//        $imagePath = $image->store('avatars', 'public');
+        $filename = $request->username . "-profile-pic.jpg";
+
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($request->avatar);
+        $imgNew = $image->cover(80, 80)->toJpeg();
+        Storage::disk('public')->put("avatars/".$filename, $imgNew);
 
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'bio' => $request->bio,
-            'avatar' => $request->avatar,
+            'avatar' => $filename,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
-        $user->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+        //dd($user->avatar);
 
         Auth::login($user);
 
