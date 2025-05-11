@@ -18,18 +18,19 @@ class PostController extends Controller
      */
     public function index()
     {
-        \DB::listen( function ($query) {
-            \Log::info($query->sql);
-        });
+//        \DB::listen( function ($query) {
+//            \Log::info($query->sql);
+//        });
 
         $user = auth()->user();
         $query = Post::latest();
         if ($user) {
             $ids = $user->following()->pluck('users.id');
-            $query->whereIn('user_id', $ids);
+            $query->whereIn('user_id', [$ids, $user->id]);
         }
         $posts = $query->simplePaginate(5);
         return view('home-page', ['posts' => $posts]);
+
     }
 
     /**
@@ -39,6 +40,7 @@ class PostController extends Controller
     {
         $categories = Category::get();
         return view('create-post', ['categories' => $categories]);
+
     }
 
     /**
@@ -53,6 +55,7 @@ class PostController extends Controller
             'content' => 'required',
             'published_at' => ['nullable', 'datetime'],
         ]);
+
 
 //        $image = $data['image'];
         //unset($data['image']);
@@ -69,13 +72,7 @@ class PostController extends Controller
 
         $data['user_id'] = auth()->id();
 
-
-//        $imagePath = $image->store('posts', 'public');
-//        $data['image'] = $imagePath;
-
         Post::create($data);
-
-//        $post->addMediaFromRequest('image')->toMediaCollection();
 
         return redirect()->route('home-page');
     }
@@ -93,7 +90,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('edit-post', ['post' => $post]);
     }
 
     /**
@@ -101,7 +98,17 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:16048',
+            'title' => 'required|max:255',
+            'category_id' => ['required', 'exists:categories,id'],
+            'content' => 'required',
+            'published_at' => ['nullable', 'datetime'],
+        ]);
+
+        $post->update($data);
+
+        return redirect()->route('home-page');
     }
 
     /**
@@ -109,7 +116,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('home-page');
     }
 
     public function category(Category $category) {

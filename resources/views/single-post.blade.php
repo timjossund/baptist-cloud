@@ -2,7 +2,6 @@
     <div class="max-w-7xl mx-auto mt-10 px-5">
         <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
-
                 <h1 class="text-5xl">{{ $post->title }}</h1>
                 <p class="text-gray-500 mb-4">Published {{ $post->created_at->format('M d Y') }} - Around {{ $post->readTime() }} minutes read time.</p>
                 <div class="flex flex-col justify-center mb-4">

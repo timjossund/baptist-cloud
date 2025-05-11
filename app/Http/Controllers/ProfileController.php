@@ -30,44 +30,34 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $data = $request->validated();
-
         $user = $request->user();
 
-        $user->fill($data);
+        // Store the old avatar filename before any updates
+        $oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
 
-//        dd($user->avatar);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $filename = $user->username . "-profile-pic.jpg";
+        $filename = $user->id . "-" . uniqid() . ".jpg";
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($data['avatar']);
         $imgNew = $image->cover(80, 80)->toJpeg();
         Storage::disk('public')->put("avatars/".$filename, $imgNew);
 
-//        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-//            Storage::disk('public')->delete($user->avatar);
-//        }
+        // Delete old avatar if it exists and is not the default
+        if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
+            Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
+        }
 
+        $user->fill($data);
         $user->avatar = $filename;
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
 
         $user->save();
 
-
-//        if ($oldAvatar != '/default-avatar.jpg') {
-//            Storage::disk('public')->delete(str_replace("/storage/", "", $oldAvatar));
-//        }
-
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
-//    public function userAvatar(U)
-//    {
-//        $user = $request->user();
-//    }
 
     /**
      * Delete the user's account.
