@@ -18,15 +18,15 @@ class PostController extends Controller
      */
     public function index()
     {
-//        \DB::listen( function ($query) {
-//            \Log::info($query->sql);
-//        });
+    //    \DB::listen( function ($query) {
+    //        \Log::info($query->sql);
+    //    });
 
         $user = auth()->user();
         $query = Post::latest();
         if ($user) {
             $ids = $user->following()->pluck('users.id');
-            $query->whereIn('user_id', [$ids, $user->id]);
+            $query->whereIn('user_id', $ids);
         }
         $posts = $query->simplePaginate(5);
         return view('home-page', ['posts' => $posts]);

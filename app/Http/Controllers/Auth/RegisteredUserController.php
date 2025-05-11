@@ -30,23 +30,67 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    // public function store(Request $request): RedirectResponse
+    // {
+    //     $request->validate([
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
+    //         'bio' => ['nullable', 'string', 'max:255'],
+    //         'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,svg'],
+    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    //     ]);
+
+    //     $filename = $request->username . "-profile-pic.jpg";
+
+    //     $manager = new ImageManager(new Driver());
+    //     $image = $manager->read($request->avatar);
+    //     $imgNew = $image->cover(80, 80)->toJpeg();
+    //     Storage::disk('public')->put("avatars/".$filename, $imgNew);
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'username' => $request->username,
+    //         'bio' => $request->bio,
+    //         'avatar' => $filename,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //     ]);
+
+    //     event(new Registered($user));
+
+    //     //dd($user->avatar);
+
+    //     Auth::login($user);
+
+    //     return redirect(route('home-page', absolute: false));
+    // }
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'bio' => ['nullable', 'string', 'max:255'],
-            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,svg'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png'], // Removed SVG
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $filename = $request->username . "-profile-pic.jpg";
+        $filename = null;
 
-        $manager = new ImageManager(new Driver());
-        $image = $manager->read($request->avatar);
-        $imgNew = $image->cover(80, 80)->toJpeg();
-        Storage::disk('public')->put("avatars/".$filename, $imgNew);
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            try {
+                $filename = $request->username . "-profile-pic.jpg";
+                $manager = new ImageManager(new Driver());
+                $image = $manager->read($request->file('avatar')->getRealPath());
+                $imgNew = $image->cover(80, 80)->toJpeg();
+                Storage::disk('public')->put("avatars/".$filename, $imgNew);
+            } catch (\Exception $e) {
+                \Log::error('Avatar processing failed: ' . $e->getMessage());
+                // Optionally, redirect back with an error message
+                return redirect()->back()->withErrors(['avatar' => 'Failed to process avatar image.']);
+            }
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -58,8 +102,6 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
-        //dd($user->avatar);
 
         Auth::login($user);
 
