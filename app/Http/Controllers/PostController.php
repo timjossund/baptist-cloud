@@ -35,6 +35,11 @@ class PostController extends Controller
 
     }
 
+    public function indexHome()
+    {
+        return redirect('/');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

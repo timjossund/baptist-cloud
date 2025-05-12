@@ -8,7 +8,7 @@ use App\Http\Controllers\PublicProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home-page');
-Route::get('/home', [PostController::class, 'index'])->name('home-page');
+Route::get('/home', [PostController::class, 'indexHome']);
 Route::get('/category/{category}', [PostController::class, 'category'])->name('byCategory');;
 
 Route::middleware(['auth', 'verified'])->group(function () {
