@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
     Route::get('/post/{post}/edit', [PostController::class, 'edit'])->name('edit-post');
     Route::patch('/post/{post}', [PostController::class, 'update'])->name('update-post');
-    Route::delete('/post/{post}', [PostController::class, 'destroy'])->name('delete-post');
+    Route::delete('/post/{post}/delete', [PostController::class, 'destroy'])->name('delete-post');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
     Route::post('/like/{post}', [LikeController::class, 'like'])->name('like');

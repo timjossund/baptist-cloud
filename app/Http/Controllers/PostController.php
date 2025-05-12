@@ -29,6 +29,8 @@ class PostController extends Controller
             $query->whereIn('user_id', $ids);
         }
         $posts = $query->simplePaginate(5);
+        
+        
         return view('home-page', ['posts' => $posts]);
 
     }
@@ -49,13 +51,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:16048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:6048',
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
             'published_at' => ['nullable', 'datetime'],
         ]);
 
+        $data['title'] = strip_tags($data['title']);
+        $data['content'] = strip_tags($data['content']);
+        $data['category_id'] = strip_tags($data['category_id']);
 
 //        $image = $data['image'];
         //unset($data['image']);
@@ -74,7 +79,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect()->route('home-page');
+        return redirect('/@'.auth()->user()->username);
     }
 
     /**
@@ -82,6 +87,7 @@ class PostController extends Controller
      */
     public function show(string $username, Post $post)
     {
+        $post['content'] = Str::markdown($post->content);
         return view('single-post', ['post' => $post]);
     }
 
@@ -90,7 +96,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('edit-post', ['post' => $post]);
+        $categories = Category::get();
+        return view('edit-post', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
@@ -99,16 +106,42 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:16048',
+            'image' => 'nullable|image|mimes:jpeg,jpg|max:6048',
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
             'published_at' => ['nullable', 'datetime'],
         ]);
+        //dd($data);
+        $data['title'] = strip_tags($data['title']);
+        $data['content'] = strip_tags($data['content']);
+        $data['category_id'] = strip_tags($data['category_id']);
+//        $image = $data['image'];
+        //unset($data['image']);
+        $data['slug'] = Str::slug($data['title']);
 
-        $post->update($data);
+        if ($request->file('image') == null) {
+            $data['image'] = $post->getRawOriginal('image');
+        } else {
+            $oldImage = $post->getRawOriginal('image');
+            $featureImage = "post-image" . $data['slug'] . ".jpg";
+            
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($data['image']);
+            $imgNew = $image->cover(1200, 400)->toJpeg();
+            Storage::disk('public')->put("images/".$featureImage, $imgNew);
+            Storage::disk('public')->delete("images/".$oldImage);
+    
+            $data['image'] = $featureImage;
+        }
 
-        return redirect()->route('home-page');
+
+        $data['user_id'] = auth()->id();
+
+        $post->fill($data);
+        $post->save();
+
+        return redirect('/@'.auth()->user()->username);
     }
 
     /**
@@ -117,7 +150,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('home-page');
+        return redirect('/@'.auth()->user()->username);
     }
 
     public function category(Category $category) {
