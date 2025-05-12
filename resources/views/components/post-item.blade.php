@@ -42,7 +42,13 @@
                     </form>
                 @endif
             </h3>
-            <p class="text-gray-500 text-sm">(Read time: {{ $post->readTime() }} minutes)</p>
+            <p class="text-gray-500 text-sm">(Read time: {{ $post->readTime() }}
+                @if ($post->readTime() != 1)
+                    minutes
+                @else
+                    minute
+                @endif)
+            </p>
             <p class="flex gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                     class="size-6 text-gray-500">
