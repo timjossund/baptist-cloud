@@ -15,9 +15,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
-    Route::get('/post/{post}/edit', [PostController::class, 'edit'])->name('edit-post');
-    Route::patch('/post/{post}', [PostController::class, 'update'])->name('update-post');
-    Route::delete('/post/{post}/delete', [PostController::class, 'destroy'])->name('delete-post');
+    Route::get('/post/{post}/edit', [PostController::class, 'edit'])->name('edit-post')->middleware('can:update,post');
+    Route::patch('/post/{post}', [PostController::class, 'update'])->name('update-post')->middleware('can:update,post');
+    Route::delete('/post/{post}/delete', [PostController::class, 'destroy'])->name('delete-post')->middleware('can:delete,post');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
     Route::post('/like/{post}', [LikeController::class, 'like'])->name('like');
