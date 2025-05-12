@@ -101,6 +101,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if ($post->user_id != auth()->id()) {
+            abort(403);
+        }
         $categories = Category::get();
         return view('edit-post', ['post' => $post, 'categories' => $categories]);
     }
@@ -110,6 +113,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if ($post->user_id != auth()->id()) {
+            abort(403);
+        }
         $data = $request->validate([
             'image' => 'nullable|image|mimes:jpeg,jpg|max:6048',
             'title' => 'required|max:255',
