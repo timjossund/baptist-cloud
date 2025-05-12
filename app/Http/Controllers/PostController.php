@@ -69,7 +69,7 @@ class PostController extends Controller
 
 //        $image = $data['image'];
         //unset($data['image']);
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(5));
 
         $featureImage = "post-image" . $data['slug'] . ".jpg";
 
