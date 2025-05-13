@@ -127,8 +127,6 @@ class PostController extends Controller
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
-//        $image = $data['image'];
-        //unset($data['image']);
         $data['slug'] = Str::slug($data['title']);
 
         if ($request->file('image') == null) {

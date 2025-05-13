@@ -20,8 +20,6 @@
         <div>
             @if (auth()->user()->avatar)
                 <img src="{{ auth()->user()->avatar }}" alt="user-avatar" class="rounded-full w-20 h-20">
-            @else
-                <img src="/storage/avatars/default-avatar.jpg" alt="user-avatar" class="rounded-full w-20 h-20">
             @endif
             {{-- <img src="/storage/avatars/default-avatar.jpg" alt="help"> --}}
             <x-input-label class="block mb-2" for="avatar">Current Avatar</x-input-label>
