@@ -57,9 +57,11 @@
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
                     {{-- Post Submit --}}
-                    <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg"
-                        type="submit">Update</x-primary-button>
+                    <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg" type="submit">
+                        Update
+                    </x-primary-button>
                 </form>
+                <a href="{{ route('public-profile', $post->user) }}" class="text-red-500">Cancel Edit</a>
             </div>
         </div>
     </section>
