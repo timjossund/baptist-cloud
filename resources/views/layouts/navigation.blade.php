@@ -20,7 +20,7 @@
                     <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
                         {{ __('Create Post') }}
                     </x-nav-link>
-                    @if (auth()->user()->is_admin)
+                    @if (auth()->user()->is_admin ?? false)
                         <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                             {{ __('Admin') }}
                         </x-nav-link>
