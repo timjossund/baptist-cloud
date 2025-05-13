@@ -76,7 +76,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $filename = null;
+        $filename = 'default-avatar.jpg';
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             try {
