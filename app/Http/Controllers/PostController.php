@@ -13,7 +13,7 @@ use Intervention\Image\ImageManager;
 
 class PostController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      */
     public function index()
@@ -23,7 +23,7 @@ class PostController extends Controller
     //    });
 
         $user = auth()->user();
-        $query = Post::latest();
+        $query = Post::query()->latest();
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
