@@ -11,7 +11,7 @@ class AdminController extends Controller
     {   
         // Check if the authenticated user is an admin
         if (!auth()->user() || !auth()->user()->is_admin) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
+            abort(403);
         }
         // Fetch all users from the database
         $users = User::all();
@@ -20,6 +20,9 @@ class AdminController extends Controller
 
     public function makeAdmin($id)
     {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            abort(403);
+        }
         $user = User::findOrFail($id);
         $user->is_admin = true;
         $user->save();
@@ -29,6 +32,9 @@ class AdminController extends Controller
 
     public function makeAuthor($id)
     {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            abort(403);
+        }
         $user = User::findOrFail($id);
         $user->is_author = true;
         $user->save();
@@ -37,6 +43,9 @@ class AdminController extends Controller
     }
     public function revokeAdmin($id)
     {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            abort(403);
+        }
         $user = User::findOrFail($id);
         $user->is_admin = false;
         $user->save();
@@ -45,6 +54,9 @@ class AdminController extends Controller
     }
     public function revokeAuthor($id)
     {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            abort(403);
+        }
         $user = User::findOrFail($id);
         $user->is_author = false;
         $user->save();
@@ -53,6 +65,9 @@ class AdminController extends Controller
     }
     public function deleteUser($id)
     {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            abort(403);
+        }
         $user = User::findOrFail($id);
         $user->delete();
 
