@@ -101,7 +101,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if ($post->user_id != auth()->id()) {
+        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403);
         }
         $categories = Category::get();
@@ -113,7 +113,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        if ($post->user_id != auth()->id()) {
+        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403);
         }
         $data = $request->validate([
@@ -160,7 +160,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post->user_id != auth()->id()) {
+        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403);
         }
         $post->delete();

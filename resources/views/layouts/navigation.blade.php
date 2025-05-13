@@ -8,7 +8,7 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home-page') }}" class="flex items-center">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <h2 class="text-2xl text-black !hoverno-underline">Baptist Cloud</h2>
+                        <h2 class="text-2xl text-black !hoverno-underline">Baptist.Cloud</h2>
                     </a>
                 </div>
 
@@ -20,6 +20,11 @@
                     <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
                         {{ __('Create Post') }}
                     </x-nav-link>
+                    @if (auth()->user()->is_admin)
+                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
