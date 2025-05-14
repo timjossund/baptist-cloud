@@ -54,13 +54,20 @@
                                                     {{ $user->name }}
                                                 </a>
                                             </td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->username }}</td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->email }}</td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->bio }}</td>
-                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->is_author ? 'Author' : 'Subscriber' }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                {{ $user->username }}
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                {{ $user->email }}
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                {{ $user->bio }}
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                {{ $user->is_author ? 'Author' : 'Subscriber' }}
+                                            </td>
                                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                <form action="/admin/users/{{ $user->id }}/delete" method="post"--}}
-                                                      class="text-blue-500 hover:underline text-sm">
+                                                <form action="/admin/users/{{ $user->id }}/delete" method="post" class="text-blue-500 hover:underline text-sm">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="flex items-center bg-red-100 p-2 rounded-md">
