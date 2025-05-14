@@ -48,8 +48,9 @@
 {{--                        <x-textarea-input id="content" class="block border mt-1 w-full text-xl p-2" type="content"--}}
 {{--                            name="content">{{ old('content') }}</x-textarea-input>--}}
 {{--                        <x-input-error :messages="$errors->get('content')" class="mt-2" />--}}
-                        <textarea id="content" class="hidden" name="content"></textarea>
+                        <textarea id="content" class="hidden" name="content">{!! old('content') !!}</textarea>
                         <div id="bodycontent">{!! old('content') !!}</div>
+                        <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
                     {{--                    Post Submit --}}
                     <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg"
