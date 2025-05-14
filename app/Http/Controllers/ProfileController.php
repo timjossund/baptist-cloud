@@ -35,20 +35,39 @@ class ProfileController extends Controller
         // Store the old avatar filename before any updates
         $oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
 
-        $filename = $user->id . "-" . uniqid() . ".jpg";
+        $filename = null;
 
-        $manager = new ImageManager(new Driver());
-        $image = $manager->read($data['avatar']);
-        $imgNew = $image->cover(80, 80)->toJpeg();
-        Storage::disk('public')->put("avatars/".$filename, $imgNew);
-
-        // Delete old avatar if it exists and is not the default
-        if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
-            Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            try {
+                $filename = $request->username . "-profile-pic.jpg";
+                $manager = new ImageManager(new Driver());
+                $image = $manager->read($request->file('avatar')->getRealPath());
+                $imgNew = $image->cover(80, 80)->toJpeg();
+                Storage::disk('public')->put("avatars/".$filename, $imgNew);
+            } catch (\Exception $e) {
+                \Log::error('Avatar processing failed: ' . $e->getMessage());
+                // Optionally, redirect back with an error message
+                return redirect()->back()->withErrors(['avatar' => 'Failed to process avatar image.']);
+            }
         }
 
+//        $filename = $user->id . "-" . uniqid() . ".jpg";
+//
+//        $manager = new ImageManager(new Driver());
+//        $image = $manager->read($data['avatar']);
+//        $imgNew = $image->cover(80, 80)->toJpeg();
+//        Storage::disk('public')->put("avatars/".$filename, $imgNew);
+
+        // Delete old avatar if it exists and is not the default
+//        if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
+//            Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
+//        }
+
         $user->fill($data);
-        $user->avatar = $filename;
+
+        if ($filename != null) {
+            $user->avatar = $filename;
+        }
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
