@@ -34,6 +34,9 @@
                         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                 <x-users-table :users="$users" />
+                            <div class="mt-6 py-2 sm:pr-6 lg:pr-8 pagination-wrapper">
+                                {{ $users->links() }}
+                            </div>
                             </div>
                         </div>
                     </div>

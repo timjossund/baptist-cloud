@@ -16,7 +16,7 @@ class AdminController extends Controller
             abort(403);
         }
         // Fetch all users and posts from the database
-        $users = User::paginate(10);
+        $users = User::simplePaginate(20);
         $posts = Post::all();
         $likes = Like::all();
         return view('admin.admin', ['users' => $users, 'posts' => $posts, 'likes' => $likes]);
