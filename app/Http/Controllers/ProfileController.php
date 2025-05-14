@@ -33,7 +33,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         // Store the old avatar filename before any updates
-        $oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
+        //$oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
 
         $filename = null;
 
