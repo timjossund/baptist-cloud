@@ -21,7 +21,7 @@
                     {{ Str::limit($post->title, 70) }}
                 </a>
                 @if (auth()->user() && auth()->user()->id == $post->user_id)
-                    <a href="/post/{{ $post->id }}/edit" class="text-blue-500 hover:underline text-sm">
+                    <a href="/post/{{ $post->id }}/edit" class="text-blue-500 hover:underline text-sm bg-blue-100 p-2 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -34,7 +34,7 @@
                         class="text-blue-500 hover:underline text-sm">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="flex items-center">
+                        <button type="submit" class="flex items-center bg-red-100 p-2 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-5 text-red-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
