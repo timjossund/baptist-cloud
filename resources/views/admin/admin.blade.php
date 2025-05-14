@@ -22,8 +22,12 @@
                             <h4>{{ $likes->count() }}</h4>
                         </div>
                     </li>
-
-                    <!-- More people... -->
+{{--                    <li class="col-span-1 divide-y divide-gray-200 rounded-lg w-60 bg-white shadow-md">--}}
+{{--                        <div class="flex items-center justify-center flex-col space-x-6 p-6">--}}
+{{--                            <h3>Total Likes</h3>--}}
+{{--                            <h4>{{ $users->is_author->count() }}</h4>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
                 </ul>
 
                 <div class="px-4 sm:px-6 lg:px-8 w-full">
@@ -42,9 +46,10 @@
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Username</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Position</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Site Role</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                                            <span class="sr-only">Edit</span>
+                                            <span class="sr-only">Delete</span>
                                         </th>
                                     </tr>
                                     </thead>
@@ -59,6 +64,7 @@
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->username }}</td>
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->email }}</td>
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->bio }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->is_author ? 'Author' : 'Subscriber' }}</td>
                                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                 <form action="/admin/users/{{ $user->id }}/delete" method="post"--}}
                                                       class="text-blue-500 hover:underline text-sm">
