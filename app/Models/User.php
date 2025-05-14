@@ -51,19 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail {
         ];
     }
 
-//    public function registerMediaConversions(?Media $media = null): void
-//    {
-//        $this
-//            ->addMediaConversion('avatar')
-//            ->width(80)
-//            ->crop(80, 80);
-//    }
-//
-//    public function registerMediaCollections(): void
-//    {
-//        $this->addMediaCollection('avatar')->singleFile();
-//    }
-
     public function avatar(): Attribute {
         return Attribute::make(get: function($value) {
             return $value ? '/storage/avatars/' . $value : '/default-avatar.png';
