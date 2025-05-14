@@ -51,19 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail {
         ];
     }
 
-//    public function registerMediaConversions(?Media $media = null): void
-//    {
-//        $this
-//            ->addMediaConversion('avatar')
-//            ->width(80)
-//            ->crop(80, 80);
-//    }
-//
-//    public function registerMediaCollections(): void
-//    {
-//        $this->addMediaCollection('avatar')->singleFile();
-//    }
-
     public function avatar(): Attribute {
         return Attribute::make(get: function($value) {
             return $value ? '/storage/avatars/' . $value : '/default-avatar.png';
@@ -85,13 +72,6 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function isFollowedBy(User $user) {
         return $this->followers()->where('follower_id', $user->id)->exists();
     }
-
-//    public function imageUrl() {
-//        if ($this->avatar) {
-//            return Storage::url($this->avatar);
-//        }
-//        return null;
-//    }
 
     public function hasLiked(Post $post) {
         return $post->likes()->where('user_id', $this->id)->exists();

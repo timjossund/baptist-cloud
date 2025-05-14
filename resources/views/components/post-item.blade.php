@@ -1,26 +1,18 @@
 <article class="relative isolate flex flex-col gap-8 lg:flex-row border-b py-12 w-full">
     <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-        <img src="{{ $post->image }}" alt=""
-            class="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover">
-        <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+        <img src="{{ $post->image }}" alt="post image" class="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover">
     </div>
     <div>
         <div class="flex items-center gap-x-4 text-xs">
-            <time datetime="2020-03-16" class="text-gray-500 text-sm">Published on
-                {{ $post->created_at->format('n/j/Y') }}</time>
-            <a href="#"
-                class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"></a>
+            <time datetime="2020-03-16" class="text-gray-500 text-sm">
+                Published on {{ $post->created_at->format('n/j/Y') }}
+            </time>
         </div>
         <div class="flex flex-col">
             <h3 class="mt-1 text-2xl flex gap-2 items-center font-semibold text-gray-900 group-hover:text-gray-600">
-                <a href="{{ route('single-post', [
-                    'username' => $post->user->username,
-                    'post' => $post->slug,
-                ]) }}"
-                    class="flex">
+                <a href="{{ route('single-post', ['username' => $post->user->username, 'post' => $post->slug]) }}" class="flex">
                     {{ Str::limit($post->title, 55) }}
                 </a>
-                
             </h3>
             <p class="text-gray-500 text-sm">Read time: {{ $post->readTime() }}
                 @if ($post->readTime() != 1)
@@ -46,7 +38,7 @@
                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
                     </a>
-                    @endif
+                @endif
                 @if (auth()->user() && (auth()->user()->is_admin != null || auth()->user()->id == $post->user_id))
                     <form action="/post/{{ $post->id }}/delete" method="post"
                         class="text-blue-500 hover:underline text-sm">
@@ -68,19 +60,16 @@
                 <x-user-avatar :user="$post->user" />
                 <div class="text-sm/6">
                     <p class="font-semibold !text-gray-500">
-                        <a href="{{ route('public-profile', $post->user) }}"
-                            class="hover:underline !text-gray-500">{{ $post->user->name }}</a> -
-                        {{ $post->user->bio }}
+                        <a href="{{ route('public-profile', $post->user) }}" class="hover:underline !text-gray-500">
+                            {{ $post->user->name }}
+                        </a>
+                        - {{ $post->user->bio }}
                     </p>
                 </div>
             </div>
         </div>
         @auth
-            <a href="{{ route('single-post', [
-                'username' => $post->user->username,
-                'post' => $post->slug,
-            ]) }}"
-                class="bg-gray-800 text-white py-2 px-8 rounded-lg">
+            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-lg">
                 Read More
             </a>
         @else
@@ -88,6 +77,5 @@
                 Login to read more
             </a>
         @endauth
-
     </div>
 </article>

@@ -29,8 +29,8 @@ class PostController extends Controller
             $query->whereIn('user_id', $ids);
         }
         $posts = $query->simplePaginate(5);
-        
-        
+
+
         return view('home-page', ['posts' => $posts]);
 
     }
@@ -64,14 +64,14 @@ class PostController extends Controller
         ]);
 
         $data['title'] = strip_tags($data['title']);
-        $data['content'] = strip_tags($data['content']);
+        //$data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
 
 //        $image = $data['image'];
         //unset($data['image']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(5));
 
-        $featureImage = "post-image" . $data['slug'] . ".jpg";
+        $featureImage = "image" . $data['slug'] . ".jpg";
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($data['image']);
@@ -125,7 +125,7 @@ class PostController extends Controller
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);
-        $data['content'] = strip_tags($data['content']);
+//        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['slug'] = Str::slug($data['title']);
 
@@ -134,13 +134,13 @@ class PostController extends Controller
         } else {
             $oldImage = $post->getRawOriginal('image');
             $featureImage = "post-image" . $data['slug'] . ".jpg";
-            
+
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
             Storage::disk('public')->put("images/".$featureImage, $imgNew);
             Storage::disk('public')->delete("images/".$oldImage);
-    
+
             $data['image'] = $featureImage;
         }
 

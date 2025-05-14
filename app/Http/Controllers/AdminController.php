@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,15 +10,16 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function index()
-    {   
+    {
         // Check if the authenticated user is an admin
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
         // Fetch all users and posts from the database
-        $users = User::paginate(10);
+        $users = User::simplePaginate(20);
         $posts = Post::all();
-        return view('admin.admin', ['users' => $users, 'posts' => $posts]);
+        $likes = Like::all();
+        return view('admin.admin', ['users' => $users, 'posts' => $posts, 'likes' => $likes]);
     }
 
     public function makeAdmin($id)

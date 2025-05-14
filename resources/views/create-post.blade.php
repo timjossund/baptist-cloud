@@ -38,14 +38,9 @@
                     </div>
                     {{--                    Post Body --}}
                     <div class="mt-2">
-                        <label for="content" class="text-lg text-gray-700">
-                            Body Content | Markdown is simple and supported in this text area.
-                            <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" class="text-blue-500">
-                                Learn Markdown
-                            </a>
-                        </label>
-                        <x-textarea-input id="content" class="block border mt-1 w-full text-xl p-2" type="content"
-                            name="content">{{ old('content') }}</x-textarea-input>
+                        <label for="content" class="text-lg text-gray-700">Body Content</label>
+                        <textarea id="content" class="hidden" name="content">{!! old('content') !!}</textarea>
+                        <div id="bodycontent">{!! old('content') !!}</div>
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
                     {{--                    Post Submit --}}
