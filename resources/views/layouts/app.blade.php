@@ -14,6 +14,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+
 </head>
 
 <body class="font-sans antialiased">
@@ -52,6 +54,15 @@
                 </p>
             </div>
     </footer>
+{{--    @push('scripts')--}}
+        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+        <script>
+            const quill = new Quill('#bodycontent', { theme: 'snow' });
+            quill.on('text-change', function() {
+                document.getElementById("content").value = quill.root.innerHTML;
+            });
+        </script>
+{{--    @endpush--}}
 </body>
 
 </html>
