@@ -84,7 +84,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect('/@'.auth()->user()->username);
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Created');
     }
 
     /**
@@ -150,7 +150,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username);
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Updated');
     }
 
     /**
@@ -167,6 +167,6 @@ class PostController extends Controller
 
     public function category(Category $category) {
         $post = $category->posts()->latest()->simplePaginate(5);
-        return view('home-page', ['posts' => $post]);
+        return view('home-page', ['posts' => $post])->with('success', 'Post Deleted');
     }
 }

@@ -105,6 +105,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('home-page', absolute: false));
+        return redirect(route('home-page', absolute: false))->with('success', 'Account Created');
     }
 }

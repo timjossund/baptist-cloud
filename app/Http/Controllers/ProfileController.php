@@ -34,13 +34,35 @@ class ProfileController extends Controller
 
         // Store the old avatar filename before any updates
         $oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
+//        if ($request->avatar != null) {
+//
+//            $filename = $user->id . "-" . uniqid() . ".jpg";
+//
+//            $manager = new ImageManager(new Driver());
+//            $image = $manager->read($data['avatar']);
+//            $imgNew = $image->cover(80, 80)->toJpeg();
+//            Storage::disk('public')->put("avatars/".$filename, $imgNew);
+//            $user->avatar = $filename;
+//
+//        } else {
+//            $user->avatar = $oldAvatarPath;
+//        }
 
-        $filename = $user->id . "-" . uniqid() . ".jpg";
+        if ($request->file('avatar') == null) {
+            $data['avatar'] = $user->getRawOriginal('avatar');
+        } else {
+            $oldAvatarPath = $user->getRawOriginal('avatar');
+            $avatarUrl = "avatar" . uniqid() . ".jpg";
 
-        $manager = new ImageManager(new Driver());
-        $image = $manager->read($data['avatar']);
-        $imgNew = $image->cover(80, 80)->toJpeg();
-        Storage::disk('public')->put("avatars/".$filename, $imgNew);
+            $manager = new ImageManager(new Driver());
+            $avatar = $manager->read($data['avatar']);
+            $imgNew = $avatar->cover(1200, 400)->toJpeg();
+            Storage::disk('public')->put("avatars/".$avatarUrl, $imgNew);
+            Storage::disk('public')->delete("avatars/".$oldAvatarPath);
+
+            $data['image'] = $avatarUrl;
+        }
+
 
         // Delete old avatar if it exists and is not the default
         if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
@@ -48,7 +70,6 @@ class ProfileController extends Controller
         }
 
         $user->fill($data);
-        $user->avatar = $filename;
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -56,7 +77,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('success', 'profile-updated');
     }
 
     /**
@@ -77,6 +98,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('/')->with('success', 'Account Deleted');
     }
 }

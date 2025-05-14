@@ -53,6 +53,21 @@
                     <a href="#" class="text-blue-400 hover:text-blue-300">Instagram</a>
                 </p>
             </div>
+        </div>
+        @if (session()->has('success'))
+            <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 bg-blue-200 z-10">
+                <div class="w-full text-center text-2xl">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        @if (session()->has('error'))
+            <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 bg-red-300 z-10">
+                <div class="w-full text-center text-2xl">
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
     </footer>
 {{--    @push('scripts')--}}
         <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
