@@ -1,29 +1,26 @@
 <x-app-layout>
     <div class="max-w-7xl w-full mx-auto mt-10 px-5">
         <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
-            <div class="max-w-2xl lg:max-w-6xl">
-                <h1 class="text-5xl">Admin Dashboard</h1>
-                <div class="w-1/2 mt-10">
+            <div class="max-w-2xl lg:max-w-6xl flex flex-wrap">
+                <h1 class="text-5xl w-full mb-4">Admin Dashboard</h1>
+                <div class="w-1/2 mt-10 p-8">
                     <div class="bg-white sm:py-12px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
                         <div class="max-w-2xl">
-                            <h3 class="text-3xl">User Management</h3>
-                            <p class="text-gray-500 mb-4 text-xl">
-                                Total users: {{ $users->count() }}
-                            </p>
+                            <h3 class="text-3xl mb-4">User Management:</h3>
                             <div class="flex flex-col gap-4">
                                 @foreach ($users as $user)
                                 <div class="flex justify-between items-center border-b py-2">
-                                    <a href="{{ route('public-profile', $user) }}" class="flex justify-between items-center">
+                                    <a href="{{ route('public-profile', $user) }}" class="flex justify-between items-center px-4">
                                         <div class="flex items-center">
                                             <x-user-avatar :user="$user" />
-                                            <p class="ml-4 text-lg">{{ $user->name }}</p>
+                                            <p class="ml-4 text-lg">{{ $user->name }} - Post count: {{ $user->posts->count() }}</p>
                                         </div>
                                     </a>
                                     <form action="/admin/users/{{ $user->id }}/delete" method="post"
                                         class="text-blue-500 hover:underline text-sm">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="flex items-center">
+                                        <button type="submit" class="flex items-center bg-red-100 p-2 rounded-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-5 text-red-500">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -36,7 +33,16 @@
                             </div>
                         </div>
                     </div>
-                
+                </div>
+                <div class="w-1/2 mt-10 p-8 bg-gray-100">
+                    <h3 class="text-3xl mb-4">Site Totals:</h3>
+                    <p class="text-gray-500 mb-2 text-2xl">
+                        Total users: {{ $users->count() }}
+                    </p>
+                    <p class="text-gray-500 mb-2 text-2xl">
+                        Total posts: {{ $posts->count() }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,10 @@ class AdminController extends Controller
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
-        // Fetch all users from the database
-        $users = User::all();
-        return view('admin.admin', ['users' => $users]);
+        // Fetch all users and posts from the database
+        $users = User::paginate(10);
+        $posts = Post::all();
+        return view('admin.admin', ['users' => $users, 'posts' => $posts]);
     }
 
     public function makeAdmin($id)
