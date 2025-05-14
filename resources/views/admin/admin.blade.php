@@ -22,14 +22,7 @@
                             <h4>{{ $likes->count() }}</h4>
                         </div>
                     </li>
-{{--                    <li class="col-span-1 divide-y divide-gray-200 rounded-lg w-60 bg-white shadow-md">--}}
-{{--                        <div class="flex items-center justify-center flex-col space-x-6 p-6">--}}
-{{--                            <h3>Total Likes</h3>--}}
-{{--                            <h4>{{ $users->is_author->count() }}</h4>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
                 </ul>
-
                 <div class="px-4 sm:px-6 lg:px-8 w-full">
                     <div class="sm:flex sm:items-center">
                         <div class="sm:flex-auto">

@@ -1,8 +1,7 @@
 <x-app-layout>
     <section class="container mx-auto px-6 py-8 flex justify-center">
         <div class="max-w-7xl mx-auto px-5 w-full">
-            <div
-                class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
+            <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
                 <h2 class="text-4xl font-bold mb-8">Edit your post</h2>
                 <form action="/post/{{ $post->id }}" method="post" enctype="multipart/form-data"
                     class="m-auto w-full max-w-4xl flex flex-col gap-4">
@@ -14,7 +13,6 @@
                         <img src="{{ $post->image }}" alt="">
                     </div>
                     <div>
-
                         <x-input-label class="block mb-2" for="image">
                             Change Featured Image
                         </x-input-label>
@@ -34,8 +32,7 @@
                     {{-- Post Category --}}
                     <div>
                         <x-input-label for="category_id" :value="__('Category:')" />
-                        <select name="category_id" id="category_id" class="block border mt-1 w-full text-xl p-2"
-                            value="{{ $post->category->title }}">
+                        <select name="category_id" id="category_id" class="block border mt-1 w-full text-xl p-2">
                             <option value="">Select a Category:</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" @selected($post->category_id == $category->id)>{{ $category->title }}
