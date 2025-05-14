@@ -117,7 +117,7 @@ class PostController extends Controller
             abort(403);
         }
         $data = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,jpg|max:6048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:6048',
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
