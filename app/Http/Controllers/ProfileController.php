@@ -47,7 +47,7 @@ class ProfileController extends Controller
             } catch (\Exception $e) {
                 \Log::error('Avatar processing failed: ' . $e->getMessage());
                 // Optionally, redirect back with an error message
-                return redirect()->back()->withErrors(['avatar' => 'Failed to process avatar image.']);
+                return redirect()->back()->withErrors(['avatar' => 'Failed to process avatar image.'])->with('error', 'Avatar processing failed');
             }
         }
 
@@ -75,7 +75,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('success', 'profile-updated');
     }
 
     /**
@@ -96,6 +96,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('/')->with('success', 'Account Deleted');;
     }
 }

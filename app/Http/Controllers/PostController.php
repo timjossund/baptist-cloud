@@ -84,7 +84,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect('/@'.auth()->user()->username);
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Created Successfully');
     }
 
     /**
@@ -148,7 +148,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username);
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Updated Successfully');
     }
 
     /**
@@ -160,7 +160,7 @@ class PostController extends Controller
             abort(403);
         }
         $post->delete();
-        return redirect('/@'.auth()->user()->username);
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted Successfully');
     }
 
     public function category(Category $category) {

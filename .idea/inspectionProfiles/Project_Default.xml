@@ -5,12 +5,14 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="5">
+          <list size="7">
             <item index="0" class="java.lang.String" itemvalue="@click" />
             <item index="1" class="java.lang.String" itemvalue="x-text" />
             <item index="2" class="java.lang.String" itemvalue=":class" />
             <item index="3" class="java.lang.String" itemvalue="x-if" />
             <item index="4" class="java.lang.String" itemvalue="x-data" />
+            <item index="5" class="java.lang.String" itemvalue="x-show" />
+            <item index="6" class="java.lang.String" itemvalue="x-init" />
           </list>
         </value>
       </option>
