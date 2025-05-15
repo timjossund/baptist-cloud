@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Nette\Utils\Random;
 
 class ProfileController extends Controller
 {
@@ -33,17 +34,18 @@ class ProfileController extends Controller
         $user = $request->user();
 
         // Store the old avatar filename before any updates
-        //$oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
+        $oldAvatarPath = $user->getRawOriginal('avatar'); // This gets the actual filename without the accessor transformation
 
         $filename = null;
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             try {
-                $filename = $request->username . "-profile-pic.jpg";
+                $filename = $request->username . "-" . Random::generate(2) . "-profile-pic.jpg";
                 $manager = new ImageManager(new Driver());
                 $image = $manager->read($request->file('avatar')->getRealPath());
                 $imgNew = $image->cover(80, 80)->toJpeg();
                 Storage::disk('public')->put("avatars/".$filename, $imgNew);
+                Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
             } catch (\Exception $e) {
                 \Log::error('Avatar processing failed: ' . $e->getMessage());
                 // Optionally, redirect back with an error message
@@ -75,7 +77,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('success', 'profile-updated');
+        return Redirect::route('profile.edit')->with('success', 'Updated Successfully');
     }
 
     /**
