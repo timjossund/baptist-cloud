@@ -46,7 +46,7 @@ class ProfileController extends Controller
                 $imgNew = $image->cover(80, 80)->toJpeg();
                 Storage::disk('public')->put("avatars/".$filename, $imgNew);
                 // Delete old avatar if it exists and is not the default
-                if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
+                if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.jpg') {
                     Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
                 }
             } catch (\Exception $e) {
@@ -97,7 +97,7 @@ class ProfileController extends Controller
 
         $userAvatarPath = $user->getRawOriginal('avatar');
 
-        if ($userAvatarPath && $userAvatarPath !== 'default-avatar.png') {
+        if ($userAvatarPath && $userAvatarPath !== 'default-avatar.jpg') {
             Storage::disk('public')->delete("avatars/" . $userAvatarPath);
         }
 
