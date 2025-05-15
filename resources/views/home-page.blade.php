@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12">
+    <div class="py-12 hidden md:block">
         <div class="max-w-7xl mx-auto px-6">
             <div class="bg-white shadow-sm rounded-lg">
                 <div class="">
@@ -10,8 +10,8 @@
             </div>
         </div>
     </div>
-    <div class="max-w-7xl mx-auto px-5">
-        <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
+    <div class="max-w-7xl mx-auto px-5 py-6 md:py-0">
+        <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 @auth
                     @if (Request::segment(2) == '')
