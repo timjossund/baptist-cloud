@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto px-5 py-6 md:py-0">
-        <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
+        <div class="bg-white py-12 md:pt-10 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 @auth
                     @if (Request::segment(2) == '')
