@@ -132,13 +132,11 @@ class PostController extends Controller
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
             $featureImage = "post-image" . $data['slug'] . ".jpg";
-
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
             Storage::disk('public')->put("images/".$featureImage, $imgNew);
             Storage::disk('public')->delete("images/".$oldImage);
-
             $data['image'] = $featureImage;
         }
 
@@ -159,6 +157,8 @@ class PostController extends Controller
         if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403);
         }
+        $postImage = $post->getRawOriginal('image');
+        Storage::disk('public')->delete("images/".$postImage);
         $post->delete();
         return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted Successfully');
     }

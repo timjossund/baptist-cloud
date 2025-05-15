@@ -45,7 +45,10 @@ class ProfileController extends Controller
                 $image = $manager->read($request->file('avatar')->getRealPath());
                 $imgNew = $image->cover(80, 80)->toJpeg();
                 Storage::disk('public')->put("avatars/".$filename, $imgNew);
-                Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
+                // Delete old avatar if it exists and is not the default
+                if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
+                    Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
+                }
             } catch (\Exception $e) {
                 \Log::error('Avatar processing failed: ' . $e->getMessage());
                 // Optionally, redirect back with an error message
@@ -89,15 +92,21 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
+
         $user = $request->user();
 
-        Auth::logout();
+        $userAvatarPath = $user->getRawOriginal('avatar');
 
+        if ($userAvatarPath && $userAvatarPath !== 'default-avatar.png') {
+            Storage::disk('public')->delete("avatars/" . $userAvatarPath);
+        }
+
+        Auth::logout();
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/')->with('success', 'Account Deleted');;
+        return Redirect::to('/')->with('success', 'Account Deleted');
     }
 }
