@@ -129,17 +129,15 @@ class PostController extends Controller
         $data['category_id'] = strip_tags($data['category_id']);
         $data['slug'] = Str::slug($data['title']);
 
-        if ($request->file('image') == null) {
-            $data['image'] = $post->getRawOriginal('image');
-        } else {
-            $oldImage = $post->getRawOriginal('image');
+        if ($request->file('image') != null) {
+            //$oldImage = $post->getRawOriginal('image');
             $featureImage = "post-image" . $data['slug'] . ".jpg";
 
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
             Storage::disk('public')->put("images/".$featureImage, $imgNew);
-            Storage::disk('public')->delete("images/".$oldImage);
+            //Storage::disk('public')->delete("images/".$oldImage);
 
             $data['image'] = $featureImage;
         }
