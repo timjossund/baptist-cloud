@@ -55,14 +55,14 @@
             </div>
         </div>
         @if (session()->has('success'))
-            <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 shadow-md z-10 bg-white rounded-lg">
+            <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 shadow-lg z-10 bg-white rounded-lg">
                 <div class="w-full text-center text-lg text-blue-400">
                     {{ session('success') }}
                 </div>
             </div>
         @endif
         @if (session()->has('error'))
-            <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 bg-red-300 z-10 rounded-lg">
+            <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 bg-red-300 z-10 rounded-lg shadow-lg">
                 <div class="w-full text-center text-lg">
                     {{ session('error') }}
                 </div>
