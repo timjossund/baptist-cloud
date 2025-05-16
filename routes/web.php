@@ -10,7 +10,7 @@ use App\Http\Controllers\PublicProfileController;
 
 Route::get('/', [PostController::class, 'index'])->name('home-page');
 Route::get('/home', [PostController::class, 'indexHome']);
-Route::get('/category/{category}', [PostController::class, 'category'])->name('byCategory');;
+Route::get('/category/{category}', [PostController::class, 'category'])->name('byCategory');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
+
 });
 
 require __DIR__ . '/auth.php';
