@@ -30,3 +30,4 @@ auth.json
 /.idea
 *.iml
 .idea/inspectionProfiles/Project_Default.xml
+/.idea

@@ -64,7 +64,7 @@ class ProfileController extends Controller
         }
 
 
-        // Delete old avatar if it exists and is not the default
+        // Delete the old avatar if it exists and is not the default
         if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.png') {
             Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
         }
