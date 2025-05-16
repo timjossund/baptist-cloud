@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto mt-10 px-5">
         <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
-                <h1 class="md:text-5xl">{{ $post->title }}</h1>
+                <h1 class="md:text-5xl text-3xl">{{ $post->title }}</h1>
                 <p class="text-gray-500 mb-4">
                     Published {{ $post->created_at->format('M d Y') }} - Around
                     {{ $post->readTime() }}
@@ -31,7 +31,7 @@
                     </p>
                 </div>
                 <x-like-btn :post="$post" />
-                <img src="{{ $post->image }}" alt="Featured Image" class="w-full h-96 rounded-xl object-cover mb-12">
+                <img src="{{ $post->image }}" alt="Featured Image" class="w-full h-32 md:h-96 rounded-xl object-cover mb-12">
                 <p class="text-lg">{!! $post->content !!}</p>
             </div>
             <p class="my-10">

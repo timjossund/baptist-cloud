@@ -48,7 +48,6 @@
                         {{ $category->title }}
                     </a>
                 @endforeach
-
         </div>
     </div>
 </div>
