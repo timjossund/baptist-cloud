@@ -45,7 +45,7 @@ class ProfileController extends Controller
                 $image = $manager->read($request->file('avatar')->getRealPath());
                 $imgNew = $image->cover(80, 80)->toJpeg();
                 Storage::disk('public')->put("avatars/".$filename, $imgNew);
-                // Delete old avatar if it exists and is not the default
+                // Delete the old avatar if it exists and is not the default
                 if ($oldAvatarPath && $oldAvatarPath !== 'default-avatar.jpg') {
                     Storage::disk('public')->delete("avatars/" . $oldAvatarPath);
                 }

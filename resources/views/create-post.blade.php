@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div
                 class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
-                <h2 class="text-4xl font-bold mb-8">Create a new post</h2>
+                <h2 class="text-4xl font-bold mb-8 max-w-4xl w-full">Create a new post</h2>
                 <form action="/post/create-post" method="POST" enctype="multipart/form-data"
                     class="m-auto w-full max-w-4xl flex flex-col gap-4">
                     @csrf

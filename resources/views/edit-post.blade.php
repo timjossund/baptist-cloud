@@ -2,7 +2,7 @@
     <section class="container mx-auto px-6 py-8 flex justify-center">
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
-                <h2 class="text-4xl font-bold mb-8">Edit your post</h2>
+                <h2 class="text-4xl font-bold mb-8 max-w-4xl w-full">Edit your post</h2>
                 <form action="/post/{{ $post->id }}" method="post" enctype="multipart/form-data"
                     class="m-auto w-full max-w-4xl flex flex-col gap-4">
                     @csrf
