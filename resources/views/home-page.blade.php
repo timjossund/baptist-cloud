@@ -1,9 +1,9 @@
 <x-app-layout>
-    <div class="py-12 hidden md:block">
+    <div class="py-4 md:py-12">
         <div class="max-w-7xl mx-auto px-6">
             <div class="bg-white shadow-sm rounded-lg">
                 <div class="">
-                    <nav class="flex space-x-4 p-4" aria-label="Tabs">
+                    <nav class="flex space-x-4 p-4 relative" aria-label="Tabs">
                         <x-category-tabs />
                     </nav>
                 </div>
