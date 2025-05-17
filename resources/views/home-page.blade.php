@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="bg-white shadow-sm rounded-lg">
                 <div class="">
-                    <nav class="flex space-x-4 p-4 relative" aria-label="Tabs">
+                    <nav class="flex space-x-4 p-4 items-center relative" aria-label="Tabs">
                         <x-category-tabs />
                     </nav>
                 </div>
