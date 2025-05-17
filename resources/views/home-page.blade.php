@@ -31,6 +31,10 @@
                 <p class="mt-2 text-lg/8 text-gray-600">
                     Wisdom and insights from a Christian & Baptist perspective.
                 </p>
+                    @if( auth()->user()->followers()->count() === 1 )
+                        <h3 class="mt-12 mb-8">Hmmm... nothing here. Lets find some new authors!</h3>
+                        <a href="/search-authors" class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
+                    @endif
                 <div class="mt-10">
                     @foreach ($posts as $post)
                         <x-post-item :post="$post" />

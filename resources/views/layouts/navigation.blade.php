@@ -8,7 +8,7 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home-page') }}" class="flex items-center">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <h2 class="text-2xl text-black !hover:no-underline">Baptist.Cloud</h2>
+                        <h2 class="text-2xl text-black !hover:no-underline">Baptist Cloud</h2>
                     </a>
                 </div>
 
@@ -18,7 +18,11 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
+                    @if( @auth()->user()->subscribed() || @auth()->user()->is_admin )
                         {{ __('Create Post') }}
+                    @else
+                        {{ __('Become an Author') }}
+                    @endif
                     </x-nav-link>
                     @if (auth()->user()->is_admin ?? false)
                         <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
@@ -49,6 +53,10 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <a href="/billing"
+                               class="block w-full px-4 py-2 text-start text-md leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                {{ __('Manage Billing') }}
+                            </a>
                             <a href="/@<?= auth()->user()->username ?>"
                                 class="block w-full px-4 py-2 text-start text-md leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                 {{ __('View Profile') }}
