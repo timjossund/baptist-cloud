@@ -29,7 +29,7 @@
                     </h2>
                 @endauth
                 <p class="mt-2 text-lg/8 text-gray-600">
-                    Articles and insights from a Christian & Baptist perspective.
+                    Wisdom and insights from a Christian & Baptist perspective.
                 </p>
                 <div class="mt-10">
                     @foreach ($posts as $post)
