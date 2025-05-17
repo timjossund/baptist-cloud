@@ -6,7 +6,7 @@
     @endauth
 </a>
 <div class="items-center border-l-2 border-gray-400 pl-4 hidden md:flex min-w-48 show-md">
-    Browse More By Topic:
+    Browse More By Category:
 </div>
 <div class="items-center hidden md:flex show-md">
 @foreach ($categories as $category)
