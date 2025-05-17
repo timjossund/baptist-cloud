@@ -23,7 +23,7 @@ class PostController extends Controller
     //    });
 
         $user = auth()->user();
-        $query = Post::with('categories')->latest();
+        $query = Post::get()->latest();
 
         if ($user) {
             $ids = $user->following()->pluck('users.id');
