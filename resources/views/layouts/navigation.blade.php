@@ -71,11 +71,11 @@
                     </x-dropdown>
                 @else
                     <div class="flex gap-4">
-                        <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 text-white bg-blue-800">
+                        <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 text-white bg-blue-800 rounded-md">
                             Log in
                         </a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="inline-block px-5 py-1.5 text-white bg-black">
+                            <a href="{{ route('register') }}" class="inline-block px-5 py-1.5 text-white bg-black  rounded-md">
                                 Register
                             </a>
                         @endif
