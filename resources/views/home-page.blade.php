@@ -14,13 +14,13 @@
         <div class="bg-white py-12 md:pt-10 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 @auth
-                    @if (Request::segment(2) == '')
+                    @if (Request::segment(1) == '')
                         <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                             Latest From Those You Follow
                         </h2>
                     @else
                         <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                            Latest Articles
+                            Latest in "{{ Request::segment(2) }}"
                         </h2>
                     @endif
                 @else

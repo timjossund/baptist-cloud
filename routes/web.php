@@ -10,7 +10,7 @@ use App\Http\Controllers\PublicProfileController;
 
 Route::get('/', [PostController::class, 'index'])->name('home-page');
 Route::get('/home', [PostController::class, 'indexHome']);
-Route::get('/category/{category}', [PostController::class, 'category'])->name('byCategory');
+Route::get('/category/{category:title}', [PostController::class, 'category'])->name('byCategory');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
