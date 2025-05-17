@@ -5,10 +5,10 @@
         All
     @endauth
 </a>
-<div class="items-center border-l-2 border-gray-400 pl-4 hidden md:flex min-w-48">
+<div class="items-center border-l-2 border-gray-400 pl-4 hidden md:flex min-w-48 show-md">
     Browse More By Topic:
 </div>
-<div class="items-center hidden md:flex ">
+<div class="items-center hidden md:flex show-md">
 @foreach ($categories as $category)
     <a href="{{ route('byCategory', $category) }}"
         class="inline-block px-4 py-3 {{ Route::currentRouteNamed('byCategory') && request('category')->id == $category->id ? 'rounded-md bg-blue-100 px-3 py-2 text-sm font-medium text-blue-700 active' : 'rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700' }}" aria-current="page">
@@ -17,7 +17,7 @@
 @endforeach
 </div>
 
-<div x-data="{ cat_open: false }" class="relative w-full flex justify-end items-center flex-wrap">
+<div x-data="{ cat_open: false }" class="relative w-full flex justify-end items-center flex-wrap md:hidden">
     <h6 class="mr-16 md:hidden">Topics</h6>
     <div class="flex md:hidden absolute right-0 -top-2">
         <button @click="cat_open = ! cat_open"
