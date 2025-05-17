@@ -18,11 +18,13 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
-                    @if( @auth()->user()->subscribed() || @auth()->user()->is_admin )
-                        {{ __('Create Post') }}
-                    @else
-                        {{ __('Become an Author') }}
-                    @endif
+                    @auth
+                        @if( @auth()->user()->subscribed() || @auth()->user()->is_admin )
+                            {{ __('Create Post') }}
+                        @else
+                            {{ __('Become an Author') }}
+                        @endif
+                    @endauth
                     </x-nav-link>
                     @if (auth()->user()->is_admin ?? false)
                         <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
