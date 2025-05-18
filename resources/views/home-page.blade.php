@@ -32,15 +32,20 @@
                     Wisdom and insights from a Christian & Baptist perspective.
                 </p>
                 @auth
-                    @if( auth()->user()->followers()->count() === 1 )
+                    @if( auth()->user()->followers()->count() === 0 )
                         <h3 class="mt-12 mb-8">Hmmm... nothing here. Lets find some new authors!</h3>
                         <a href="/search-authors" class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
                     @endif
                 @endauth
                 <div class="mt-10">
-                    @foreach ($posts as $post)
-                        <x-post-item :post="$post" />
-                    @endforeach
+                    @if($posts->count() === 0)
+                        <h3 class="mt-12 mb-8">Hmmm... nothing here. Lets find some new authors!</h3>
+                        <a href="/search-authors" class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
+                    @else
+                        @foreach ($posts as $post)
+                            <x-post-item :post="$post" />
+                        @endforeach
+                    @endif
                 </div>
                 <div class="mt-6 pagination-wrapper">
                     {{ $posts->links() }}
