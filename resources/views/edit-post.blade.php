@@ -2,8 +2,8 @@
     <section class="container mx-auto px-6 py-8 flex justify-center" x-data="{publish: false}">
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
-                <h2 class="text-4xl font-bold mb-8 max-w-4xl w-full">Publish Your Post</h2>
-                    <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-4xl flex flex-col gap-4">
+                <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Publish Your Post</h2>
+                    <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">
                     @csrf
                     @method('patch')
                     {{-- Post Image --}}

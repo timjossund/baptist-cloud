@@ -10,7 +10,6 @@
                 @else
                     {{ $post->updated_at->format('n/j/Y') }}
                 @endif
-
             </time>
         </div>
         <div class="flex flex-col">
