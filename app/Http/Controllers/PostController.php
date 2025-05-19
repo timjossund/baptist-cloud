@@ -182,6 +182,6 @@ class PostController extends Controller
 
     public function searchPost()
     {
-
+        return view('home-page');
     }
 }
