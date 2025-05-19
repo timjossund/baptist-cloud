@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Container\Attributes\DB;
+//use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -92,6 +92,17 @@ class PostController extends Controller
         Post::create($data);
 
         return redirect('/@'.auth()->user()->username)->with('success', 'Post Created Successfully');
+    }
+
+    public function publish(Request $request)
+    {
+        $data = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:6048',
+            'title' => 'required|max:255',
+            'category_id' => ['required', 'exists:categories,id'],
+            'content' => 'required',
+            'published_at' => ['nullable', 'datetime'],
+        ]);
     }
 
     /**

@@ -50,7 +50,7 @@
                     </div>
                     {{-- Post Submit --}}
                     <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg" type="submit">
-                        Update
+                        Publish Post
                     </x-primary-button>
                 </form>
                 <a href="{{ route('public-profile', $post->user) }}" class="text-red-500">Cancel Edit</a>
