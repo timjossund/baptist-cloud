@@ -18,17 +18,22 @@ class PostController extends Controller
      */
     public function index()
     {
-    //    \DB::listen( function ($query) {
-    //        \Log::info($query->sql);
-    //    });
+        \DB::enableQueryLog();
+
 
         $user = auth()->user();
-        $query = Post::query()->latest();
+        $query = Post::with(['likes', 'user'])->latest();
         if ($user) {
-            $ids = $user->following()->pluck('users.id');
+            $ids = $user->following()->pluck('id');
             $query->whereIn('user_id', $ids);
         }
         $posts = $query->simplePaginate(5);
+
+        \Log::info('Database Queries:', [
+            'queries' => \DB::getQueryLog(),
+            'query_count' => count(\DB::getQueryLog())
+        ]);
+
 
 
         return view('home-page', ['posts' => $posts]);
