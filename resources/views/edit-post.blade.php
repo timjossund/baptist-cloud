@@ -7,7 +7,7 @@
                     @csrf
                     @method('patch')
                     {{-- Post Image --}}
-                    <div class="mb-36 w-full h-48 bg-cover bg-center rounded-lg">
+                    <div class="mb-56 w-full h-48 bg-cover bg-center rounded-lg">
                         <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>
                         <img src="{{ $post->image }}" alt="">
                     </div>
