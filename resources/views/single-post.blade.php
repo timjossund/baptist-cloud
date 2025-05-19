@@ -4,7 +4,7 @@
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 <h1 class="md:text-5xl text-3xl">{{ $post->title }}</h1>
                 <p class="text-gray-500 mb-4">
-                    Published {{ $post->created_at->format('M d Y') }} - Around
+                    {{ $post->updated_at->format('n/j/Y') }} - Around
                     {{ $post->readTime() }}
                     @if ($post->readTime() != 1)
                         minutes
