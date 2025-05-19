@@ -20,7 +20,7 @@
                         </h2>
                     @else
                         <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                            Latest in "{{ Request::segment(2) }}"
+                            Latest in {{ Request::segment(2) }}
                         </h2>
                     @endif
                 @else
