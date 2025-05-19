@@ -31,10 +31,10 @@ class PostController extends Controller
         }
         $posts = $query->simplePaginate(5);
 
-        \Log::info('Database Queries:', [
-            'queries' => \DB::getQueryLog(),
-            'query_count' => count(\DB::getQueryLog())
-        ]);
+//        \Log::info('Database Queries:', [
+//            'queries' => \DB::getQueryLog(),
+//            'query_count' => count(\DB::getQueryLog())
+//        ]);
 
 
 
