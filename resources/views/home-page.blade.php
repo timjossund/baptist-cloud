@@ -37,18 +37,11 @@
                         <a href="/search-authors" class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
                     @endif
                 @endauth
-                @guest
                 <div class="mt-10">
-                    @if($posts->count() === 0)
-                        <h3 class="mt-12 mb-8">Hmmm... nothing here. Lets find some new authors!</h3>
-                        <a href="/search-authors" class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
-                    @else
-                        @foreach ($posts as $post)
-                            <x-post-item :post="$post" />
-                        @endforeach
-                    @endif
+                    @foreach ($posts as $post)
+                        <x-post-item :post="$post" />
+                    @endforeach
                 </div>
-                @endguest
                 <div class="mt-6 pagination-wrapper">
                     {{ $posts->links() }}
                 </div>
