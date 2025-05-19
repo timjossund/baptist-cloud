@@ -24,7 +24,7 @@ class PostController extends Controller
     //    });
 
         $user = auth()->user();
-        $query = Post::query()->latest();
+        $query = Post::query()->whereNotNull('published_at')->latest('published_at');;
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
@@ -91,19 +91,19 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Post Created Successfully');
+        return redirect("/post/".$data['slug']."/edit")->with('success', 'Draft Saved Successfully');
     }
 
-    public function publish(Request $request)
-    {
-        $data = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:6048',
-            'title' => 'required|max:255',
-            'category_id' => ['required', 'exists:categories,id'],
-            'content' => 'required',
-            'published_at' => ['nullable', 'datetime'],
-        ]);
-    }
+//    public function publish(Request $request)
+//    {
+//        $data = $request->validate([
+//            'image' => 'required|image|mimes:jpeg,png,jpg|max:6048',
+//            'title' => 'required|max:255',
+//            'category_id' => ['required', 'exists:categories,id'],
+//            'content' => 'required',
+//            'published_at' => ['nullable', 'datetime'],
+//        ]);
+//    }
 
     /**
      * Display the specified resource.
@@ -164,7 +164,46 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Post Updated Successfully');
+        return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved Successfully');
+    }
+
+    public function publish(Request $request, Post $post)
+    {
+        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
+            abort(403);
+        }
+        $data = $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:6048',
+            'title' => 'required|max:255',
+            'category_id' => ['required', 'exists:categories,id'],
+            'content' => 'required',
+            'published_at' => ['nullable', 'datetime'],
+        ]);
+        //dd($data);
+        $data['title'] = strip_tags($data['title']);
+//        $data['content'] = strip_tags($data['content']);
+        $data['category_id'] = strip_tags($data['category_id']);
+        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
+
+        if ($request->file('image') != null) {
+            $oldImage = $post->getRawOriginal('image');
+            $featureImage = "post-image" . $data['slug'] . ".jpg";
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($data['image']);
+            $imgNew = $image->cover(1200, 400)->toJpeg();
+            Storage::disk('public')->put("images/".$featureImage, $imgNew);
+            Storage::disk('public')->delete("images/".$oldImage);
+            $data['image'] = $featureImage;
+        }
+
+
+        $data['user_id'] = auth()->id();
+        $data['published_at'] = now();
+
+        $post->fill($data);
+        $post->save();
+
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Published Successfully');
     }
 
     /**
@@ -182,7 +221,7 @@ class PostController extends Controller
     }
 
     public function category(Category $category) {
-        $post = $category->posts()->latest()->simplePaginate(5);
+        $post = $category->posts()->whereNotNull('published_at')->latest('published_at')->simplePaginate(5);
         return view('home-page', ['posts' => $post]);
     }
 

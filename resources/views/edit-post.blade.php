@@ -1,10 +1,9 @@
 <x-app-layout>
-    <section class="container mx-auto px-6 py-8 flex justify-center">
+    <section class="container mx-auto px-6 py-8 flex justify-center" x-data="{publish: false}">
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
-                <h2 class="text-4xl font-bold mb-8 max-w-4xl w-full">Edit your post</h2>
-                <form action="/post/{{ $post->id }}" method="post" enctype="multipart/form-data"
-                    class="m-auto w-full max-w-4xl flex flex-col gap-4">
+                <h2 class="text-4xl font-bold mb-8 max-w-4xl w-full">Publish Your Post</h2>
+                    <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-4xl flex flex-col gap-4">
                     @csrf
                     @method('patch')
                     {{-- Post Image --}}
@@ -49,9 +48,23 @@
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
                     {{-- Post Submit --}}
-                    <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg" type="submit">
-                        Publish Post
-                    </x-primary-button>
+                    <div class="flex gap-4">
+                        <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg" type="submit">
+                            Save
+                        </x-primary-button>
+                        <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="publish = true">
+                            Publish
+                        </div>
+                    </div>
+                    <div x-show="publish" class="flex gap-4 fixed justify-center items-center w-full h-full z-50 bg-black bg-opacity-20 top-0 left-0">
+                        <div class="bg-white flex flex-col justify-center items-center text-center py-20 px-40 rounded-lg gap-4">
+                            <h3>Are you sure you want to publish?</h3>
+                            <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg" type="submit">
+                                Publish
+                            </x-primary-button>
+                        </div>
+
+                    </div>
                 </form>
                 <a href="{{ route('public-profile', $post->user) }}" class="text-red-500">Cancel Edit</a>
             </div>

@@ -12,11 +12,15 @@ Route::get('/', [PostController::class, 'index'])->name('home-page');
 Route::get('/home', [PostController::class, 'indexHome']);
 Route::get('/category/{category:title}', [PostController::class, 'category'])->name('byCategory');
 
-Route::middleware(['auth', 'verified', 'subscribed'])->group(function () {
+Route::middleware(['auth',
+    'verified'
+//    'subscribed'
+])->group(function () {
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
-    Route::get('/post/{post}/edit', [PostController::class, 'edit'])->name('edit-post');
-    Route::patch('/post/{post}', [PostController::class, 'update'])->name('update-post');
+    Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');
+    Route::patch('/post/{post:slug}/publish', [PostController::class, 'publish'])->name('publish-post');
+    Route::patch('/post/{post:slug}', [PostController::class, 'update'])->name('update-post');
     Route::delete('/post/{post}/delete', [PostController::class, 'destroy'])->name('delete-post');
 });
 
