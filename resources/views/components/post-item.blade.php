@@ -69,11 +69,11 @@
             </div>
         </div>
         @auth
-            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-lg">
+            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-md">
                 Read More
             </a>
         @else
-            <a href="{{ route('login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-lg">
+            <a href="{{ route('login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-md">
                 Login to read more
             </a>
         @endauth

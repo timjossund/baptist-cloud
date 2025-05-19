@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,11 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        \DB::enableQueryLog();
-
+    //    \DB::listen( function ($query) {
+    //        \Log::info($query->sql);
+    //    });
 
         $user = auth()->user();
-        $query = Post::with(['likes', 'user'])->latest();
+        $query = Post::query()->latest();
         if ($user) {
             $ids = $user->following()->pluck('id');
             $query->whereIn('user_id', $ids);
@@ -171,5 +173,15 @@ class PostController extends Controller
     public function category(Category $category) {
         $post = $category->posts()->latest()->simplePaginate(5);
         return view('home-page', ['posts' => $post]);
+    }
+
+    public function searchAuthor(User $user) {
+        $users = User::query()->simplePaginate(5);
+        return view('search-authors', ['users' => $users]);
+    }
+
+    public function searchPost()
+    {
+
     }
 }
