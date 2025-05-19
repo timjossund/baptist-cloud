@@ -67,7 +67,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
-            'published_at' => ['nullable', 'datetime'],
+            'published_at' => ['nullable', 'timestamp'],
         ]);
 
         $data['title'] = strip_tags($data['title']);
@@ -139,7 +139,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
-            'published_at' => ['nullable', 'datetime'],
+            'published_at' => ['nullable', 'timestamp'],
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);
@@ -177,7 +177,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
-            'published_at' => ['nullable', 'datetime'],
+            'published_at' => ['nullable', 'timestamp'],
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);

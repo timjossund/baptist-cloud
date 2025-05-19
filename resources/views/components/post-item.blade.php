@@ -5,7 +5,12 @@
     <div>
         <div class="flex items-center gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500 text-sm">
-                Published on {{ $post->created_at->format('n/j/Y') }}
+                @if($post->published_at == null )
+                    <span class="text-lg font-black text-black bg-blue-300 py-1 px-4">Draft</span> - created on {{ $post->created_at->format('n/j/Y') }}
+                @else
+                    {{ $post->updated_at->format('n/j/Y') }}
+                @endif
+
             </time>
         </div>
         <div class="flex flex-col">
