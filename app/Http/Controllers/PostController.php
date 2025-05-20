@@ -234,4 +234,9 @@ class PostController extends Controller
     {
         return view('home-page');
     }
+
+    public function positions()
+    {
+        return view('positions');
+    }
 }

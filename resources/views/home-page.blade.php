@@ -29,7 +29,7 @@
                     </h2>
                 @endauth
                 <p class="mt-2 text-lg/8 text-gray-600">
-                    Wisdom and insights from a Christian & Baptist perspective.
+                    Wisdom and Insights from a Christian & Baptist perspective.
                 </p>
                 @auth
                     @if( auth()->user()->followers()->count() === 0 && $posts->count() === 0 )

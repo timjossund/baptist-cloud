@@ -2,33 +2,36 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex items-center">
+            <div class=" w-1/2 flex justify-between items-center">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center gap-10">
                     <a href="{{ route('home-page') }}" class="flex items-center">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                         <h2 class="text-2xl text-black !hover:no-underline">Baptist.Cloud</h2>
                     </a>
-                </div>
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home-page')" :active="request()->routeIs('home-page')">
-                        {{ __('Home') }}
+                    <x-nav-link :href="route('home-page')" :active="request()->routeIs(['home-page', 'byCategory'])">
+                        {{ __('Articles') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
-                        {{ __('Create Post') }}
+                    <x-nav-link :href="route('positions')" :active="request()->routeIs('positions')">
+                        {{ __('Open Positions') }}
                     </x-nav-link>
-                    @if (auth()->user()->is_admin ?? false)
-                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
-                    @endif
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 @auth
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 mr-8 sm:flex">
+                        @if(request()->routeIs('positions'))
+                            <x-nav-link :href="route('create-listing')" :active="request()->routeIs('create-listing')">
+                                {{ __('Create Listing') }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
+                                {{ __('Create Article') }}
+                            </x-nav-link>
+                        @endif
+                    </div>
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -47,6 +50,11 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            @if (auth()->user()->is_admin ?? false)
+                            <x-dropdown-link :href="route('admin.index')">
+                                {{ __('Administration') }}
+                            </x-dropdown-link>
+                            @endif
                             <a href="/billing"
                                class="block w-full px-4 py-2 text-start text-md leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                 {{ __('Manage Billing') }}
@@ -73,11 +81,11 @@
                     </x-dropdown>
                 @else
                     <div class="flex gap-4">
-                        <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 text-white bg-blue-800">
+                        <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 text-white bg-blue-600 rounded-md">
                             Log in
                         </a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="inline-block px-5 py-1.5 text-white bg-black">
+                            <a href="{{ route('register') }}" class="inline-block px-5 py-1.5 text-white bg-black rounded-md">
                                 Register
                             </a>
                         @endif

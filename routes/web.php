@@ -12,8 +12,7 @@ Route::get('/', [PostController::class, 'index'])->name('home-page');
 Route::get('/home', [PostController::class, 'indexHome']);
 Route::get('/category/{category:title}', [PostController::class, 'category'])->name('byCategory');
 
-Route::middleware(['auth',
-    'verified'
+Route::middleware(['auth', 'verified'
 //    'subscribed'
 ])->group(function () {
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
@@ -36,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
     Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
     Route::get('/search-posts', [PostController::class, 'searchPost'])->name('search-posts');
+    Route::get('/positions', [PostController::class, 'positions'])->name('positions');
+    Route::get('/create-listing', [PostController::class, 'create-listing'])->name('create-listing');
 });
 
 require __DIR__ . '/auth.php';

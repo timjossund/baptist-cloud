@@ -25,7 +25,7 @@
                     minute.
                 @endif
             </p>
-            <div class="flex gap-2 mt-2">
+            <div class="flex gap-2 mt-2 items-center">
                 <p class="flex gap-3 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                         class="size-6 text-gray-500">
@@ -45,7 +45,7 @@
                 @endif
                 @if (auth()->user() && (auth()->user()->is_admin != null || auth()->user()->id == $post->user_id))
                     <form action="/post/{{ $post->id }}/delete" method="post"
-                        class="text-blue-500 hover:underline text-sm">
+                        class="">
                         @csrf
                         @method('delete')
                         <button type="submit" class="flex items-center bg-red-100 p-2 rounded-md">
@@ -59,7 +59,7 @@
                 @endif
             </div>
         </div>
-        <div class=" flex border-t border-gray-900/5 pt-2 mb-4">
+        <div class=" flex pt-2 mb-4">
             <div class="relative flex items-center gap-x-4">
                 <x-user-avatar :user="$post->user" />
                 <div class="text-sm/6">
