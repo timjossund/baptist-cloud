@@ -55,7 +55,7 @@
                                     <p class="ml-2 text-md">{{ $follower->username }}</p>
                                 </a>
                             @empty
-                                <h4>- No Followers To List -</h4>
+                                <h6 class="text-sm">- No Followers To List -</h6>
                             @endforelse
                         </div>
                         @endif
