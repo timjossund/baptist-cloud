@@ -33,13 +33,13 @@
                         <h4>No Posts Found</h4>
                     @endforelse
                 </div>
-                <div class="w-1/4 px-10 hidden flex-col border-l items-center md:flex">
+                <div class="w-1/4 px-5 hidden flex-col border-l items-center md:flex">
                     <img src="{{ $user->avatar }}" alt="{{ $user->username }}" class="rounded-full h-24 w-24">
                     <div class="flex flex-col mt-4">
                         <h4 class="text-2xl text-center">{{ $user->name }}</h4>
                         <p class="text-md text-center">{{ $user->bio }}</p>
                         <x-follow-container :user="$user" >
-                            <p class="text-lg text-center" x-text="followersCount === 1 ? followersCount + ' follower' : followersCount + ' followers'"></p>
+                            <p class="text-lg text-center" x-text="followersCount === 1 ? followersCount + ' Follower' : followersCount + ' Followers'"></p>
 
                             @if(auth()->user() && auth()->user()->id !== $user->id )
                                 <div class="mt-4 w-full flex justify-center">
@@ -47,6 +47,18 @@
                                 </div>
                             @endif
                         </x-follow-container>
+                        @if(auth()->user() && auth()->user()->id === $user->id)
+                        <div class="flex flex-col mt-4 h-96 px-3 overflow-y-scroll w-56 max-w-56">
+                            @forelse($user->followers as $follower)
+                                <a href="{{ route('public-profile', $follower) }}" class="flex items-center border-b-2 border-gray-200 py-2 first:border-t-2">
+                                    <img src="{{ $follower->avatar }}" alt="{{ $follower->username }}" class="rounded-full h-10 w-10">
+                                    <p class="ml-2 text-md">{{ $follower->username }}</p>
+                                </a>
+                            @empty
+                                <h4>- No Followers To List -</h4>
+                            @endforelse
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
