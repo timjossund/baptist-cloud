@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -36,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
     Route::get('/search-posts', [PostController::class, 'searchPost'])->name('search-posts');
     Route::get('/positions', [PostController::class, 'positions'])->name('positions');
-    Route::get('/create-listing', [PostController::class, 'create-listing'])->name('create-listing');
+    Route::get('/create-listing', [ListingController::class, 'index'])->name('create-listing');
 });
 
 require __DIR__ . '/auth.php';
