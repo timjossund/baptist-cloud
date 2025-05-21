@@ -9,16 +9,13 @@
                     {{-- Post Image --}}
                     <div>
                         <x-input-label class="block mb-2" for="image">Featured Image</x-input-label>
-                        <input
-                            class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            aria-describedby="file_input_help" id="image" type="file" name="image">
+                        <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="image" type="file" name="image">
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
                     {{-- Post Title --}}
                     <div>
                         <x-input-label for="title" :value="__('Title:')" />
-                        <x-text-input id="title" class="block border mt-1 w-full text-xl p-2" type="title"
-                            name="title" :value="old('title')" autofocus />
+                        <x-text-input id="title" class="block border mt-1 w-full text-xl p-2" type="title" name="title" :value="old('title')" autofocus />
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
                     {{-- Post Category --}}
