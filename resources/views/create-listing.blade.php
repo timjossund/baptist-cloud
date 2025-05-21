@@ -3,15 +3,15 @@
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-wrap items-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Create A New Listing</h2>
-                <form action="/post/create-post" method="POST" enctype="multipart/form-data" class="w-full max-w-3xl flex flex-wrap justify-between">
+                <form action="/create-listing" method="POST" enctype="multipart/form-data" class="w-full max-w-4xl flex flex-wrap justify-between">
                     @csrf
-                    {{--                    Post Image --}}
+                    {{-- Position --}}
                     <div class="w-full">
                         <x-input-label for="position" :value="__('Position:')" />
                         <x-text-input id="position" class="border mt-1 w-full text-xl p-2" type="position" name="position" :value="old('position')" autofocus />
                         <x-input-error :messages="$errors->get('position')" class="mt-2" />
                     </div>
-                    {{--                   Post Title --}}
+                    {{-- Church Name --}}
                     <div class="w-full mt-4">
                         <x-input-label for="church" :value="__('Church Name:')" />
                         <x-text-input id="church" class="border mt-1 w-full text-xl p-2" type="church" name="church" :value="old('church')" autofocus />
@@ -23,33 +23,33 @@
                         <x-text-input id="email" class="border mt-1 w-full text-xl p-2" type="email" name="email" :value="old('email')" autofocus />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
-
+                    {{-- Contact Phone --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="phone" :value="__('Contact Phone:')" />
                         <x-text-input id="phone" class="border mt-1 w-full text-xl p-2" type="phone" name="phone" :value="old('phone')" autofocus />
                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                     </div>
-
+                    {{-- Facebook URL --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="facebook" :value="__('Facebook Profile URL:')" />
                         <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" :value="old('facebook')" autofocus />
                         <x-input-error :messages="$errors->get('facebook')" class="mt-2" />
                     </div>
-
+                    {{-- Church Website --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="website" :value="__('Church Website:')" />
                         <x-text-input id="website" class="border mt-1 w-full text-xl p-2" type="website"
                                       name="website" :value="old('website')" autofocus />
                         <x-input-error :messages="$errors->get('website')" class="mt-2" />
                     </div>
-                    {{--                    Church City --}}
+                    {{-- Church City --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="city" :value="__('City:')" />
                         <x-text-input id="city" class="border mt-1 w-full text-xl p-2" type="city"
                                       name="city" :value="old('city')" autofocus />
                         <x-input-error :messages="$errors->get('city')" class="mt-2" />
                     </div>
-                    {{--                    Post Category --}}
+                    {{-- State --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="state" :value="__('State')" />
                         <select name="state" id="state" class="border mt-1 w-full text-xl p-2">
@@ -108,15 +108,14 @@
                         </select>
                         <x-input-error :messages="$errors->get('state')" class="mt-2" />
                     </div>
-                    {{--                    Post Body --}}
-                    <div class="mt-2 w-full">
-                        <label for="listingContent" class="text-lg text-gray-700">More Details:</label>
-{{--                        <textarea id="listing-Content" class="hidden" name="content">{!! old('content') !!}</textarea>--}}
-                        <textarea class="w-full" id="listingContent" name="content">{!! old('content') !!}</textarea>
+                    {{-- Listing Body --}}
+                    <div class="mt-8 w-full">
+                        <label for="listingContent" class="text-lg text-gray-700">More Details: <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="https://www.markdownguide.org/cheat-sheet/">Learn Markdown</a></span></label>
+                        <textarea class="w-full" id="listingContent" rows="10" name="content">{!! old('content') !!}</textarea>
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
-                    {{--                    Post Submit --}}
-                    <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg mt-24" type="submit">Publish</x-primary-button>
+                    {{-- Listing Submit --}}
+                    <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg mt-12" type="submit">Publish</x-primary-button>
                 </form>
             </div>
         </div>

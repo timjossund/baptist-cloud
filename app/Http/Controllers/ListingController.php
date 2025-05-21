@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 class ListingController extends Controller
 {
@@ -31,24 +30,30 @@ class ListingController extends Controller
         ]);
 
         $data['city'] = strip_tags($data['city']);
-        $data['state'] = strip_tags($data['city']);
+        $data['state'] = strip_tags($data['state']);
         $data['position'] = strip_tags($data['position']);
+        $data['content'] = strip_tags($data['content']);
         $data['church'] = strip_tags($data['church']);
         $data['email'] = strip_tags($data['email']);
         $data['phone'] = strip_tags($data['phone']);
         $data['facebook'] = strip_tags($data['facebook']);
         $data['website'] = strip_tags($data['website']);
-
-//        $image = $data['image'];
-        //unset($data['image']);
-        //$data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
-
-
-
-        //$data['user_id'] = auth()->id();
+        $data['content'] = Str::markdown($data['content']);
 
         Listing::create($data);
 
         return redirect("/positions")->with('success', 'Listing Created Successfully');
+    }
+
+    public function showPositions()
+    {
+        $positions = Listing::paginate(10)->sortByDesc('created_at');
+        return view('positions', ['positions' => $positions]);
+    }
+
+    public function showPosition($id)
+    {
+        $position = Listing::find($id);
+        return view('single-position', ['position' => $position]);
     }
 }

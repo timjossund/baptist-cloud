@@ -12,6 +12,8 @@ class Listing extends Model
         'city',
         'state',
         'content',
+        'phone',
+        'email',
         'facebook',
         'website',
         'published_at',

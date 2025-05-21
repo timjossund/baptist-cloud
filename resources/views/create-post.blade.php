@@ -6,7 +6,7 @@
                 <form action="/post/create-post" method="POST" enctype="multipart/form-data"
                     class="m-auto w-full max-w-6xl flex flex-col gap-4">
                     @csrf
-                    {{--                    Post Image --}}
+                    {{-- Post Image --}}
                     <div>
                         <x-input-label class="block mb-2" for="image">Featured Image</x-input-label>
                         <input
@@ -16,7 +16,7 @@
                             800x400px).</p>
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
-                    {{--                   Post Title --}}
+                    {{-- Post Title --}}
                     <div>
                         <x-input-label for="title" :value="__('Title:')" />
                         <x-text-input id="title" class="block border mt-1 w-full text-xl p-2" type="title"

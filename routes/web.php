@@ -36,8 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
     Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
     Route::get('/search-posts', [PostController::class, 'searchPost'])->name('search-posts');
-    Route::get('/positions', [PostController::class, 'positions'])->name('positions');
+    Route::get('/positions', [ListingController::class, 'showPositions'])->name('positions');
+    Route::get('/position/{position}', [ListingController::class, 'showPosition'])->name('show-position');
     Route::get('/create-listing', [ListingController::class, 'index'])->name('create-listing');
+    Route::post('/create-listing', [ListingController::class, 'store'])->name('save-listing');
 });
 
 require __DIR__ . '/auth.php';
