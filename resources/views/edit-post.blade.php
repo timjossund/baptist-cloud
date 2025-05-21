@@ -5,7 +5,7 @@
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Publish Your Post</h2>
                     <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">
                     @csrf
-                    @method('patch')B
+                    @method('patch')
                     {{-- Post Image --}}
                     <div class="mb-56 w-full h-48 bg-cover bg-center rounded-lg">
                         <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>

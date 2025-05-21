@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/position/{position}', [ListingController::class, 'showPosition'])->name('show-position');
     Route::get('/create-listing', [ListingController::class, 'index'])->name('create-listing');
     Route::post('/create-listing', [ListingController::class, 'store'])->name('save-listing');
+    Route::get('/position/{position:id}/edit', [ListingController::class, 'edit'])->name('edit-listing');
+    Route::patch('/position/{position:id}/save', [ListingController::class, 'update'])->name('update-listing');
 });
 
 require __DIR__ . '/auth.php';

@@ -56,4 +56,44 @@ class ListingController extends Controller
         $position = Listing::find($id);
         return view('single-position', ['position' => $position]);
     }
+
+    public function edit($id) {
+
+        $listing = Listing::find($id);
+        //dd($position);
+        return view('edit-listing', ['listing' => $listing]);
+    }
+
+    public function update(Request $request, $id) {
+
+        $data = $request->validate([
+            'position' => 'required|max:255',
+            'church' => 'required|max:255',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'content' => 'required',
+            'email' => 'required|max:255',
+            'phone' => 'required|max:255',
+            'facebook' => 'required|max:255',
+            'website' => 'required|max:255',
+            'published_at' => ['nullable', 'timestamp'],
+        ]);
+
+        $data['city'] = strip_tags($data['city']);
+        $data['state'] = strip_tags($data['state']);
+        $data['position'] = strip_tags($data['position']);
+        $data['content'] = strip_tags($data['content']);
+        $data['church'] = strip_tags($data['church']);
+        $data['email'] = strip_tags($data['email']);
+        $data['phone'] = strip_tags($data['phone']);
+        $data['facebook'] = strip_tags($data['facebook']);
+        $data['website'] = strip_tags($data['website']);
+        $data['content'] = Str::markdown($data['content']);
+
+        $position = Listing::find($id);
+
+        $position->update($data);
+
+        return redirect("/positions")->with('success', 'Listing Updated Successfully');
+    }
 }
