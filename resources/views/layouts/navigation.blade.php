@@ -5,14 +5,14 @@
             <div class=" w-1/2 flex justify-between items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center gap-10">
-                    <a href="{{ route('home-page') }}" class="flex items-center">
+                    <a href="{{ route('home-page') }}" class="flex items-center" wire:navigate>
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                         <h2 class="text-2xl text-black !hover:no-underline">Baptist.Cloud</h2>
                     </a>
-                    <x-nav-link :href="route('home-page')" :active="request()->routeIs(['home-page', 'byCategory'])">
+                    <x-nav-link wire:navigate :href="route('home-page')" :active="request()->routeIs(['home-page', 'byCategory'])">
                         {{ __('Articles') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('positions')" :active="request()->routeIs('positions')">
+                    <x-nav-link wire:navigate :href="route('positions')" :active="request()->routeIs('positions')">
                         {{ __('Open Positions') }}
                     </x-nav-link>
                 </div>
@@ -23,11 +23,11 @@
                 @auth
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 mr-8 sm:flex">
                         @if(request()->routeIs('positions'))
-                            <x-nav-link :href="route('create-listing')" :active="request()->routeIs('create-listing')">
+                            <x-nav-link wire:navigate :href="route('create-listing')" :active="request()->routeIs('create-listing')">
                                 {{ __('Create Listing') }}
                             </x-nav-link>
                         @else
-                            <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
+                            <x-nav-link wire:navigate :href="route('create-post')" :active="request()->routeIs('create-post')">
                                 {{ __('Create Article') }}
                             </x-nav-link>
                         @endif

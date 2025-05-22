@@ -57,7 +57,6 @@
                             @empty
                                 <h6 class="text-sm text-center">- No Followers To List -</h6>
                             @endforelse
-                                {{ $user->subscribed() ? 'Subscribed' : 'Not Subscribed' }}
                         </div>
                         @endif
                     </div>

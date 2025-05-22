@@ -7,7 +7,6 @@
                     @csrf
                     @method('PATCH')
                     {{-- Position --}}
-
                     <div class="w-full">
                         <x-input-label for="position" :value="__('Position:')" />
                         <x-text-input id="position" class="border mt-1 w-full text-xl p-2" type="position" name="position" value="
@@ -21,7 +20,6 @@
                         <x-text-input id="church" class="border mt-1 w-full text-xl p-2" type="church" name="church" value="{{ $listing->church}}" />
                         <x-input-error :messages="$errors->get('church')" class="mt-2" />
                     </div>
-
                     <div class="w-5/12 mt-4">
                         <x-input-label for="email" :value="__('Contact Email:')" />
                         <x-text-input id="email" class="border mt-1 w-full text-xl p-2" type="email" name="email" value="{{$listing->email}}" />
@@ -35,15 +33,15 @@
                     </div>
                     {{-- Facebook URL --}}
                     <div class="w-5/12 mt-4">
-                        <x-input-label for="facebook" :value="__('Facebook Profile URL:')" />
-                        <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" value="{{$listing->facebook}}" />
+                        <x-input-label for="facebook" :value="__('Facebook Profile URL: please include https://')" />
+                        <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" value="{{$listing->facebook}}" placeholder="https://"/>
                         <x-input-error :messages="$errors->get('facebook')" class="mt-2" />
                     </div>
                     {{-- Church Website --}}
                     <div class="w-5/12 mt-4">
-                        <x-input-label for="website" :value="__('Church Website:')" />
+                        <x-input-label for="website" :value="__('Church Website: please include https://')" />
                         <x-text-input id="website" class="border mt-1 w-full text-xl p-2" type="website"
-                                      name="website" value="{{$listing->website}}" />
+                                      name="website" value="{{$listing->website}}" placeholder="https://"/>
                         <x-input-error :messages="$errors->get('website')" class="mt-2" />
                     </div>
                     {{-- Church City --}}

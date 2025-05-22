@@ -14,7 +14,7 @@
         </div>
         <div class="flex flex-col">
             <h3 class="mt-1 text-2xl flex gap-2 items-center font-semibold text-gray-900 group-hover:text-gray-600">
-                <a href="{{ route('single-post', ['username' => $post->user->username, 'post' => $post->slug]) }}" class="flex">
+                <a href="{{ route('single-post', ['username' => $post->user->username, 'post' => $post->slug]) }}" class="flex" wire:navigate>
                     {{ Str::limit($post->title, 55) }}
                 </a>
             </h3>
@@ -35,7 +35,7 @@
                     {{ $post->likes()->count() }}
                 </p>
                 @if (auth()->user() && auth()->user()->id == $post->user_id)
-                    <a href="/post/{{ $post->slug }}/edit" class="text-blue-500 hover:underline text-sm bg-blue-100 p-2 rounded-md h-9">
+                    <a href="/post/{{ $post->slug }}/edit" class="text-blue-500 hover:underline text-sm bg-blue-100 p-2 rounded-md h-9 hover:bg-blue-200" wire:navigate>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,7 +48,7 @@
                         class="">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="flex items-center bg-red-100 p-2 rounded-md">
+                        <button type="submit" class="flex items-center bg-red-100 hover:bg-red-200 p-2 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-5 text-red-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -64,7 +64,7 @@
                 <x-user-avatar :user="$post->user" />
                 <div class="text-sm/6">
                     <p class="font-semibold !text-gray-500">
-                        <a href="{{ route('public-profile', $post->user) }}" class="hover:underline !text-gray-500">
+                        <a href="{{ route('public-profile', $post->user) }}" class="hover:underline !text-gray-500" wire:navigate>
                             {{ $post->user->name }}
                         </a>
                         - {{ $post->user->bio }}
@@ -73,11 +73,11 @@
             </div>
         </div>
         @auth
-            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-md">
+            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-md" wire:navigate>
                 Read More
             </a>
         @else
-            <a href="{{ route('login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-md">
+            <a href="{{ route('login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-md" wire:navigate>
                 Login to read more
             </a>
         @endauth

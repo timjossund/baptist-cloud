@@ -15,7 +15,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -56,7 +56,7 @@
         </div>
         @if (session()->has('success'))
             <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed py-4 px-12 bottom-10 right-10 max-w-80 shadow-lg z-10 bg-white rounded-lg">
-                <div class="w-full text-center text-lg text-blue-400">
+                <div class="w-full text-center text-lg text-blue-700">
                     {{ session('success') }}
                 </div>
             </div>
@@ -77,6 +77,7 @@
                 document.getElementById("content").value = quill.root.innerHTML;
             });
         </script>
+    @livewireScripts
 {{--    @endpush--}}
 </body>
 

@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
 //        ]);
 
         $categories = [
-            'Religion',
+            'Practice',
             'Doctrine',
             'Culture',
-            'Baptist',
+            'History',
             'Evangelism',
-            'Politics',
+            'Humor',
         ];
 
         foreach ($categories as $category) {
