@@ -10,6 +10,7 @@
             }).catch(err => {
                 console.log(err);
             });
+
     }
 }" class="flex flex-col gap-2 mt-6">
     {{ $slot }}

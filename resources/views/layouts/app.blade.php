@@ -70,13 +70,13 @@
         @endif
     </footer>
 {{--    @push('scripts')--}}
-        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-        <script>
-            const quill = new Quill('#bodycontent', { theme: 'snow' });
-            quill.on('text-change', function() {
-                document.getElementById("content").value = quill.root.innerHTML;
-            });
-        </script>
+{{--        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>--}}
+{{--        <script>--}}
+{{--            const quill = new Quill('#bodycontent', { theme: 'snow' });--}}
+{{--            quill.on('text-change', function() {--}}
+{{--                document.getElementById("content").value = quill.root.innerHTML;--}}
+{{--            });--}}
+{{--        </script>--}}
     @livewireScripts
 {{--    @endpush--}}
 </body>

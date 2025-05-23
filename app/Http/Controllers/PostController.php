@@ -66,7 +66,7 @@ class PostController extends Controller
         ]);
 
         $data['title'] = strip_tags($data['title']);
-        //$data['content'] = strip_tags($data['content']);
+        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
 
 //        $image = $data['image'];
@@ -81,7 +81,6 @@ class PostController extends Controller
         Storage::disk('public')->put("images/".$featureImage, $imgNew);
 
         $data['image'] = $featureImage;
-
         $data['user_id'] = auth()->id();
 
         Post::create($data);
@@ -138,7 +137,7 @@ class PostController extends Controller
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);
-//        $data['content'] = strip_tags($data['content']);
+        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 

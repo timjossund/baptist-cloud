@@ -38,7 +38,6 @@ class ListingController extends Controller
         $data['phone'] = strip_tags($data['phone']);
         $data['facebook'] = strip_tags($data['facebook']);
         $data['website'] = strip_tags($data['website']);
-        $data['content'] = Str::markdown($data['content']);
 
         Listing::create($data);
 
@@ -54,6 +53,7 @@ class ListingController extends Controller
     public function showPosition($id)
     {
         $position = Listing::find($id);
+        $position['content'] = Str::markdown($position->content);
         return view('single-position', ['position' => $position]);
     }
 
@@ -88,7 +88,6 @@ class ListingController extends Controller
         $data['phone'] = strip_tags($data['phone']);
         $data['facebook'] = strip_tags($data['facebook']);
         $data['website'] = strip_tags($data['website']);
-        $data['content'] = Str::markdown($data['content']);
 
         $position = Listing::find($id);
 

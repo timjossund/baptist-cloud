@@ -30,10 +30,10 @@
                         <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                     </div>
                     {{-- Post Body --}}
-                    <div class="mt-2">
-                        <label for="content" class="text-lg text-gray-700">Body Content</label>
-                        <textarea id="content" class="hidden" name="content">{!! old('content') !!}</textarea>
-                        <div id="bodycontent">{!! old('content') !!}</div>
+                    <div class="mt-2 w-full flex flex-col">
+                        <label for="content" class="text-lg text-gray-700 mb-2">Body Content: <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="https://www.markdownguide.org/cheat-sheet/">Learn Markdown</a></span></label>
+                        <textarea  rows="10" id="content" name="content">{{ old('content') }}</textarea>
+{{--                        <div id="bodycontent">{!! old('content') !!}</div>--}}
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
                     {{-- Post Submit --}}
