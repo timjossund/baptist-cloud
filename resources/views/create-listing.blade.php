@@ -31,15 +31,15 @@
                     </div>
                     {{-- Facebook URL --}}
                     <div class="w-5/12 mt-4">
-                        <x-input-label for="facebook" :value="__('Facebook Profile URL: please include https://')" />
-                        <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" :value="old('facebook')" placeholder="https://" />
+                        <x-input-label for="facebook" :value="__('Facebook URL:')" />
+                        <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" :value="old('facebook')" placeholder="https://yourfacebookurl" />
                         <x-input-error :messages="$errors->get('facebook')" class="mt-2" />
                     </div>
                     {{-- Church Website --}}
                     <div class="w-5/12 mt-4">
-                        <x-input-label for="website" :value="__('Church Website: please include https://')" />
+                        <x-input-label for="website" :value="__('Church Website:')" />
                         <x-text-input id="website" class="border mt-1 w-full text-xl p-2" type="website"
-                                      name="website" :value="old('website')" placeholder="https://" />
+                                      name="website" :value="old('website')" placeholder="https://yourchurchwebsite" />
                         <x-input-error :messages="$errors->get('website')" class="mt-2" />
                     </div>
                     {{-- Church City --}}
