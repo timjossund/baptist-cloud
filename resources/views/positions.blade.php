@@ -21,9 +21,9 @@
                     </div>
                     <h2>{{ $position->position }}</h2>
                     <p>{{ $position->church }} in {{ $position->city }}, {{ $position->state }}</p>
-                    <x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg mt-4">
-                        <a wire:navigate href="/position/{{ $position->id }}">Read More</a>
-                    </x-primary-button>
+                    <a href="/position/{{ $position->id }}" wire:navigate><x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg mt-4">
+                        Read More
+                    </x-primary-button></a>
                 </div>
             @endforeach
             </div>
