@@ -18,7 +18,7 @@
                             </svg>
                         </a>
                     @endif
-                        </div>
+                    </div>
                     <h2>{{ $position->position }}</h2>
                     <p>{{ $position->church }} in {{ $position->city }}, {{ $position->state }}</p>
                     <x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg mt-4">
