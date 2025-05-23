@@ -34,7 +34,7 @@
                 @auth
                     @if( auth()->user()->followers()->count() === 0 && $posts->count() === 0 )
                         <h3 class="mt-12 mb-8">Hmmm... nothing here. Lets find some new authors!</h3>
-                        <a href="/search-authors" class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
+                        <a href="/search-authors" wire:navigate class="bg-gray-800 text-white py-2 px-8 rounded-md">Search Authors</a>
                     @endif
                 @endauth
                 <div class="mt-10">
