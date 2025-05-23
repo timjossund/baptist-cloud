@@ -50,7 +50,7 @@
                         @if( auth()->user() && auth()->user()->id === $user->id )
                         <div class="flex flex-col mt-4 h-96 px-3 overflow-y-scroll min-w-72 items-center">
                             @forelse( $user->followers as $follower )
-                                <a href="{{ route('public-profile', $follower) }}" class="flex items-center border-b-2 border-gray-200 p-2 first:border-t-2 min-w-56">
+                                <a href="{{ route('public-profile', $follower) }}" wire:navigate class="flex items-center border-b-2 border-gray-200 p-2 first:border-t-2 min-w-56">
                                     <img src="{{ $follower->avatar }}" alt="{{ $follower->username }}" class="rounded-full h-10 w-10">
                                     <p class="ml-2 text-md">{{ $follower->username }}</p>
                                 </a>

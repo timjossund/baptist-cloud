@@ -26,7 +26,7 @@
                                             <tr class="even:bg-gray-100">
                                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-0 flex items-center gap-2">
                                                     <img class="w-8 h-auto rounded-full" src="{{ $user->avatar }}" alt="{{ $user->name }}">
-                                                    <a href="{{ route('public-profile', $user) }}" class="cursor-pointer hover:underline">
+                                                    <a href="{{ route('public-profile', $user) }}" wire:navigate class="cursor-pointer hover:underline">
                                                         {{ $user->name }}
                                                     </a>
                                                 </td>
@@ -37,7 +37,7 @@
                                                     {{ $user->posts()->count() === 0 ? 'no posts yet' : $user->posts()->count() }}
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                    <a href="{{ route('public-profile', $user) }}" class="bg-black text-white px-3 py-2 text-md">Visit Profile</a>
+                                                    <a href="{{ route('public-profile', $user) }}" wire:navigat class="bg-black text-white px-3 py-2 text-md">Visit Profile</a>
                                                 </td>
                                             </tr>
                                             @endif

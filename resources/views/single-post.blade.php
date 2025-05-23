@@ -39,7 +39,7 @@
             <p class="my-10">
                 <span class="text-gray-500 rounded-2xl bg-gray-200 px-6 py-1">{{ $post->category->title }}</span>
             </p>
-            <a href="{{ url()->previous() }}" class="flex items-center gap-2 text-gray-700 hover:text-gray-700">
+            <a href="{{ url()->previous() }}" wire:navigate class="flex items-center gap-2 text-gray-700 hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
