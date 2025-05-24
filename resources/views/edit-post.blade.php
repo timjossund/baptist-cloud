@@ -63,7 +63,6 @@
                                 Publish
                             </x-primary-button>
                         </div>
-
                     </div>
                 </form>
                 <a href="{{ route('public-profile', $post->user) }}" class="text-red-500">Cancel Edit</a>

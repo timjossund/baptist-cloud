@@ -9,10 +9,10 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                         <h2 class="text-2xl text-black !hover:no-underline">Baptist.Cloud</h2>
                     </a>
-                    <x-nav-link wire:navigate :href="route('home-page')" :active="request()->routeIs(['home-page', 'byCategory'])">
+                    <x-nav-link wire:navigate :href="route('home-page')" class="hidden md:block" :active="request()->routeIs(['home-page', 'byCategory'])">
                         {{ __('Articles') }}
                     </x-nav-link>
-                    <x-nav-link wire:navigate :href="route('positions')" :active="request()->routeIs('positions')">
+                    <x-nav-link wire:navigate :href="route('positions')" class="hidden md:block" :active="request()->routeIs('positions')">
                         {{ __('Open Positions') }}
                     </x-nav-link>
                 </div>
@@ -128,6 +128,12 @@
 
             <div class="mt-3 space-y-1">
                 @auth
+                <x-responsive-nav-link wire:navigate :href="route('home-page')">
+                    {{ __('Articles') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link wire:navigate :href="route('positions')">
+                    {{ __('Open Positions') }}
+                </x-responsive-nav-link>
                 <a href="/billing"
                    class="block w-full px-4 py-2 text-start text-md leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                     {{ __('Manage Billing') }}
@@ -140,6 +146,7 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

@@ -1,10 +1,10 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto mt-10 px-5">
-        <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
+        <div class="bg-white py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
             <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Open Ministry Positions:</h2>
             <div class="flex flex-wrap gap-4">
             @foreach($positions as $position)
-                <div class="border-gray-50 border-2 rounded-lg shadow-lg sm:rounded-lg flex flex-col gap-2 p-4 w-5/12">
+                <div class="border-gray-50 border-2 rounded-lg shadow-lg flex flex-col gap-2 p-4 md:w-5/12">
                     <div class="w-full flex items-center gap-4">
                         <p class="text-sm text-gray-600 mt-1">
                             {{ $position->created_at->format('n/j/Y') }}
