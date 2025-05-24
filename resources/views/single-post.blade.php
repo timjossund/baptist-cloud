@@ -3,7 +3,7 @@
         <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 <h1 class="md:text-5xl text-3xl">{{ $post->title }}</h1>
-                <p class="text-gray-500 mb-4">
+                <p class="text-gray-500 mb-4 mt-2">
                     {{ $post->updated_at->format('n/j/Y') }} - Around
                     {{ $post->readTime() }}
                     @if ($post->readTime() != 1)
