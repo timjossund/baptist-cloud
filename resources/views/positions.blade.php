@@ -4,8 +4,8 @@
             <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Open Ministry Positions:</h2>
             <div class="flex flex-wrap gap-4">
             @foreach($positions as $position)
-                <div class="border-gray-50 border-2 rounded-lg shadow-lg flex flex-col gap-2 p-4 md:w-5/12">
-                    <div class="w-full flex items-center gap-4">
+                <div class="bg-gray-50 rounded-lg shadow-lg flex flex-col md:flex-row items-start md:items-end gap-2 p-4 w-full relative min-h-[200px] md:min-h-[100px]">
+                    <div class="flex flex-col gap-2">
                         <p class="text-sm text-gray-600 mt-1">
                             {{ $position->created_at->format('n/j/Y') }}
                         </p>
@@ -18,12 +18,14 @@
                             </svg>
                         </a>
                     @endif
+                    <h2 class="text-2xl md:text-3xl font-bold">{{ $position->position }}</h2>
                     </div>
-                    <h2>{{ $position->position }}</h2>
-                    <p>{{ $position->church }} in {{ $position->city }}, {{ $position->state }}</p>
-                    <a href="/position/{{ $position->id }}" wire:navigate><x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg mt-4">
-                        Read More
-                    </x-primary-button></a>
+                    <p class="mb-1"> - {{ $position->church }} in {{ $position->city }}, {{ $position->state }}</p>
+                    <a href="/position/{{ $position->id }}" wire:navigate class="absolute bottom-0 left-0 md:left-auto md:right-0 md:h-full flex items-center justify-center w-full md:w-auto rounded-bl-lg md:rounded-bl-none md:rounded-tr-lg rounded-br-lg bg-gray-800 cursor-pointer">
+                        <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">
+                            Read More
+                        </div>
+                    </a>
                 </div>
             @endforeach
             </div>
