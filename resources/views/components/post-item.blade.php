@@ -73,11 +73,11 @@
             </div>
         </div>
         @auth
-            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="bg-gray-800 text-white py-2 px-8 rounded-md" wire:navigate>
+            <a href="{{ route('single-post', [ 'username' => $post->user->username, 'post' => $post->slug ]) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" wire:navigate>
                 Read More
             </a>
         @else
-            <a href="{{ route('login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-md" wire:navigate>
+            <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" wire:navigate>
                 Login to read more
             </a>
         @endauth
