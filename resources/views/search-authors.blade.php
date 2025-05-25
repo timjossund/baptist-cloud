@@ -23,23 +23,23 @@
                                     <tbody class="divide-y divide-gray-300 bg-white">
                                         @foreach($users as $user)
                                             @if($user->is_author)
-                                            <tr class="even:bg-gray-100">
-                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-0 flex items-center gap-2">
-                                                    <img class="w-8 h-auto rounded-full" src="{{ $user->avatar }}" alt="{{ $user->name }}">
-                                                    <a href="{{ route('public-profile', $user) }}" wire:navigate class="cursor-pointer hover:underline">
-                                                        {{ $user->name }}
-                                                    </a>
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">
-                                                    {{ $user->bio }}
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">
-                                                    {{ $user->posts()->count() === 0 ? 'no posts yet' : $user->posts()->count() }}
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                    <a href="{{ route('public-profile', $user) }}" wire:navigat class="bg-black text-white px-3 py-2 text-md">Visit Profile</a>
-                                                </td>
-                                            </tr>
+                                                <tr class="even:bg-gray-100">
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-0 flex items-center gap-2">
+                                                        <img class="w-8 h-auto rounded-full" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                                                        <a href="{{ route('public-profile', $user) }}" wire:navigate class="cursor-pointer hover:underline">
+                                                            {{ $user->name }}
+                                                        </a>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">
+                                                        {{ $user->bio }}
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">
+                                                        {{ $user->posts()->count() === 0 ? 'no posts yet' : $user->posts()->count() }}
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                        <a href="{{ route('public-profile', $user) }}" wire:navigat class="bg-black text-white px-3 py-2 text-md">Visit Profile</a>
+                                                    </td>
+                                                </tr>
                                             @endif
                                         @endforeach
                                     </tbody>
