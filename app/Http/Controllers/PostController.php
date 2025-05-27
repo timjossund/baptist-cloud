@@ -229,5 +229,10 @@ class PostController extends Controller
         return view('home-page');
     }
 
+    public function markdownSandbox()
+    {
+        return view('learn-markdown' );
+    }
+
 
 }

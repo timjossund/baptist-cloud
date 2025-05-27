@@ -110,7 +110,7 @@
                     </div>
                     {{-- Listing Body --}}
                     <div class="mt-8 w-full">
-                        <label for="listingContent" class="text-lg text-gray-700">More Details: <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="https://www.markdownguide.org/cheat-sheet/">Learn Markdown</a></span></label>
+                        <label for="listingContent" class="text-lg text-gray-700">More Details: <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn Markdown</a></span></label>
                         <textarea class="w-full" id="listingContent" rows="10" name="content">{{ old('content') }}</textarea>
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>

@@ -22,6 +22,7 @@ Route::middleware(['auth', 'verified'
     Route::patch('/post/{post:slug}/publish', [PostController::class, 'publish'])->name('publish-post');
     Route::patch('/post/{post:slug}', [PostController::class, 'update'])->name('update-post');
     Route::delete('/post/{post}/delete', [PostController::class, 'destroy'])->name('delete-post');
+    Route::get('/learn-markdown', [PostController::class, 'markdownSandbox'])->name('markdown-sandbox');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

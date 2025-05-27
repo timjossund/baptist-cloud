@@ -33,7 +33,7 @@
                     </p>
                 </div>
                 <x-like-btn :post="$post" />
-                <img src="{{ $post->image }}" alt="Featured Image" class="w-full h-40 md:h-96 rounded-xl object-cover mb-12">
+                <img src="{{ $post->image }}" alt="Featured Image" class="w-full aspect-[16/9] rounded-xl object-cover mb-12">
                 <p class="text-lg">{!! $post->content !!}</p>
             </div>
             <p class="my-10">
