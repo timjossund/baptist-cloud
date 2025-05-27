@@ -4,10 +4,11 @@
             <div class="mb-8">
                 <div class="sm:flex sm:items-center">
                     <div class="flex w-full flex-col ml-2">
-                        <h1 class="font-semibold text-gray-900 w-full text-3xl mb-2">Supported Markdown Syntax:</h1>
+                        <h1 class="font-semibold text-gray-900 w-full text-3xl mb-4">Markdown Sandbox</h1>
+                        <h5>Supported Markdown Syntax:</h5>
                     </div>
                 </div>
-                <div class="mt-8 flow-root border">
+                <div class="flow-root border">
                     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                             <table class="min-w-full divide-y divide-gray-300">
@@ -24,7 +25,7 @@
                                 </tr>
                                 <tr class="even:bg-gray-50">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3 border-r">Emphasis</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">*italics* <br> **bold** <br> _italics_ <br> __bold__</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">*italics* <br> **bold**</td>
                                 </tr>
                                 <tr class="even:bg-gray-50">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3 border-r">Links</td>
@@ -51,7 +52,7 @@
         </div>
         <div class="markdown-body w-5/12">
             <textarea wire:model.live="markdown" rows="10" type="text" class="w-full" placeholder="Type your markdown here"></textarea>
-            <div class="markdown-body w-full mt-11 border p-4 h-72 overflow-y-scroll">
+            <div class="markdown-body w-full mt-4 border p-4 h-72 overflow-y-scroll">
                 {!! $content !!}
             </div>
 
