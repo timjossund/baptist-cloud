@@ -38,6 +38,7 @@ class PostForm extends Component
     public $slug = '';
 
     public function store() {
+        $this->validate();
         $this->title = strip_tags($this->title);
         $this->content = strip_tags($this->content);
         $category_id = $this->category_id;
