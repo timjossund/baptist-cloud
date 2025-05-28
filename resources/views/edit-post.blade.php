@@ -10,9 +10,9 @@
                         Publish
                     </div>
                     {{-- Post Image --}}
-                    <div class="mb-56 w-full h-48 bg-cover bg-center rounded-lg">
+                    <div class="">
                         <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>
-                        <img src="{{ $post->image }}" alt="">
+                        <img src="{{ $post->image }}" alt="" class="rounded-lg aspect-[16/9] bg-cover bg-center">
                     </div>
                     <div>
                         <x-input-label class="block mb-2" for="image">
