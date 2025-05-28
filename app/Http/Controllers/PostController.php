@@ -104,7 +104,7 @@ class PostController extends Controller
      */
     public function show(string $username, Post $post)
     {
-        $post['content'] = Str::markdown($post->content);
+        //$post['content'] = Str::markdown($post->content);
         return view('single-post', ['post' => $post]);
     }
 

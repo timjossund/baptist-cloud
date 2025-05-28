@@ -15,6 +15,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+    <!-- Include Jodit CSS Styling -->
+    <link rel="stylesheet" href="//unpkg.com/jodit@4.1.16/es2021/jodit.min.css">
+
     @livewireStyles
 </head>
 
@@ -70,14 +73,16 @@
         @endif
     </footer>
 {{--    @push('scripts')--}}
-{{--        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>--}}
-{{--        <script>--}}
-{{--            const quill = new Quill('#bodycontent', { theme: 'snow' });--}}
-{{--            quill.on('text-change', function() {--}}
-{{--                document.getElementById("content").value = quill.root.innerHTML;--}}
-{{--            });--}}
-{{--        </script>--}}
-    @livewireScripts
+        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+        <script>
+            const quill = new Quill('#body_content', { theme: 'snow' });
+            quill.on('text-change', function() {
+                document.getElementById("bodyContent").value = quill.root.innerHTML;
+            });
+        </script>
+        <!-- Include the Jodit JS Library -->
+        <script src="//unpkg.com/jodit@4.1.16/es2021/jodit.min.js"></script>
+        @livewireScripts
 {{--    @endpush--}}
 </body>
 

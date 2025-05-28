@@ -2,24 +2,24 @@
 
 namespace App\Livewire;
 
-use App\Models\Post;
 use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class PostForm extends Component
+class EditPost extends Component
 {
-    use withFileUploads;
-
-    public function render()
+    public function render(Post $post)
     {
         $categories = Category::get();
-        return view('livewire.post-form', ['categories' => $categories]);
+        return view('livewire.edit-post', [
+            'post' => $post, 'categories' => $categories
+        ]);
     }
 
     #[Validate('required')]
@@ -37,25 +37,25 @@ class PostForm extends Component
     public $user_id = 0;
     public $slug = '';
 
-    public function store() {
+    public function update()
+    {
         $this->title = strip_tags($this->title);
         //$this->content = strip_tags($this->content);
         $category_id = $this->category_id;
+        if ($this->image) {
         $featureImage = "image" . uniqid(10) . ".jpg";
-
         $manager = new ImageManager(new Driver());
         $image = $manager->read($this->image);
         $imgNew = $image->cover(1200, 675)->toJpeg();
         Storage::disk('public')->put("images/".$featureImage, $imgNew);
         $this->image = $featureImage;
         $this->slug = Str::slug($this->title . '-' . Str::random(3));
-
+        }
         $this->user_id = auth()->id();
+        $this->validate();
 
-        Post::create(
-            $this->only(['title', 'content', 'category_id', 'image', 'slug', 'user_id'])
+        $this->post->update(
+            $this->all()
         );
-        //dd($this->slug);
-        return redirect('/post/'. $this->slug .'/edit')->with('success', 'Draft Saved Successfully');
     }
 }
