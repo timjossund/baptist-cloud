@@ -32,7 +32,7 @@
         <label for="content" class="text-lg text-gray-700 mb-2">Body Content:
             <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn Markdown</a></span>
         </label>
-        <textarea class="hidden" id="bodyContent" name="bodyContent" wire:model="content">{{ old('content') }}</textarea>
+        <textarea rows="10" id="bodyContent" name="bodyContent" wire:model="content">{{ old('content') }}</textarea>
 {{--        <div id="body_content" class="min-h-32">{!! old('content') !!}</div>--}}
 {{--        <livewire:jodit-text-editor wire:model="content" />--}}
         <x-input-error :messages="$errors->get('content')" class="mt-2" />
