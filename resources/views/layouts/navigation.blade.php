@@ -27,7 +27,7 @@
                                 {{ __('Create Listing') }}
                             </x-nav-link>
                         @else
-                            <x-nav-link wire:navigate :href="route('create-post')" :active="request()->routeIs('create-post')">
+                            <x-nav-link :href="route('create-post')" :active="request()->routeIs('create-post')">
                                 {{ __('Create Article') }}
                             </x-nav-link>
                         @endif

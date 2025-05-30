@@ -1,14 +1,15 @@
 <form wire:submit="store" class="m-auto w-full max-w-6xl flex flex-col gap-4">
     @csrf
     {{-- Post Image --}}
-    <div>
-        @if ($image)
-            <img src="{{ $image->temporaryUrl() }}" alt="" class="w-full rounded-xl object-cover mb-12 aspect-[16/9]">
-        @endif
-        <x-input-label class="block mb-2" for="image">Featured Image: this will be cropped to a 16:9 ratio</x-input-label>
-        <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:border-indigo-500" aria-describedby="file_input_help" id="image" type="file" name="image" wire:model="image" autofocus>
-        <x-input-error :messages="$errors->get('image')" class="mt-2" />
-    </div>
+    <livewire:post-image />
+{{--    <div>--}}
+{{--        @if ($image)--}}
+{{--            <img src="{{ $image->temporaryUrl() }}" alt="" class="w-full rounded-xl object-cover mb-12 aspect-[16/9]">--}}
+{{--        @endif--}}
+{{--        <x-input-label class="block mb-2" for="image">Featured Image: this will be cropped to a 16:9 ratio</x-input-label>--}}
+{{--        <input class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:border-indigo-500" aria-describedby="file_input_help" id="image" type="file" name="image" wire:model="image" autofocus>--}}
+{{--        <x-input-error :messages="$errors->get('image')" class="mt-2" />--}}
+{{--    </div>--}}
     {{-- Post Title --}}
     <div>
         <x-input-label for="title" :value="__('Title:')" />
@@ -32,9 +33,9 @@
         <label for="content" class="text-lg text-gray-700 mb-2">Body Content:
 {{--            <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn Markdown</a></span>--}}
         </label>
-{{--        <textarea class="hidden" id="bodyContent" name="bodyContent" wire:model="content">{{ old('content') }}</textarea>--}}
-{{--        <div id="body_content" class="min-h-32">{!! old('content') !!}</div>--}}
-        <livewire:jodit-text-editor wire:model.live="content" />
+        <textarea class="hidden" id="bodyContent" name="bodyContent" wire:model="content">{{ old('content') }}</textarea>
+        <div id="body_content" class="min-h-32">{!! old('content') !!}</div>
+{{--        <livewire:jodit-text-editor wire:model.live="content" />--}}
         <x-input-error :messages="$errors->get('content')" class="mt-2" />
     </div>
     {{-- Post Submit --}}

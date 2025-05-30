@@ -14,6 +14,7 @@ use Livewire\Component;
 
 class EditPost extends Component
 {
+    public Post $post;
     public function render(Post $post)
     {
         $categories = Category::get();
@@ -26,7 +27,7 @@ class EditPost extends Component
     public $title = '';
 
     #[Validate('required')]
-    public $content = '';
+    public $content;
 
     #[Validate('required')]
     public $category_id = 0;

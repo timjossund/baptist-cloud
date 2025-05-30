@@ -137,7 +137,7 @@ class PostController extends Controller
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);
-        $data['content'] = strip_tags($data['content']);
+        //$data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
@@ -158,7 +158,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved Successfully');
+        return redirect("/post/".$data['slug']."/edit")->with('success', 'Draft Saved Successfully');
     }
 
     public function publish(Request $request, Post $post)

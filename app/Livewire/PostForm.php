@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -22,16 +23,16 @@ class PostForm extends Component
         return view('livewire.post-form', ['categories' => $categories]);
     }
 
-    #[Validate('required')]
+    #[Rule('required')]
     public $title = '';
 
-    #[Validate('required')]
+    #[Rule('required')]
     public $content = '';
 
-    #[Validate('required')]
+    #[Rule('required')]
     public $category_id = 0;
 
-    #[Validate('required|image|mimes:jpeg,png,jpg|max:6048')]
+    #[Rule('required|image|mimes:jpeg,png,jpg')]
     public $image;
 
     public $user_id = 0;

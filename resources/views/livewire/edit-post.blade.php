@@ -7,7 +7,7 @@
             Publish
         </div>
         {{-- Post Image --}}
-        <div class="mb-56 w-full h-48 bg-cover bg-center rounded-lg">
+        <div class="mb-6 bg-cover bg-center rounded-lg aspect[16/9]">
             <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>
             <img src="{{ $post->image }}" alt="">
         </div>
@@ -45,9 +45,8 @@
             <label for="content" class="text-lg text-gray-700 mb-2">Body Content:
                 {{--                            <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn Markdown</a></span>--}}
             </label>
-            {{--                        <textarea id="content" rows="10" name="content">{!! $post->content !!}  </textarea>--}}
-            <livewire:jodit-text-editor wire:model.live="content" value="{!! $post->content !!}"/>
-            {{--                        <div id="bodycontent">{!! $post->content !!}</div>--}}
+            <textarea id="bodyContent" rows="10" name="content" class="hidden">{!! $post->content !!}</textarea>
+            <div id="body_content">{!! $post->content !!}</div>
             <x-input-error :messages="$errors->get('content')" class="mt-2" />
         </div>
         {{-- Post Submit --}}
