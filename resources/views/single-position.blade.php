@@ -9,7 +9,7 @@
                     <div class="pb-2">
                         <h3>Position Details:</h3>
                     </div>
-                    <div class="px-4 py-2 bg-gray-50 rounded-lg">
+                    <div class="px-4 py-2 bg-gray-50 rounded-lg" id="markdown-body">
                         {!! $position->content !!}
                     </div>
                 </div>
