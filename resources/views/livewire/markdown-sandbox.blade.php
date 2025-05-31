@@ -1,11 +1,11 @@
 <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
     <div class="mx-auto w-full max-w-2xl lg:max-w-6xl flex flex-wrap justify-around">
-        <div class="markdown-body w-5/12">
+        <div class="markdown-body w-5/12" id="markdown-body">
             <div class="mb-8">
                 <div class="sm:flex sm:items-center">
                     <div class="flex w-full flex-col ml-2">
-                        <h1 class="font-semibold text-gray-900 w-full text-3xl mb-4">Markdown Sandbox</h1>
-                        <h5>Supported Markdown Syntax:</h5>
+                        <h1 class="font-semibold text-gray-900 w-full text-3xl mb-4">Markdown Sandbox: </h1>
+                        <h5>Markdown Syntax: <span class="text-xs text-gray-500">learn more about <a href="https://www.markdownguide.org/cheat-sheet/" class="underline text-blue-600" target="_blank">Markdown</a></span></h5>
                     </div>
                 </div>
                 <div class="flow-root border">
@@ -50,8 +50,8 @@
             </div>
 
         </div>
-        <div class="markdown-body w-5/12">
-            <textarea wire:model.live="markdown" rows="10" type="text" class="w-full" placeholder="Type your markdown here"></textarea>
+        <div class="markdown-body w-5/12" id="markdown-body">
+            <textarea wire:model.live="markdown" rows="10" type="text" class="w-full flex" placeholder="Type your markdown here"></textarea>
             <div class="markdown-body w-full mt-4 border p-4 h-72 overflow-y-scroll">
                 {!! $content !!}
             </div>

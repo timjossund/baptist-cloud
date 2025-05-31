@@ -3,16 +3,16 @@
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg relative">
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Publish Your Post</h2>
-                    <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">
+                <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">
                     @csrf
                     @method('patch')
                     <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 absolute top-12 right-12" @click="publish = true">
                         Publish
                     </div>
                     {{-- Post Image --}}
-                    <div class="">
+                    <div class="bg-cover bg-center">
                         <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>
-                        <img src="{{ $post->image }}" alt="" class="rounded-lg aspect-[16/9] bg-cover bg-center">
+                        <img src="{{ $post->image }}" alt="" class="rounded-lg aspect-[16/9] ">
                     </div>
                     <div>
                         <x-input-label class="block mb-2" for="image">
@@ -37,7 +37,8 @@
                         <select name="category_id" id="category_id" class="block border mt-1 w-full text-xl p-2">
                             <option value="">Select a Category:</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @selected($post->category_id == $category->id)>{{ $category->title }}
+                                <option value="{{ $category->id }}" @selected($post->category_id == $category->id)>
+                                    {{ $category->title }}
                                 </option>
                             @endforeach
                         </select>
@@ -46,7 +47,7 @@
                     {{-- Post Body --}}
                     <div class="mt-2 w-full flex flex-col">
                         <label for="content" class="text-lg text-gray-700 mb-2">Body Content: <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn Markdown</a></span></label>
-                        <textarea id="content" rows="10" name="content">{{ $post->content }}</textarea>
+                        <textarea id="content" rows="10" name="content">{{ $post->content }} </textarea>
 {{--                        <div id="bodycontent">{!! $post->content !!}</div>--}}
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
@@ -65,6 +66,9 @@
                             <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg" type="submit">
                                 Publish
                             </x-primary-button>
+                            <div class="flex justify-center items-center text-center py-2 rounded-lg  cursor-pointer  hover:text-underline" @click="publish = false">
+                                Cancel
+                            </div>
                         </div>
                     </div>
                 </form>

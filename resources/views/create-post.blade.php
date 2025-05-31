@@ -4,6 +4,7 @@
             <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Create a new post</h2>
                 <livewire:post-form />
+
 {{--                <form action="/post/create-post" method="POST" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">--}}
 {{--                    @csrf--}}
 {{--                    --}}{{-- Post Image --}}
