@@ -45,15 +45,15 @@
                 </p>
             </div>
         </div>
-        <div class="bg-gray-800 text-white py-4">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <p class="text-center">Follow us on:
-                    <a href="#" class="text-blue-400 hover:text-blue-300">X.com</a>,
-                    <a href="#" class="text-blue-400 hover:text-blue-300">Facebook</a>,
-                    <a href="#" class="text-blue-400 hover:text-blue-300">Instagram</a>
-                </p>
-            </div>
-        </div>
+{{--        <div class="bg-gray-800 text-white py-4">--}}
+{{--            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">--}}
+{{--                <p class="text-center">Follow us on:--}}
+{{--                    <a href="#" class="text-blue-400 hover:text-blue-300">X.com</a>,--}}
+{{--                    <a href="#" class="text-blue-400 hover:text-blue-300">Facebook</a>,--}}
+{{--                    <a href="#" class="text-blue-400 hover:text-blue-300">Instagram</a>--}}
+{{--                </p>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         @if (session()->has('success'))
             <div x-data="{show: true}"
                  x-init="setTimeout(() => show = false, 3000)"
