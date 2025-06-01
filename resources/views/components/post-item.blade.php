@@ -67,7 +67,10 @@
                         <a href="{{ route('public-profile', $post->user) }}" class="hover:underline !text-gray-500" wire:navigate>
                             {{ $post->user->name }}
                         </a>
-                        - {{ $post->user->bio }}
+                        @if( $post->user->bio )
+                            - {{ $post->user->bio }}
+                        @endif
+
                     </p>
                 </div>
             </div>
