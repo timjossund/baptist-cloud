@@ -234,5 +234,10 @@ class PostController extends Controller
         return view('learn-markdown' );
     }
 
+    public function search()
+    {
+        return view('search');
+    }
+
 
 }

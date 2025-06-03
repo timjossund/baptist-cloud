@@ -20,7 +20,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 mr-8 sm:flex">
+                <div class="hidden space-x-6 sm:-my-px sm:ms-10 sm:flex">
                 @auth
                     <x-dropdown align="left" width="48">
                         <x-slot name="trigger">
@@ -51,7 +51,6 @@
 
                         </x-slot>
                     </x-dropdown>
-
 
                     </div>
                     <x-dropdown align="left" width="48">
@@ -113,6 +112,11 @@
                         @endif
                     </div>
                 @endauth
+                <a href="/search" class="px-2 py-2 text-white bg-gray-200 rounded-md">
+                    <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </a>
             </div>
 
             <!-- Hamburger -->

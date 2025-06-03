@@ -77,5 +77,4 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function hasLiked(Post $post) {
         return $post->likes()->where('user_id', $this->id)->exists();
     }
-
 }

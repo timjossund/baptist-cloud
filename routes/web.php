@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
+    Route::get('/search', [PostController::class, 'search'])->name('search');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
     Route::post('/like/{post}', [LikeController::class, 'like'])->name('like');
