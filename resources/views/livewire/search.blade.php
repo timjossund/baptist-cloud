@@ -1,7 +1,7 @@
 <div class="flex flex-wrap">
     <input type="text" wire:model.live="search" class="w-full" placeholder="Start typing a search..." autofocus>
-    <div class="w-1/2 mt-4 px-4">
-        <h3 class="mb-2">Results in Authors:</h3>
+    <div class="w-1/2 mt-4 pr-4">
+        <h3 class="mb-2">Results in users:</h3>
         <ul class="flex flex-col gap-4">
         @if ($search)
         @foreach ($users as $user)
@@ -16,7 +16,7 @@
         </ul>
     </div>
     <div class="w-1/2 mt-4">
-        <h3 class="mb-2">Results in Articles:</h3>
+        <h3 class="mb-2">Results in articles:</h3>
         <ul class="flex flex-col gap-4">
         @if ($search)
         @foreach ($posts as $post)
