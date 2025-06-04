@@ -85,7 +85,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect("/post/".$data['slug']."/edit")->with('success', 'Draft Saved Successfully');
+        return redirect("/post/".$data['slug']."/edit")->with('success', 'Draft Saved');
     }
 
 //    public function publish(Request $request)
@@ -160,7 +160,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved Successfully');
+        return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved');
     }
 
     public function publish(Request $request, Post $post)
@@ -201,7 +201,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Post Published Successfully');
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Published');
     }
 
     /**
@@ -215,7 +215,7 @@ class PostController extends Controller
         $postImage = $post->getRawOriginal('image');
         Storage::disk('public')->delete("images/".$postImage);
         $post->delete();
-        return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted Successfully');
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted');
     }
 
     public function category(Category $category) {
