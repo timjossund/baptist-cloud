@@ -59,7 +59,6 @@ class PostForm extends Component
         Post::create(
             $this->only(['title', 'content', 'tags', 'category_id', 'image', 'slug', 'user_id'])
         );
-        //dd($this->slug);
         return redirect('/post/'. $this->slug .'/edit')->with('success', 'Draft Saved');
     }
 }
