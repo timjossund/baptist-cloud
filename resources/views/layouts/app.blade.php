@@ -65,7 +65,10 @@
                  x-transition:leave-start="opacity-100 scale-100"
                  x-transition:leave-end="opacity-0 scale-90"
                  class="fixed py-4 px-12 bottom-10 right-10 max-w-80 shadow-lg z-10 bg-blue-600 rounded-lg">
-                <div class="w-full text-center text-lg text-white">
+                <div class="w-full text-center text-lg text-white flex items-center gap-2">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+                    </svg>
                     {{ session('success') }}
                 </div>
             </div>
