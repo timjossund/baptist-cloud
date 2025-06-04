@@ -28,6 +28,9 @@ class PostForm extends Component
     #[Validate('required')]
     public $content = '';
 
+    #[Validate('nullable')]
+    public $tags = '';
+
     #[Validate('required')]
     public $category_id = 0;
 
@@ -54,7 +57,7 @@ class PostForm extends Component
         $this->user_id = auth()->id();
 
         Post::create(
-            $this->only(['title', 'content', 'category_id', 'image', 'slug', 'user_id'])
+            $this->only(['title', 'content', 'tags', 'category_id', 'image', 'slug', 'user_id'])
         );
         //dd($this->slug);
         return redirect('/post/'. $this->slug .'/edit')->with('success', 'Draft Saved Successfully');

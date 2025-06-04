@@ -133,12 +133,14 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
+            'tags' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
+        $data['tags'] = strip_tags($data['tags']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         if ($request->file('image') != null) {
@@ -171,12 +173,14 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
+            'tags' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
         //dd($data);
         $data['title'] = strip_tags($data['title']);
 //        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
+        $data['tags'] = strip_tags($data['tags']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         if ($request->file('image') != null) {

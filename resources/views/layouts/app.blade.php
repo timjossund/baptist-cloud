@@ -98,5 +98,4 @@
     @livewireScripts
 {{--    @endpush--}}
 </body>
-
 </html>

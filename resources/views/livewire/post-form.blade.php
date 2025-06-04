@@ -27,6 +27,12 @@
         </select>
         <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
     </div>
+    {{-- Post Tags --}}
+    <div>
+        <x-input-label for="tags" :value="__('Tags: (comma separated)')" />
+        <input type="text" name="tags" id="tags" class="block border mt-1 w-full text-xl p-2" value="{{ old('tags') }}" wire:model="tags">
+        <x-input-error :messages="$errors->get('tags')" class="mt-2" />
+    </div>
     {{-- Post Body --}}
     <div class="mt-2 w-full flex flex-col">
         <label for="content" class="text-lg text-gray-700 mb-2">Body Content:

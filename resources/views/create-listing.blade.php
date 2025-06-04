@@ -39,7 +39,7 @@
                     <div class="w-5/12 mt-4">
                         <x-input-label for="website" :value="__('Church Website:')" />
                         <x-text-input id="website" class="border mt-1 w-full text-xl p-2" type="website"
-                                      name="website" :value="old('website')" placeholder="https://yourchurchwebsite" />
+                                      name="website" :value="old('website')" placeholder="https://yourchurchwebsite.com" />
                         <x-input-error :messages="$errors->get('website')" class="mt-2" />
                     </div>
                     {{-- Church City --}}
