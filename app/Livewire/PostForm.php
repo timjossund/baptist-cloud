@@ -60,6 +60,6 @@ class PostForm extends Component
             $this->only(['title', 'content', 'tags', 'category_id', 'image', 'slug', 'user_id'])
         );
         //dd($this->slug);
-        return redirect('/post/'. $this->slug .'/edit')->with('success', 'Draft Saved Successfully');
+        return redirect('/post/'. $this->slug .'/edit')->with('success', 'Draft Saved');
     }
 }
