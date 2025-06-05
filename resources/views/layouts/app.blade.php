@@ -99,7 +99,7 @@
 {{--                document.getElementById("content").value = quill.root.innerHTML;--}}
 {{--            });--}}
 {{--        </script>--}}
-    {{-- <script>
+    <script>
         window.onloadTurnstileCallback = function () {
             turnstile.render('#turnstile', {
                 sitekey: '{{ config('turnstile.site_key') }}',
@@ -108,6 +108,7 @@
             },
         });
     };
+    </script>
     @livewireScripts
    {{-- @endpush --}}
 </body>
