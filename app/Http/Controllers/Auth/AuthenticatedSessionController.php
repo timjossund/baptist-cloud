@@ -26,9 +26,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->validate([
-            'cf-turnstile-response' => ['required', Rule::turnstile()],
-        ]);
+        if (!app()->environment(['local', 'testing'])) {
+            $request->validate([
+                'cf-turnstile-response' => ['required', Rule::turnstile()],
+            ]);
+        }
         $request->authenticate();
 
         $request->session()->regenerate();
