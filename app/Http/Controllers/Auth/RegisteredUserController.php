@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use DerekCodes\TurnstileLaravel\TurnstileLaravel;
 
 class RegisteredUserController extends Controller
 {
@@ -78,6 +79,9 @@ class RegisteredUserController extends Controller
 
         $filename = 'default-avatar.jpg';
 
+        $turnstile = new TurnstileLaravel;
+$response = $turnstile->validate($request->get('cf-turnstile-response'));
+
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             try {
                 $filename = $request->username . "-profile-pic.jpg";
@@ -91,7 +95,7 @@ class RegisteredUserController extends Controller
                 return redirect()->back()->withErrors(['avatar' => 'Failed to process avatar image.']);
             }
         }
-
+        if (get_data($response, 'status', 0) == 1) {
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -106,5 +110,8 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('home-page'));
+        } else {
+            return redirect()->back()->withErrors(['turnstile' => 'Turnstile validation failed.']);
+        }
     }
 }
