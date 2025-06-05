@@ -14,7 +14,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!--<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>-->
 {{--    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />--}}
     @livewireStyles
 </head>
@@ -99,6 +99,7 @@
 {{--                document.getElementById("content").value = quill.root.innerHTML;--}}
 {{--            });--}}
 {{--        </script>--}}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
     <script>
         window.onloadTurnstileCallback = function () {
             turnstile.render('#turnstile', {
