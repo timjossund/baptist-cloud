@@ -101,6 +101,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $turnstile = new TurnstileLaravel;
+        $response = $turnstile->validate($request->get('cf-turnstile-response'));
+        //Log::info($response);    
+        
+        if (!$response) {
+            return redirect()->back()->withErrors(['turnstile' => 'Turnstile validation failed.']);
+        }
+
         event(new Registered($user));
 
         Auth::login($user);
