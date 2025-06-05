@@ -14,7 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use DerekCodes\TurnstileLaravel\TurnstileLaravel;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -69,6 +69,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'cf-turnstile-response' => ['required', Rule::turnstile()],
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'bio' => ['nullable', 'string', 'max:255'],
@@ -101,14 +102,6 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        
-        $turnstile = new TurnstileLaravel;
-        $response = $turnstile->validate($request->get('cf-turnstile-response'));
-        //Log::info($response);    
-        
-        if (!$response) {
-            return redirect()->back()->withErrors(['turnstile' => 'Turnstile validation failed.']);
-        }
 
         event(new Registered($user));
 
