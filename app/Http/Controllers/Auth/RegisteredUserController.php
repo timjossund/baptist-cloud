@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use DerekCodes\TurnstileLaravel\TurnstileLaravel;
 
 class RegisteredUserController extends Controller
 {
