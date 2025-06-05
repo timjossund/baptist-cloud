@@ -80,7 +80,7 @@ class RegisteredUserController extends Controller
         $filename = 'default-avatar.jpg';
 
         $turnstile = new TurnstileLaravel;
-$response = $turnstile->validate($request->get('cf-turnstile-response'));
+        $response = $turnstile->validate($request->get('cf-turnstile-response'));
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             try {
