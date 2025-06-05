@@ -1,5 +1,6 @@
 <x-app-layout>
-    <div class="mb-4 text-sm text-gray-600">
+    <div class="max-w-3xl mx-auto mt-10 p-10 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center">
+    <div class="mb-4 text-lg text-gray-600 text-center">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
 
@@ -24,4 +25,5 @@
             </x-primary-button>
         </div>
     </form>
+    </div>
 </x-app-layout>
