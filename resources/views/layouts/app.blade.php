@@ -99,7 +99,7 @@
 {{--                document.getElementById("content").value = quill.root.innerHTML;--}}
 {{--            });--}}
 {{--        </script>--}}
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"></script>
     <script>
         window.onloadTurnstileCallback = function () {
             turnstile.render('#turnstile', {
