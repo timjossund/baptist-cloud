@@ -90,7 +90,7 @@
             </div>
         @endif
     </footer>
-   @push('scripts')
+   {{-- @push('scripts')
 {{--        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>--}}
 {{--        <script>--}}
 {{--            const quill = new Quill('#bodycontent', { theme: 'snow' });--}}
@@ -109,6 +109,6 @@
         });
     }; --}}
     @livewireScripts
-   @endpush
+   {{-- @endpush --}}
 </body>
 </html>
