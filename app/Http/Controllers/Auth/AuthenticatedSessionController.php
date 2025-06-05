@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use DerekCodes\TurnstileLaravel\TurnstileLaravel;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -25,18 +24,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $turnstile = new TurnstileLaravel;
-        $response = $turnstile->validate($request->get('cf-turnstile-response'));
-
-        if (get_data($response, 'status', 0) == 1) {
         $request->authenticate();
 
         $request->session()->regenerate();
 
         return redirect()->intended(route('home-page', absolute: false));
-        } else {
-            return redirect()->back()->withErrors(['turnstile' => 'Turnstile validation failed.']);
-        }
     }
 
     /**
