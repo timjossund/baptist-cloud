@@ -90,7 +90,7 @@
             </div>
         @endif
     </footer>
-{{--    @push('scripts')--}}
+   @push('scripts')
 {{--        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>--}}
 {{--        <script>--}}
 {{--            const quill = new Quill('#bodycontent', { theme: 'snow' });--}}
@@ -98,7 +98,17 @@
 {{--                document.getElementById("content").value = quill.root.innerHTML;--}}
 {{--            });--}}
 {{--        </script>--}}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+
+    window.onloadTurnstileCallback = function () {
+        turnstile.render('#turnstile', {
+            sitekey: '{{ config('turnstile.site_key') }}',
+            callback: function(token) {
+                console.log(`Challenge Success ${token}`);
+            },
+        });
+    };
     @livewireScripts
-{{--    @endpush--}}
+   @endpush
 </body>
 </html>

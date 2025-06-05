@@ -39,6 +39,7 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+                <div id="turnstile"></div>
 
                 <x-primary-button class="ms-3">
                     {{ __('Log in') }}
