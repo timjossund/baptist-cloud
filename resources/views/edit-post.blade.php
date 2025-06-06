@@ -12,7 +12,7 @@
                     {{-- Post Image --}}
                     <div class="bg-cover bg-center">
                         <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>
-                        <img src="{{ $post->image }}" alt="" class="rounded-lg aspect-[16/9] ">
+                        <img src="{{ $post->image }}" alt="" class="rounded-lg aspect-[3/1] ">
                     </div>
                     <div>
                         <x-input-label class="block mb-2" for="image">

@@ -49,7 +49,7 @@ class PostForm extends Component
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($this->image);
-        $imgNew = $image->cover(1200, 675)->toJpeg();
+        $imgNew = $image->cover(1200, 400)->toJpeg();
         Storage::disk('public')->put("images/".$featureImage, $imgNew);
         $this->image = $featureImage;
         $this->slug = Str::slug($this->title . '-' . Str::random(3));

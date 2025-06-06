@@ -33,7 +33,7 @@
                     </p>
                 </div>
                 <x-like-btn :post="$post" />
-                <img src="{{ $post->image }}" alt="Featured Image" class="w-full aspect-[16/9] rounded-xl object-cover mb-12">
+                <img src="{{ $post->image }}" alt="Featured Image" class="w-full aspect-[3/1] rounded-xl object-cover mb-12">
                 <div class="text-lg" id="markdown-body">{!! $post->content !!}</div>
             </div>
             <x-tags :tags="$post->tags" />
