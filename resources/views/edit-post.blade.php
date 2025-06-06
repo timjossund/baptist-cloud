@@ -69,8 +69,11 @@
                         </div>
                     </div>
                     <div x-show="publish" x-cloak class="flex gap-4 fixed justify-center items-center w-full h-full z-50 bg-black bg-opacity-20 top-0 left-0">
-                        <div class="bg-white flex flex-col justify-center items-center text-center py-20 px-40 rounded-lg gap-4">
-                            <h3>Are you sure you want to publish?</h3>
+                        <div class="bg-white flex flex-col justify-center items-center text-center py-20 px-40 rounded-lg gap-2">
+                            <div class="flex flex-col">
+                                <h3>Ready to publish?</h3>
+                                <p>Once published, this post will be visible to all users.</p>
+                            </div>
                             <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg cursor-pointer hover:bg-blue-700 !bg-blue-800" type="submit">
                                 Publish
                             </x-primary-button>

@@ -31,7 +31,7 @@ class AdminController extends Controller
         $user->is_admin = true;
         $user->save();
 
-        return redirect()->back()->with('success', 'User promoted to admin successfully.');
+        return redirect()->back()->with('success', 'Promoted to admin');
     }
 
     public function makeAuthor($id)
@@ -43,7 +43,7 @@ class AdminController extends Controller
         $user->is_author = true;
         $user->save();
 
-        return redirect()->back()->with('success', 'User promoted to author successfully.');
+        return redirect()->back()->with('success', 'promoted to author');
     }
     public function revokeAdmin($id)
     {
@@ -54,7 +54,7 @@ class AdminController extends Controller
         $user->is_admin = false;
         $user->save();
 
-        return redirect()->back()->with('success', 'User demoted from admin successfully.');
+        return redirect()->back()->with('success', 'demoted from admin');
     }
     public function revokeAuthor($id)
     {
@@ -65,7 +65,7 @@ class AdminController extends Controller
         $user->is_author = false;
         $user->save();
 
-        return redirect()->back()->with('success', 'User demoted from author successfully.');
+        return redirect()->back()->with('success', 'demoted from author');
     }
     public function deleteUser($id)
     {
@@ -75,6 +75,6 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->back()->with('success', 'User deleted successfully.');
+        return redirect()->back()->with('success', 'User deleted');
     }
 }
