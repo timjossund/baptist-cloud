@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -67,6 +68,12 @@ class RegisteredUserController extends Controller
     // }
     public function store(Request $request): RedirectResponse
     {
+        if (!app()->environment(['local', 'testing'])) {
+            $request->validate([
+                'cf-turnstile-response' => ['required', Rule::turnstile()],
+            ]);
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],

@@ -1,5 +1,6 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
+<x-app-layout>
+    <div class="max-w-3xl mx-auto mt-10 p-10 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center">
+    <div class="mb-4 text-lg text-gray-600 text-center">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>
 
@@ -22,4 +23,5 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+    </div>
+</x-app-layout>

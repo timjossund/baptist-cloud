@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Validation\Rule;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,6 +26,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        if (!app()->environment(['local', 'testing'])) {
+            $request->validate([
+                'cf-turnstile-response' => ['required', Rule::turnstile()],
+            ]);
+        }
         $request->authenticate();
 
         $request->session()->regenerate();

@@ -1,7 +1,7 @@
 <form wire:submit="store" class="m-auto w-full max-w-6xl flex flex-col gap-4">
     @csrf
     {{-- Post Image --}}
-    <div>
+    <div class="relative">
         @if ($image)
             <img src="{{ $image->temporaryUrl() }}" alt="" class="w-full rounded-xl object-cover mb-12 aspect-[3/1]">
         @endif
