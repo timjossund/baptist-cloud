@@ -15,9 +15,12 @@
                 <div class="flex flex-col justify-center mb-4">
                     <div class="flex gap-2 pb-4 items-center">
                         <x-user-avatar :user="$post->user" />
-                        <p class="!text-gray-500"><a href="{{ route('public-profile', $post->user) }}"
-                                class="!text-gray-500">{{ $post->user->name }}</a> <br>
-                            {{ $post->user->bio }}</p>
+                        <p class="!text-gray-500">
+                            <a href="{{ route('public-profile', $post->user) }}" class="!text-gray-500">
+                                {{ $post->user->name }}
+                            </a> <br>
+                            {{ $post->user->bio }}
+                        </p>
                         <x-follow-container :user="$post->user">
                             @if (auth()->user() && auth()->user()->id !== $post->user->id)
                                 <div class="w-full flex justify-center">
