@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto px-5 w-full">
             <div class="bg-white flex flex-wrap items-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg">
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Create A New Listing</h2>
-                <form action="/create-listing" method="POST" enctype="multipart/form-data" class="w-full max-w-4xl flex flex-wrap justify-between">
+                <form action="/create-listing" method="POST" enctype="multipart/form-data" class="w-full max-w-6xl flex flex-wrap justify-between">
                     @csrf
                     {{-- Position --}}
                     <div class="w-full">
