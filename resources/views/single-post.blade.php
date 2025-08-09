@@ -2,8 +2,8 @@
     <div class="max-w-7xl mx-auto mt-10 px-5">
         <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
-                <div class="flex w-full">
-                    <div class="w-[75%]">
+                <div class="flex w-full flex-wrap">
+                    <div class="w-full sm:w-[75%]">
                         <h1 class="md:text-5xl text-3xl">{{ $post->title }}</h1>
                         <p class="text-gray-500 mb-4 mt-2">
                             {{ $post->updated_at->format('n/j/Y') }} - Around
@@ -38,7 +38,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="flex flex-col w-[25%] gap-2 pb-4">
+                    <div class="flex flex-col w-full sm:w-[25%] gap-2 pb-4">
                         @if ($post->ad_heading)
                             <x-client_ad :post="$post" />
                         @else

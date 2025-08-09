@@ -89,7 +89,7 @@
         @endauth
     </div>
     @else
-    <div class="w-[55%]">
+    <div class="sm:w-[55%]">
         <div class="flex items-center gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500 text-sm">
                 @if($post->published_at == null )
@@ -172,7 +172,7 @@
             </a>
         @endauth
     </div>
-    <div class="w-[25%] flex flex-col gap-y-2">
+    <div class="sm:w-[25%] flex flex-col gap-y-2">
         @if ($post->ad_heading)
             <x-client_ad :post="$post" />
             @else
