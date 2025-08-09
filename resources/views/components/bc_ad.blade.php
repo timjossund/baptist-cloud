@@ -1,5 +1,5 @@
 @php
- $adRandomInt = rand(0, $ads->count())
+ $adRandomInt = rand(1, $ads->count())
 @endphp
 @foreach ($ads as $ad)
     @if($ad->id === $adRandomInt)
