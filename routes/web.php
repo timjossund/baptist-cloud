@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ListingController;
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminController;
@@ -16,6 +17,8 @@ Route::get('/category/{category:title}', [PostController::class, 'category'])->n
 Route::middleware(['auth', 'verified'
 //    'subscribed'
 ])->group(function () {
+    Route::get('/create-ad', [AdController::class, 'index'])->name('create-ad');
+    Route::post('/create-ad', [AdController::class, 'store'])->name('save-ad');
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');

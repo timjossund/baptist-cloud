@@ -17,6 +17,9 @@ class Post extends Model
         'tags',
         'slug',
         'category_id',
+        'ad_heading',
+        'ad_description',
+        'ad_link',
         'user_id',
         'published_at',
     ];

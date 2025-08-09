@@ -1,17 +1,17 @@
-<a href="/" wire:navigate class="{{ Request::segment(2) == '' ? 'rounded-md bg-blue-100 px-3 py-2 text-sm font-medium text-blue-700 active' : 'rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700' }} flex justify-center items-center max-h-9 md:h-auto absolute md:static top-2 left-2 z-10" aria-current="page">
+<a href="/" wire:navigate class="{{ Request::segment(2) == '' ? 'rounded-md bg-blue-100 px-3 py-2 text-md font-medium text-blue-700 active' : 'rounded-md px-3 py-2 text-md font-medium text-gray-500 hover:text-gray-700' }} flex justify-center items-center max-h-9 md:h-auto absolute md:static top-2 left-2 z-10" aria-current="page">
     @auth
         Following
     @else
         All
     @endauth
 </a>
-<div class="items-center border-l-2 border-gray-400 pl-4 hidden md:flex min-w-48 show-md">
+<div class="items-center border-l-2 border-gray-400 pl-4 hidden md:flex min-w-48 show-md font-semibold">
     Browse More By Category:
 </div>
 <div class="items-center hidden md:flex show-md">
 @foreach ($categories as $category)
     <a href="{{ route('byCategory', $category->title) }}" wire:navigate
-        class="inline-block px-4 py-3 {{ Route::currentRouteNamed('byCategory') && request('category')->title == $category->title ? 'rounded-md bg-blue-100 px-3 py-2 text-sm font-medium text-blue-700 active' : 'rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700' }}" aria-current="page">
+        class="inline-block px-4 py-3 {{ Route::currentRouteNamed('byCategory') && request('category')->title == $category->title ? 'rounded-md bg-blue-100 px-3 py-2 text-md font-medium text-blue-700 active' : 'rounded-md px-3 py-2 text-md font-medium text-gray-500 hover:text-gray-700' }}" aria-current="page">
         {{ $category->title }}
     </a>
 @endforeach

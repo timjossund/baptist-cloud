@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\BcAd;
 //use Illuminate\Container\Attributes\DB;
+use Illuminate\Container\Attributes\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -20,21 +22,16 @@ class PostController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $query = Post::query()->whereNotNull('published_at')->latest('published_at');;
+        $query = Post::query()->whereNotNull('published_at')->latest('published_at');
+        $ads = BcAd::get();
+
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
         $posts = $query->simplePaginate(5);
 
-//        \Log::info('Database Queries:', [
-//            'queries' => \DB::getQueryLog(),
-//            'query_count' => count(\DB::getQueryLog())
-//        ]);
-
-
-
-        return view('home-page', ['posts' => $posts]);
+        return view('home-page', ['posts' => $posts, 'ads' => $ads]);
 
     }
 
@@ -62,12 +59,20 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
+            'tags' => 'nullable',
+            'ad_heading' => 'nullable',
+            'ad_description' => 'nullable',
+            'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
 
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
+        $data['tags'] = strip_tags($data['tags']);
+        $data['ad_heading'] = strip_tags($data['ad_heading']);
+        $data['ad_description'] = strip_tags($data['ad_description']);
+        $data['ad_link'] = strip_tags($data['ad_link']);
 
 //        $image = $data['image'];
         //unset($data['image']);
@@ -105,7 +110,8 @@ class PostController extends Controller
     public function show(string $username, Post $post)
     {
         $post['content'] = Str::markdown($post->content);
-        return view('single-post', ['post' => $post]);
+        $ads = BcAd::get();
+        return view('single-post', ['post' => $post, 'ads' => $ads]);
     }
 
     /**
@@ -134,6 +140,9 @@ class PostController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
             'tags' => 'nullable',
+            'ad_heading' => 'nullable',
+            'ad_description' => 'nullable',
+            'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
         //dd($data);
@@ -141,6 +150,9 @@ class PostController extends Controller
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['tags'] = strip_tags($data['tags']);
+        $data['ad_heading'] = strip_tags($data['ad_heading']);
+        $data['ad_description'] = strip_tags($data['ad_description']);
+        $data['ad_link'] = strip_tags($data['ad_link']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         if ($request->file('image') != null) {
@@ -174,6 +186,9 @@ class PostController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'content' => 'required',
             'tags' => 'nullable',
+            'ad_heading' => 'nullable',
+            'ad_description' => 'nullable',
+            'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
         //dd($data);
@@ -181,6 +196,9 @@ class PostController extends Controller
 //        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['tags'] = strip_tags($data['tags']);
+        $data['ad_heading'] = strip_tags($data['ad_heading']);
+        $data['ad_description'] = strip_tags($data['ad_description']);
+        $data['ad_link'] = strip_tags($data['ad_link']);
         $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         if ($request->file('image') != null) {
@@ -220,7 +238,8 @@ class PostController extends Controller
 
     public function category(Category $category) {
         $post = $category->posts()->whereNotNull('published_at')->latest('published_at')->simplePaginate(5);
-        return view('home-page', ['posts' => $post]);
+        $ads = BcAd::get();
+        return view('home-page', ['posts' => $post, 'ads' => $ads]);
     }
 
     public function searchAuthor(User $user) {

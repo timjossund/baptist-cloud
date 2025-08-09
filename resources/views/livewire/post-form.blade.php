@@ -43,6 +43,27 @@
 {{--        <livewire:jodit-text-editor wire:model="content" />--}}
         <x-input-error :messages="$errors->get('content')" class="mt-2" />
     </div>
+    <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
+{{--    Post Ad Heading --}}
+        <div>
+            <h4>Add and advertisement to the top of the post. (Optional)</h4>
+            <x-input-label for="ad_heading" :value="__('Ad Heading: Limit 25 Characters')" />
+            <x-text-input id="ad_heading" class="block border mt-1 w-full text-xl p-2" type="ad_heading" name="ad_heading" :value="old('ad_heading')" wire:model="ad_heading"/>
+            <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
+        </div>
+        {{--    Post Ad Description --}}
+        <div>
+            <x-input-label for="ad_description" :value="__('Ad Description: Limit 75 Characters')" />
+            <x-text-input id="ad_description" class="block border mt-1 w-full text-xl p-2" type="ad_description" name="ad_description" :value="old('ad_description')" wire:model="ad_description"/>
+            <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
+        </div>
+        {{--    Post Ad Link --}}
+        <div>
+            <x-input-label for="ad_link" :value="__('Ad Link:')" />
+            <x-text-input id="ad_link" class="block border mt-1 w-full text-xl p-2" type="ad_link" name="ad_link" :value="old('ad_link')" wire:model="ad_link" placeholder="https://example.com"/>
+            <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
+        </div>
+    </div>
     {{-- Post Submit --}}
     <x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg" type="submit">Save Draft</x-primary-button>
 </form>

@@ -37,6 +37,10 @@ class PostForm extends Component
     #[Validate('required|image|mimes:jpeg,png,jpg|max:6048')]
     public $image;
 
+    public $ad_heading = '';
+    public $ad_description = '';
+    public $ad_link = '';
+
     public $user_id = 0;
     public $slug = '';
 
@@ -44,6 +48,10 @@ class PostForm extends Component
         $this->validate();
         $this->title = strip_tags($this->title);
         $this->content = strip_tags($this->content);
+        $this->tags = strip_tags($this->tags);
+        $this->ad_heading = strip_tags($this->ad_heading);
+        $this->ad_description = strip_tags($this->ad_description);
+        $this->ad_link = strip_tags($this->ad_link);
         $category_id = $this->category_id;
         $featureImage = "image" . uniqid(10) . ".jpg";
 
@@ -57,7 +65,7 @@ class PostForm extends Component
         $this->user_id = auth()->id();
 
         Post::create(
-            $this->only(['title', 'content', 'tags', 'category_id', 'image', 'slug', 'user_id'])
+            $this->only(['title', 'content', 'tags', 'category_id', 'image', 'slug', 'user_id', 'ad_heading', 'ad_description', 'ad_link'])
         );
         return redirect('/post/'. $this->slug .'/edit')->with('success', 'Draft Saved');
     }
