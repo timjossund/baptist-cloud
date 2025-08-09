@@ -9,7 +9,8 @@ class AdController extends Controller
 {
     public function index()
     {
-        return view('ad-create');
+        $ads = BcAd::all();
+        return view('ad-create', ['ads' => $ads]);
     }
 
     public function store(Request $request)

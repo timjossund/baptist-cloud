@@ -2,7 +2,14 @@
     <div class="max-w-7xl w-full mx-auto mt-10 px-5">
         <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
             <div class="max-w-2xl lg:max-w-6xl flex flex-wrap">
-                <h1 class="text-5xl w-full mb-8 px-4">Admin Dashboard:</h1>
+                <div class="w-full flex justify-between">
+                    <h1 class="text-5xl mb-8 px-4">Admin Dashboard</h1>
+                    <a href="{{ route('create-ad') }}">
+                        <x-primary-button class="text-white flex justify-center text-center py-2 rounded-lg" type="button">Manage Ads</x-primary-button>
+                    </a>
+
+                </div>
+
                 <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 pb-20">
                     <li class="col-span-1 divide-y divide-gray-200 rounded-lg w-60 bg-white shadow-md">
                         <div class="flex items-center justify-center flex-col space-x-6 p-6">
