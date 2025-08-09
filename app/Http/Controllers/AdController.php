@@ -9,8 +9,11 @@ class AdController extends Controller
 {
     public function index()
     {
+        if (!auth()->user() || !auth()->user()->is_admin) {
+            abort(403);
+        }
         $ads = BcAd::all();
-        return view('ad-create', ['ads' => $ads]);
+        return view('admin.ad-create', ['ads' => $ads]);
     }
 
     public function store(Request $request)
