@@ -9,7 +9,7 @@ class AdController extends Controller
 {
     public function index()
     {
-        if (!auth()->user() || !auth()->user()->is_admin) {
+        if (!auth()->user()->is_admin) {
             abort(403);
         }
         $ads = BcAd::all();
@@ -18,6 +18,9 @@ class AdController extends Controller
 
     public function store(Request $request)
     {
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
         $data = $request->validate([
             'title' => 'nullable',
             'description' => 'nullable',
@@ -32,5 +35,43 @@ class AdController extends Controller
         BcAd::create($data);
 
         return redirect("/create-ad")->with('success', 'Ad Created');
+    }
+
+    public function edit(BcAd $ad) {
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
+        return view('admin.ad-edit', ['ad' => $ad]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'link' => 'required',
+        ]);
+
+        $data['title'] = strip_tags($data['title']);
+        $data['description'] = strip_tags($data['description']);
+        $data['link'] = strip_tags($data['link']);
+
+        $ad = BcAd::find($id);
+
+        $ad->update($data);
+
+        return redirect("/create-ad")->with('success', 'Ad Updated');
+    }
+
+    public function delete(BcAd $ad)
+    {
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
+        $ad->delete();
+        return redirect("/create-ad")->with('success', 'Ad Deleted');
     }
 }

@@ -42,10 +42,22 @@
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Current Ads</h2>
                 <div class="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach($ads as $ad)
-                    <div class="flex flex-col mt-4 bg-gray-100 p-6 rounded-lg">
-                        <h4 class="font-black">{{ $ad->title }}</h4>
-                        <p>{{ $ad->description }}</p>
-                        <p>{{ $ad->link }}</p>
+                    <div class="h-[200px]">
+                        <a href="{{ $ad->link }}" target="_blank" class="flex flex-col items-start justify-center text-xs w-full h-2/4 p-4 rounded-lg relative" style="background-color: #f5f5f5">
+                            <div class="absolute bottom-0 right-0 bg-blue-800 text-white text-xs p-1">
+                                AD
+                            </div>
+                            <h4 class="font-black text-md mb-2 p-0">{{ Str::limit($ad->title, 25) }}</h4>
+                            <p class="text-sm m-0 p-0">{{ Str::limit($ad->description, 75) }}</p>
+                        </a>
+                        <div class="flex justify-between p-4 border-black border-b-2">
+                            <a href="/edit-ad/{{$ad->id}}" class="text-blue-500 max-w-52 flex justify-center text-center font-black py-2 rounded-lg">Edit AD</a>
+                            <form action="/delete-ad/{{$ad->id}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 max-w-52 flex justify-center text-center font-black py-2 rounded-lg">Delete AD</button>
+                            </form>
+                        </div>
                     </div>
                 @endforeach
                 </div>

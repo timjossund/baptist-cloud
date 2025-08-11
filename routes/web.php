@@ -19,6 +19,9 @@ Route::middleware(['auth', 'verified'
 ])->group(function () {
     Route::get('/create-ad', [AdController::class, 'index'])->name('create-ad');
     Route::post('/create-ad', [AdController::class, 'store'])->name('save-ad');
+    Route::get('/edit-ad/{ad:id}', [AdController::class, 'edit'])->name('edit-ad');
+    Route::patch('/update-ad/{ad:id}', [AdController::class, 'update'])->name('update-ad');
+    Route::delete('/delete-ad/{ad:id}/', [AdController::class, 'delete'])->name('delete-ad');
     Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');
