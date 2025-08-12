@@ -6,8 +6,6 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\BcAd;
-//use Illuminate\Container\Attributes\DB;
-use Illuminate\Container\Attributes\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -92,17 +90,6 @@ class PostController extends Controller
 
         return redirect("/post/".$data['slug']."/edit")->with('success', 'Draft Saved');
     }
-
-//    public function publish(Request $request)
-//    {
-//        $data = $request->validate([
-//            'image' => 'required|image|mimes:jpeg,png,jpg|max:6048',
-//            'title' => 'required|max:255',
-//            'category_id' => ['required', 'exists:categories,id'],
-//            'content' => 'required',
-//            'published_at' => ['nullable', 'datetime'],
-//        ]);
-//    }
 
     /**
      * Display the specified resource.

@@ -18,7 +18,7 @@
         <div class="flex flex-col">
             <h3 class="mt-1 text-2xl flex gap-2 items-center font-semibold text-gray-900 group-hover:text-gray-600">
                 <a href="{{ route('single-post', ['username' => $post->user->username, 'post' => $post->slug]) }}" class="flex" wire:navigate>
-                    {{ Str::limit($post->title, 55) }}
+                    {{ Str::words($post->title, 7) }}
                 </a>
             </h3>
             <p class="text-gray-500 text-sm">Read time: {{ $post->readTime() }}
@@ -102,7 +102,7 @@
         <div class="flex flex-col">
             <h3 class="mt-1 text-2xl flex gap-2 items-center font-semibold text-gray-900 group-hover:text-gray-600">
                 <a href="{{ route('single-post', ['username' => $post->user->username, 'post' => $post->slug]) }}" class="flex" wire:navigate>
-                    {{ Str::limit($post->title, 55) }}
+                    {{ Str::words($post->title, 7) }}
                 </a>
             </h3>
             <p class="text-gray-500 text-sm">Read time: {{ $post->readTime() }}

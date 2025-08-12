@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\Reporting;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -76,5 +77,11 @@ class AdminController extends Controller
         $user->delete();
 
         return redirect()->back()->with('success', 'User deleted');
+    }
+
+    public function reported()
+    {
+        $reports = Reporting::get();
+        return view('admin.reported-posts', ['reports' => $reports]);
     }
 }

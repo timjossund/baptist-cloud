@@ -4,9 +4,14 @@
             <div class="max-w-2xl lg:max-w-6xl flex flex-wrap">
                 <div class="w-full flex justify-between">
                     <h1 class="text-5xl mb-8 px-4">Admin Dashboard</h1>
-                    <a href="{{ route('create-ad') }}">
-                        <x-primary-button class="text-white flex justify-center text-center py-2 rounded-lg" type="button">Manage Ads</x-primary-button>
-                    </a>
+                    <div class="flex space-x-4">
+                        <a href="{{ route('create-ad') }}">
+                            <x-primary-button class="text-white flex justify-center text-center py-2 rounded-lg" type="button">Manage Ads</x-primary-button>
+                        </a>
+                        <a href="{{ route('admin.reported') }}">
+                            <x-primary-button class="text-white flex justify-center text-center py-2 rounded-lg" type="button">Reported Posts</x-primary-button>
+                        </a>
+                    </div>
 
                 </div>
 

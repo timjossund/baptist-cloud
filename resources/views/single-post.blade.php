@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto mt-10 px-5">
+    <div class="max-w-7xl mx-auto mt-10 px-5" x-data="{showForm: true}">
         <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 <div class="flex w-full flex-wrap">
@@ -53,14 +53,17 @@
                 <div class="text-lg" id="markdown-body">{!! $post->content !!}</div>
             </div>
             <x-tags :tags="$post->tags" />
-            <a href="{{ url()->previous() }}" wire:navigate class="flex items-center gap-2 text-gray-700 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                </svg>
-                Go Back
-            </a>
+            <div class="flex justify-between my-10">
+                <a href="{{ url()->previous() }}" wire:navigate class="flex items-center gap-2 text-gray-700 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                    </svg>
+                    Go Back
+                </a>
+                <a href="/report-post/{{$post->id}}" class="text-red-600">Report This Article</a>
+            </div>
         </div>
     </div>
 </x-app-layout>

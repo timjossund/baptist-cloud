@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\ReportingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\LikeController;
@@ -33,6 +34,8 @@ Route::middleware(['auth', 'verified'
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
+    Route::get('/report-post/{post:id}', [ReportingController::class, 'index'])->name('report-form');
+    Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report');
     Route::get('/search', [PostController::class, 'search'])->name('search');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
@@ -41,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/reported-posts', [AdminController::class, 'reported'])->name('admin.reported');
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
     Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
     Route::get('/search-posts', [PostController::class, 'searchPost'])->name('search-posts');
