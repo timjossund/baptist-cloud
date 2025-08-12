@@ -54,6 +54,7 @@
                             </div>
                             <h4 class="font-black text-md mb-2 p-0">{{ Str::limit($ad->title, 25) }}</h4>
                             <p class="text-sm m-0 p-0">{{ Str::limit($ad->description, 75) }}</p>
+                            Number for random selection: {{ $ad->int }}
                         </a>
                         <div class="flex justify-between p-4 border-black border-b-2">
                             <a href="/edit-ad/{{$ad->id}}" class="text-blue-500 max-w-52 flex justify-center text-center font-black py-2 rounded-lg">Edit AD</a>
