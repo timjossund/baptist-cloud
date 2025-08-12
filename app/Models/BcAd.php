@@ -9,6 +9,7 @@ class BcAd extends Model
     protected $fillable = [
         'title',
         'description',
-        'link'
+        'link',
+        'int'
     ];
 }

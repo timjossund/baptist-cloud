@@ -13,6 +13,7 @@ class AdController extends Controller
             abort(403);
         }
         $ads = BcAd::all();
+
         return view('admin.ad-create', ['ads' => $ads]);
     }
 
@@ -25,12 +26,14 @@ class AdController extends Controller
             'title' => 'nullable',
             'description' => 'nullable',
             'link' => 'nullable',
+            'int' =>  'required',
             'published_at' => ['nullable', 'timestamp'],
         ]);
 
         $data['title'] = strip_tags($data['title']);
         $data['description'] = strip_tags($data['description']);
         $data['link'] = strip_tags($data['link']);
+        $data['int'] = strip_tags($data['int']);
 
         BcAd::create($data);
 
@@ -53,11 +56,13 @@ class AdController extends Controller
             'title' => 'required',
             'description' => 'required',
             'link' => 'required',
+            'int' =>  'required'
         ]);
 
         $data['title'] = strip_tags($data['title']);
         $data['description'] = strip_tags($data['description']);
         $data['link'] = strip_tags($data['link']);
+        $data['int'] = strip_tags($data['int']);
 
         $ad = BcAd::find($id);
 

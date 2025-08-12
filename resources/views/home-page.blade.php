@@ -1,7 +1,3 @@
-{{--@props($ads)--}}
-
-{{--@dd($ads)--}}
-
 <x-app-layout>
     <div class="py-4 md:py-12">
         <div class="max-w-7xl mx-auto px-6">

@@ -27,6 +27,11 @@
                             <x-text-input id="link" class="block border mt-1 w-full text-xl p-2" type="link" name="link" :value="$ad->link" placeholder="https://example.com"/>
                             <x-input-error :messages="$errors->get('link')" class="mt-2" />
                         </div>
+                        <div>
+                            <x-input-label for="int" :value="__('Number for random selection:')" />
+                            <x-text-input id="int" class="block border mt-1 w-full text-xl p-2" type="int" name="int" :value="$ad->int"/>
+                            <x-input-error :messages="$errors->get('int')" class="mt-2" />
+                        </div>
                     </div>
                     <div class="flex justify-between mt-4">
                         {{-- Post Submit --}}

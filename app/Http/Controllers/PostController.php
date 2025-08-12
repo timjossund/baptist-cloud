@@ -111,7 +111,8 @@ class PostController extends Controller
     {
         $post['content'] = Str::markdown($post->content);
         $ads = BcAd::get();
-        return view('single-post', ['post' => $post, 'ads' => $ads]);
+        $maxAd = BcAd::max('int');
+        return view('single-post', ['post' => $post, 'ads' => $ads, 'maxAd' => $maxAd]);
     }
 
     /**
