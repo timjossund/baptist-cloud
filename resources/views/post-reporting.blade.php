@@ -3,7 +3,7 @@
         <div class="bg-white py-6 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
             <div class="w-full rounded-lg shadow-sm sm:rounded-lg flex flex-col justify-start items-start">
                 <div class="w-full mt-10">
-                    <h2>Report This Article:</h2>
+                    <h2>Report This Article: {{ $post->title }}</h2>
                     <p>This form will submit your name and email and your report.</p>
                     <form action="/report/{{ $post->id }}" method="post" class="mt-4 flex flex-col gap-4">
                         @csrf
