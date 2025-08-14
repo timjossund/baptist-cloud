@@ -9,7 +9,7 @@ class PublicProfileController extends Controller
 {
     public function show(User $user)
     {
-        $posts = $user->posts()->latest()->paginate(5);
+        $posts = $user->posts()->latest()->simplePaginate(10);
 
 //        dd($user->followers);
 

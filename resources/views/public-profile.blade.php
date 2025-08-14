@@ -32,6 +32,9 @@
                     @empty
                         <h4>No Posts Found</h4>
                     @endforelse
+                    <div class="mt-6 pagination-wrapper">
+                        {{ $posts->links() }}
+                    </div>
                 </div>
                 <div class="w-1/4 px-5 hidden flex-col border-l items-center md:flex">
                     <img src="{{ $user->avatar }}" alt="{{ $user->username }}" class="rounded-full h-24 w-24">
