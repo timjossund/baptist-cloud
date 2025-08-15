@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
     Route::get('/report-post/{post:id}', [ReportingController::class, 'index'])->name('report-form');
     Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report');
+    Route::delete("/delete-report/{report:id}", [ReportingController::class, 'delete'])->name('delete-report');
     Route::get('/search', [PostController::class, 'search'])->name('search');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');

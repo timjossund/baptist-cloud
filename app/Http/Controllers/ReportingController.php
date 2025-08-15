@@ -35,4 +35,10 @@ class ReportingController extends Controller
 
         return redirect('/')->with('success', 'Article Reported');
     }
+
+    public function delete(string $report)
+    {
+        Reporting::find($report)->delete();
+        return redirect('/admin/reported-posts')->with('success', 'Report Deleted');
+    }
 }

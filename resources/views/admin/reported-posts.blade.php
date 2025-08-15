@@ -8,6 +8,11 @@
                     Reported by {{ $report->reporter_name }}
                     <p class="text-lg">Reason: {{ $report->description }}</p>
                     <a href="/<?= '@' . $report->username . '/' . $report->post_slug ?>" class="text-blue-500 hover:underline">View Post</a>
+                    <form action="/delete-report/{{$report->id}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500 max-w-52 flex justify-center text-center font-black py-2 rounded-lg">Delete Report</button>
+                    </form>
                 </div>
             @endforeach
         </div>
