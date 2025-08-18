@@ -12,7 +12,7 @@
 
                             @if( auth()->user() && auth()->user()->id !== $user->id )
                                 <div class="mt-4 w-full flex justify-start">
-                                    <button @click="follow()" x-text="following ? 'unfollow' : 'follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
+                                    <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
                                 </div>
                             @endif
                         </x-follow-container>
@@ -46,7 +46,7 @@
 
                             @if( auth()->user() && auth()->user()->id !== $user->id )
                                 <div class="mt-4 w-full flex justify-center">
-                                    <button @click="follow()" x-text="following ? 'unfollow' : 'follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
+                                    <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
                                 </div>
                             @endif
                         </x-follow-container>

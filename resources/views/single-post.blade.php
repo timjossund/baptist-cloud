@@ -26,7 +26,7 @@
                                 <x-follow-container :user="$post->user">
                                     @if (auth()->user() && auth()->user()->id !== $post->user->id)
                                         <div class="w-full flex justify-center">
-                                            <button @click="follow()" x-text="following ? 'unfollow' : 'follow'" :class="following ? 'text-red-500 border border-red-500' : 'text-blue-800 border border-blue-800'" class="px-6 -mt-5 ml-6"></button>
+                                            <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'text-white bg-red-500' : 'text-white bg-blue-800'" class="px-6 -mt-5 ml-6 rounded-md py-2"></button>
                                         </div>
                                     @endif
                                 </x-follow-container>
