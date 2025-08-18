@@ -23,57 +23,52 @@ class AdminController extends Controller
         return view('admin.admin', ['users' => $users, 'posts' => $posts, 'likes' => $likes]);
     }
 
-    public function makeAdmin($id)
+    public function makeAdmin(User $user)
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
-        $user = User::findOrFail($id);
         $user->is_admin = true;
         $user->save();
 
         return redirect()->back()->with('success', 'Promoted to admin');
     }
 
-    public function makeAuthor($id)
+    public function makeAuthor(User $user)
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
-        $user = User::findOrFail($id);
         $user->is_author = true;
         $user->save();
 
         return redirect()->back()->with('success', 'promoted to author');
     }
-    public function revokeAdmin($id)
+    public function revokeAdmin(User $user)
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
-        $user = User::findOrFail($id);
         $user->is_admin = false;
         $user->save();
 
         return redirect()->back()->with('success', 'demoted from admin');
     }
-    public function revokeAuthor($id)
+    public function revokeAuthor(User $user)
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
-        $user = User::findOrFail($id);
         $user->is_author = false;
         $user->save();
 
         return redirect()->back()->with('success', 'demoted from author');
     }
-    public function deleteUser($id)
+    public function deleteUser(User $user)
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
             abort(403);
         }
-        $user = User::findOrFail($id);
         $user->delete();
 
         return redirect()->back()->with('success', 'User deleted');
