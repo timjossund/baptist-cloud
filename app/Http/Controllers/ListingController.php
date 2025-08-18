@@ -26,7 +26,7 @@ class ListingController extends Controller
             'phone' => 'required|max:255',
             'facebook' => 'required|max:255',
             'website' => 'required|max:255',
-            'published_at' => ['nullable', 'timestamp'],
+            'published_at' => ['nullable', 'date'],
         ]);
 
         $data['city'] = strip_tags($data['city']);
@@ -46,18 +46,21 @@ class ListingController extends Controller
 
     public function showPositions()
     {
-        $positions = Listing::paginate(10)->sortByDesc('created_at');
+        $positions = Listing::latest()->paginate(10);
         return view('positions', ['positions' => $positions]);
     }
 
-    public function showPosition($id)
+    public function showPosition(Listing $position)
     {
-        $position = Listing::find($id);
+//        $position = Listing::find($id);
         $position['content'] = Str::markdown($position->content);
         return view('single-position', ['position' => $position]);
     }
 
     public function edit($id) {
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
 
         $listing = Listing::find($id);
         //dd($position);
@@ -65,6 +68,10 @@ class ListingController extends Controller
     }
 
     public function update(Request $request, $id) {
+
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
 
         $data = $request->validate([
             'position' => 'required|max:255',

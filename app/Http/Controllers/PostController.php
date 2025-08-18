@@ -141,7 +141,6 @@ class PostController extends Controller
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);
         $data['ad_link'] = strip_tags($data['ad_link']);
-        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
@@ -187,7 +186,6 @@ class PostController extends Controller
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);
         $data['ad_link'] = strip_tags($data['ad_link']);
-        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');

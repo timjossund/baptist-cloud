@@ -81,6 +81,9 @@ class AdminController extends Controller
 
     public function reported()
     {
+        if (!auth()->user()->is_admin) {
+            abort(403);
+        }
         $reports = Reporting::get();
         return view('admin.reported-posts', ['reports' => $reports]);
     }
