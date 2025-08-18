@@ -62,7 +62,7 @@ class ListingController extends Controller
             abort(403);
         }
 
-        $listing = Listing::find($id);
+        $listing = Listing::findOrFail($id);
         //dd($position);
         return view('edit-listing', ['listing' => $listing]);
     }
@@ -96,7 +96,7 @@ class ListingController extends Controller
         $data['facebook'] = strip_tags($data['facebook']);
         $data['website'] = strip_tags($data['website']);
 
-        $position = Listing::find($id);
+        $position = Listing::findOrFail($id);
 
         $position->update($data);
 

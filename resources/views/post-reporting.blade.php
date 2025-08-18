@@ -11,14 +11,7 @@
                         <x-input-error :messages="$errors->get('reporter_name')" class="mt-2" />
                         <input type="hidden" name="reporter_email" id="reporter_email" value="{{ auth()->user()->email }}">
                         <x-input-error :messages="$errors->get('reporter_email')" class="mt-2" />
-                        <input type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
-                        <x-input-error :messages="$errors->get('post_id')" class="mt-2" />
-
-                        <input type="hidden" name="post_title" id="post_title" value="{{ $post->title }}">
-                        <x-input-error :messages="$errors->get('post_title')" class="mt-2" />
-                        <input type="hidden" name="post_slug" id="post_slug" value="{{ $post->slug }}">
-                        <x-input-error :messages="$errors->get('post_slug')" class="mt-2" />
-                        <input type="hidden" name="username" id="username" value="{{ $post->user->username }}">
+                        
                         <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         <label for="description">Report: Please be detailed.</label>
                         <x-textarea-input type="text" name="description" id="description" :value="old('description')" />
