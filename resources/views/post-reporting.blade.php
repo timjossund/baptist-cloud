@@ -11,7 +11,7 @@
                         <x-input-error :messages="$errors->get('reporter_name')" class="mt-2" />
                         <input type="hidden" name="reporter_email" id="reporter_email" value="{{ auth()->user()->email }}">
                         <x-input-error :messages="$errors->get('reporter_email')" class="mt-2" />
-                        
+
                         <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         <label for="description">Report: Please be detailed.</label>
                         <x-textarea-input type="text" name="description" id="description" :value="old('description')" />
