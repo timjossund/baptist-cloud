@@ -46,7 +46,7 @@
                             </x-dropdown-link>
 
                             <x-dropdown-link wire:navigate :href="route('create-listing')">
-                                {{ __('Listing') }}
+                                {{ __('Position') }}
                             </x-dropdown-link>
 
                         </x-slot>
