@@ -13,7 +13,7 @@
                         {{ __('Articles') }}
                     </x-nav-link>
                     <x-nav-link wire:navigate :href="route('positions')" class="hidden md:block" :active="request()->routeIs('positions')">
-                        {{ __('Ministry Positions') }}
+                        {{ __('Open Positions') }}
                     </x-nav-link>
                 </div>
             </div>

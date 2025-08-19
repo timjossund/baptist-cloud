@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class PostForm extends Component
 {
-    use withFileUploads;
+    use WithFileUploads;
 
     public function render()
     {

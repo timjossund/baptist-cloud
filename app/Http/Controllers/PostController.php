@@ -23,11 +23,12 @@ class PostController extends Controller
         $query = Post::query()->whereNotNull('published_at')->latest('published_at');
         $ads = BcAd::get();
 
+        
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
-        $posts = $query->simplePaginate(5);
+        $posts = $query->with('user', 'category')->simplePaginate(5);
 
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
 

@@ -47,7 +47,7 @@ class AdController extends Controller
         return view('admin.ad-edit', ['ad' => $ad]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, BcAd $ad)
     {
         if (!auth()->user()->is_admin) {
             abort(403);
@@ -63,8 +63,6 @@ class AdController extends Controller
         $data['description'] = strip_tags($data['description']);
         $data['link'] = strip_tags($data['link']);
         $data['int'] = strip_tags($data['int']);
-
-        $ad = BcAd::find($id);
 
         $ad->update($data);
 
