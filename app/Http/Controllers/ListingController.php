@@ -29,15 +29,7 @@ class ListingController extends Controller
             'published_at' => ['nullable', 'date'],
         ]);
 
-        $data['city'] = strip_tags($data['city']);
-        $data['state'] = strip_tags($data['state']);
-        $data['position'] = strip_tags($data['position']);
-        $data['content'] = strip_tags($data['content']);
-        $data['church'] = strip_tags($data['church']);
-        $data['email'] = strip_tags($data['email']);
-        $data['phone'] = strip_tags($data['phone']);
-        $data['facebook'] = strip_tags($data['facebook']);
-        $data['website'] = strip_tags($data['website']);
+        $data = $this->getArr($data);
 
         Listing::create($data);
 
@@ -86,6 +78,21 @@ class ListingController extends Controller
             'published_at' => ['nullable', 'timestamp'],
         ]);
 
+        $data = $this->getArr($data);
+
+        $position = Listing::findOrFail($id);
+
+        $position->update($data);
+
+        return redirect("/positions")->with('success', 'Listing Updated Successfully');
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function getArr(array $data): array
+    {
         $data['city'] = strip_tags($data['city']);
         $data['state'] = strip_tags($data['state']);
         $data['position'] = strip_tags($data['position']);
@@ -95,11 +102,6 @@ class ListingController extends Controller
         $data['phone'] = strip_tags($data['phone']);
         $data['facebook'] = strip_tags($data['facebook']);
         $data['website'] = strip_tags($data['website']);
-
-        $position = Listing::findOrFail($id);
-
-        $position->update($data);
-
-        return redirect("/positions")->with('success', 'Listing Updated Successfully');
+        return $data;
     }
 }
