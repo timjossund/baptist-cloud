@@ -23,12 +23,12 @@ Route::middleware(['auth', 'verified'
     Route::get('/edit-ad/{ad:id}', [AdController::class, 'edit'])->name('edit-ad');
     Route::patch('/update-ad/{ad:id}', [AdController::class, 'update'])->name('update-ad');
     Route::delete('/delete-ad/{ad:id}/', [AdController::class, 'delete'])->name('delete-ad');
-    Route::get('post/create-post', [PostController::class, 'create'])->name('create-post');
-    Route::post('post/create-post', [PostController::class, 'store'])->name('save-post');
+    Route::get('/post/create-post', [PostController::class, 'create'])->name('create-post');
+    Route::post('/post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');
     Route::patch('/post/{post:slug}/publish', [PostController::class, 'publish'])->name('publish-post');
     Route::patch('/post/{post:slug}', [PostController::class, 'update'])->name('update-post');
-    Route::delete('/post/{post}/delete', [PostController::class, 'destroy'])->name('delete-post');
+    Route::delete('/post/{post:id}/delete', [PostController::class, 'destroy'])->name('delete-post');
     Route::get('/learn-markdown', [PostController::class, 'markdownSandbox'])->name('markdown-sandbox');
 });
 
@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search', [PostController::class, 'search'])->name('search');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
-    Route::post('/like/{post}', [LikeController::class, 'like'])->name('like');
+    Route::post('/like/{post:id}', [LikeController::class, 'like'])->name('like');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
     Route::get('/search-posts', [PostController::class, 'searchPost'])->name('search-posts');
     Route::get('/positions', [ListingController::class, 'showPositions'])->name('positions');
-    Route::get('/position/{position}', [ListingController::class, 'showPosition'])->name('show-position');
+    Route::get('/position/{position:id}', [ListingController::class, 'showPosition'])->name('show-position');
     Route::get('/create-listing', [ListingController::class, 'index'])->name('create-listing');
     Route::post('/create-listing', [ListingController::class, 'store'])->name('save-listing');
     Route::get('/position/{position:id}/edit', [ListingController::class, 'edit'])->name('edit-listing');
