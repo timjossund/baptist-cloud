@@ -21,9 +21,9 @@ class PostController extends Controller
     {
         $user = auth()->user();
         $query = Post::query()->whereNotNull('published_at')->latest('published_at');
-        $ads = BcAd::get();
+        $ads = BcAd::all();
 
-        
+
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
@@ -75,9 +75,9 @@ class PostController extends Controller
 
 //        $image = $data['image'];
         //unset($data['image']);
-        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
+        $data['slug'] = Str::slug($data['title']. Str::random(3));
 
-        $featureImage = "image" . $data['slug'] . ".jpg";
+        $featureImage = "image" . '-' . $data['slug'] . ".jpg";
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($data['image']);
@@ -142,10 +142,11 @@ class PostController extends Controller
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);
         $data['ad_link'] = strip_tags($data['ad_link']);
+        $data['slug'] = $post->getRawOriginal('slug');
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
-            $featureImage = "post-image" . $data['slug'] . ".jpg";
+            $featureImage = "post-image-" . $data['slug']  . ".jpg";
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
@@ -187,10 +188,11 @@ class PostController extends Controller
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);
         $data['ad_link'] = strip_tags($data['ad_link']);
+        $data['slug'] = $post->getRawOriginal('slug');
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
-            $featureImage = "post-image" . $data['slug'] . ".jpg";
+            $featureImage = "post-image-" . $data['slug'] . ".jpg";
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
