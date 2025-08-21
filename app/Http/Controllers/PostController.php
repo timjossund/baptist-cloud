@@ -75,7 +75,7 @@ class PostController extends Controller
 
 //        $image = $data['image'];
         //unset($data['image']);
-        $data['slug'] = Str::slug($data['title']. Str::random(3));
+        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
 
         $featureImage = "image" . '-' . $data['slug'] . ".jpg";
 
@@ -146,7 +146,7 @@ class PostController extends Controller
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
-            $featureImage = "post-image-" . $data['slug']  . ".jpg";
+            $featureImage = "post-image-" . $data['slug'] . '-' . Str::random(3) . ".jpg";
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
@@ -192,7 +192,7 @@ class PostController extends Controller
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
-            $featureImage = "post-image-" . $data['slug'] . ".jpg";
+            $featureImage = "post-image-" . $data['slug'] . '-' . Str::random(3) . ".jpg";
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
