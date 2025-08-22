@@ -23,7 +23,6 @@ class PostController extends Controller
         $query = Post::query()->whereNotNull('published_at')->latest('published_at');
         $ads = BcAd::all();
 
-
         if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
@@ -98,7 +97,7 @@ class PostController extends Controller
     public function show(string $username, Post $post)
     {
         $post['content'] = Str::markdown($post->content);
-        $ads = BcAd::get();
+        $ads = BcAd::all();
         $maxAd = BcAd::max('int');
         return view('single-post', ['post' => $post, 'ads' => $ads, 'maxAd' => $maxAd]);
     }
@@ -227,7 +226,7 @@ class PostController extends Controller
 
     public function category(Category $category) {
         $post = $category->posts()->whereNotNull('published_at')->latest('published_at')->simplePaginate(5);
-        $ads = BcAd::get();
+        $ads = BcAd::all();
         return view('home-page', ['posts' => $post, 'ads' => $ads]);
     }
 
