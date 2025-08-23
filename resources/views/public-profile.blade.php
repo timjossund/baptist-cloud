@@ -9,13 +9,14 @@
                         <p class="text-md text-left">{{ $user->bio }}</p>
                         <x-follow-container :user="$user" >
                             <p class="text-lg text-left" x-text="followersCount === 1 ? followersCount + ' follower' : followersCount + ' followers'"></p>
-
+                            
                             @if( auth()->user() && auth()->user()->id !== $user->id )
-                                <div class="mt-4 w-full flex justify-start">
-                                    <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
-                                </div>
+                            <div class="mt-4 w-full flex justify-start">
+                                <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
+                            </div>
                             @endif
                         </x-follow-container>
+                        <a href="{{ route('follower-list') }}">Followers</a>
                     </div>
                 </div>
                 <div class="px-4 w-full md:w-3/4">
@@ -43,24 +44,14 @@
                         <p class="text-md text-center">{{ $user->bio }}</p>
                         <x-follow-container :user="$user" >
                             <p class="text-lg text-center" x-text="followersCount === 1 ? followersCount + ' Follower' : followersCount + ' Followers'"></p>
-
                             @if( auth()->user() && auth()->user()->id !== $user->id )
-                                <div class="mt-4 w-full flex justify-center">
-                                    <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
-                                </div>
+                            <div class="mt-4 w-full flex justify-center">
+                                <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
+                            </div>
                             @endif
                         </x-follow-container>
-                        @if( auth()->user() && auth()->user()->id === $user->id )
-                        <div class="flex flex-col mt-4 h-96 px-3 overflow-y-scroll min-w-72 items-center">
-                            @forelse( $user->followers as $follower )
-                                <a href="{{ route('public-profile', $follower) }}" wire:navigate class="flex items-center border-b-2 border-gray-200 p-2 first:border-t-2 min-w-56">
-                                    <img src="{{ $follower->avatar }}" alt="{{ $follower->username }}" class="rounded-full h-10 w-10">
-                                    <p class="ml-2 text-md">{{ $follower->username }}</p>
-                                </a>
-                            @empty
-                                <h6 class="text-sm text-center">- No Followers To List -</h6>
-                            @endforelse
-                        </div>
+                        @if( auth()->user()->id === $user->id )
+                            <a href="{{ route('follower-list') }}"><x-primary-button class="mt-4 w-full flex justify-center">See Followers</x-primary-button></a>
                         @endif
                     </div>
                 </div>
