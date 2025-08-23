@@ -4,7 +4,7 @@
     <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
         <img src="{{ $post->image }}" alt="post image" class="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover">
     </div>
-    @if (Str::contains(Request::url(), '@'))
+    {{-- @if (Str::contains(Request::url(), '@'))
     <div>
         <div class="flex items-center gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500 text-sm">
@@ -88,7 +88,7 @@
             </a>
         @endauth
     </div>
-    @else
+    @else --}}
     <div class="sm:w-[55%]">
         <div class="flex items-center gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500 text-sm">
@@ -180,5 +180,5 @@
         @endif
         <x-bc_ad :ads="$ads" />
     </div>
-    @endif
+    {{-- @endif --}}
 </article>
