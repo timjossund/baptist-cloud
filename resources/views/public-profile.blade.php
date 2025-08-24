@@ -58,7 +58,7 @@
                             @endif
                         </x-follow-container>
                         @if( auth()->user()->id === $user->id )
-                            <a href="{{ route('follower-list') }}"><x-primary-button class="mt-4 w-full flex justify-center">See Followers</x-primary-button></a>
+                            <a href="{{ route('follower-list') }}" wire:navigate><x-primary-button class="mt-4 w-full flex justify-center">See Followers</x-primary-button></a>
                         @endif
                     </div>
                 </div>
