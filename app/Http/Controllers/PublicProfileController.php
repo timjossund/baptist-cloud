@@ -10,11 +10,12 @@ class PublicProfileController extends Controller
 {
     public function show(User $user)
     {
-        $posts = $user->posts()->latest()->simplePaginate(10);
+        $followersCount = $user->followers()->count();
+        $posts = $user->posts()->with('category', 'likes')->latest()->simplePaginate(10);
         $ads = BcAd::all();
 
         return view('public-profile', [
-            'user' => $user, 'posts' => $posts, 'ads' => $ads
+            'user' => $user, 'posts' => $posts, 'ads' => $ads, 'followersCount' => $followersCount
         ]);
     }
 }

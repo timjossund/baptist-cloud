@@ -27,7 +27,7 @@ class PostController extends Controller
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
-        $posts = $query->with('user', 'category')->simplePaginate(5);
+        $posts = $query->with('user', 'category')->withCount('likes')->simplePaginate(5);
 
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
 
@@ -98,7 +98,7 @@ class PostController extends Controller
     {
         $post['content'] = Str::markdown($post->content);
         $ads = BcAd::all();
-        $maxAd = BcAd::max('int');
+        $maxAd = $ads->max('int');
         return view('single-post', ['post' => $post, 'ads' => $ads, 'maxAd' => $maxAd]);
     }
 

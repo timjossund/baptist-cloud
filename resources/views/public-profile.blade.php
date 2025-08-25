@@ -11,9 +11,9 @@
                                 <p class="text-md text-center md:text-left">{{ $user->bio }}</p>
                             </div>
                         </div>
-                        <div class="flex flex-col justify-center md:justify-start" x-data="{followersCount: {{ $user->followers()->count() }}}">
+                        <div class="flex flex-col justify-center md:justify-start" x-data="{followersCount: {{ $followersCount }}}">
                             @if( auth()->user() && auth()->user()->id !== $user->id )
-                                <x-follow-container :user="$user" >
+                                <x-follow-container :user="$user">
                                     <div class="w-full flex justify-start">
                                         <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'bg-red-500' : 'bg-blue-800'" class="px-8 py-2 text-white rounded-lg text-center"></button>
                                     </div>
