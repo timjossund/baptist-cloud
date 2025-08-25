@@ -225,9 +225,9 @@ class PostController extends Controller
     }
 
     public function category(Category $category) {
-        $post = $category->posts()->whereNotNull('published_at')->latest('published_at')->simplePaginate(5);
+        $posts = $category->posts()->withCount('likes')->whereNotNull('published_at')->latest('published_at')->simplePaginate(5);
         $ads = BcAd::all();
-        return view('home-page', ['posts' => $post, 'ads' => $ads]);
+        return view('home-page', ['posts' => $posts, 'ads' => $ads]);
     }
 
     public function searchAuthor(User $user) {
