@@ -11,7 +11,7 @@
                                 <p class="text-md text-center md:text-left">{{ $user->bio }}</p>
                             </div>
                         </div>
-                        <div class="flex flex-col justify-center md:justify-start" x-data="{followersCount: {{ $followersCount }}}">
+                        <div class="flex flex-col justify-center md:justify-start">
                             @if( auth()->user() && auth()->user()->id !== $user->id )
                                 <x-follow-container :user="$user">
                                     <div class="w-full flex justify-start">
@@ -20,8 +20,10 @@
                                 </x-follow-container>
                             @endif
                             @if( auth()->user()->id === $user->id )
+                            <div x-data="{followersCount: {{ $followersCount }}}">
                                 <p class="text-lg text-center md:text-left" x-text="followersCount === 1 ? followersCount + ' follower' : followersCount + ' followers'"></p>
                                 <a href="{{ route('follower-list') }}"><x-primary-button class="w-full flex justify-center">See Followers</x-primary-button></a>
+                            </div>
                             @endif
                         </div>
                     </div>
