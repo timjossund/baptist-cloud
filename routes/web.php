@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/follower-list', [ProfileController::class, 'showFollowers'])->name('follower-list');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/reported-posts', [AdminController::class, 'reported'])->name('admin.reported');
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);

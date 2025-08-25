@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Nette\Utils\Random;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
-use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use Nette\Utils\Random;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\Drivers\Gd\Driver;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -81,6 +82,13 @@ class ProfileController extends Controller
         $user->save();
 
         return Redirect::route('profile.edit')->with('success', 'Profile Updated');
+    }
+
+    public function showFollowers(User $user)
+    {
+        return view('follower-list' , [
+            'user' => $user
+        ]);
     }
 
     /**
