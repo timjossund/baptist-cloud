@@ -27,7 +27,7 @@ class PostController extends Controller
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
-        $posts = $query->with('user', 'category')->withCount('likes')->simplePaginate(5);
+        $posts = $query->with('user', 'category')->withCount('likes')->cursorPaginate(5);
 
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
 
@@ -225,13 +225,13 @@ class PostController extends Controller
     }
 
     public function category(Category $category) {
-        $posts = $category->posts()->withCount('likes')->whereNotNull('published_at')->latest('published_at')->simplePaginate(5);
+        $posts = $category->posts()->withCount('likes')->whereNotNull('published_at')->latest('published_at')->cursorPaginate(5);
         $ads = BcAd::all();
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
     }
 
     public function searchAuthor(User $user) {
-        $users = User::query()->simplePaginate(5);
+        $users = User::query()->cursorPaginate(5);
         return view('search-authors', ['users' => $users]);
     }
 

@@ -86,8 +86,9 @@ class ProfileController extends Controller
 
     public function showFollowers(User $user)
     {
+        $followers = auth()->user()->followers()->cursorPaginate(20);
         return view('follower-list' , [
-            'user' => $user
+            'user' => $user, 'followers' => $followers
         ]);
     }
 

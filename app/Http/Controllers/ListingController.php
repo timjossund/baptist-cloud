@@ -38,7 +38,7 @@ class ListingController extends Controller
 
     public function showPositions()
     {
-        $positions = Listing::latest()->paginate(10);
+        $positions = Listing::latest()->cursorPaginate(10);
         return view('positions', ['positions' => $positions]);
     }
 
