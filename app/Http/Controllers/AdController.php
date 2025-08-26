@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\BcAd;
 
@@ -9,9 +10,9 @@ class AdController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->is_admin) {
-            abort(403);
-        }
+//        if (!auth()->user()->is_admin) {
+//            abort(403);
+//        }
         $ads = BcAd::all();
 
         return view('admin.ad-create', ['ads' => $ads]);
@@ -19,9 +20,9 @@ class AdController extends Controller
 
     public function store(Request $request)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403);
-        }
+//        if (!auth()->user()->is_admin) {
+//            abort(403);
+//        }
         $data = $request->validate([
             'title' => 'nullable',
             'description' => 'nullable',
@@ -41,17 +42,17 @@ class AdController extends Controller
     }
 
     public function edit(BcAd $ad) {
-        if (!auth()->user()->is_admin) {
-            abort(403);
-        }
+//        if (!auth()->user()->is_admin) {
+//            abort(403);
+//        }
         return view('admin.ad-edit', ['ad' => $ad]);
     }
 
     public function update(Request $request, BcAd $ad)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403);
-        }
+//        if (!auth()->user()->is_admin) {
+//            abort(403);
+//        }
         $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -71,9 +72,9 @@ class AdController extends Controller
 
     public function delete(BcAd $ad)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403);
-        }
+//        if (!auth()->user()->is_admin) {
+//            abort(403);
+//        }
         $ad->delete();
         return redirect("/create-ad")->with('success', 'Ad Deleted');
     }

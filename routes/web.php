@@ -18,11 +18,11 @@ Route::get('/category/{category:title}', [PostController::class, 'category'])->n
 Route::middleware(['auth', 'verified'
 //    'subscribed'
 ])->group(function () {
-    Route::get('/create-ad', [AdController::class, 'index'])->name('create-ad');
-    Route::post('/create-ad', [AdController::class, 'store'])->name('save-ad');
-    Route::get('/edit-ad/{ad:id}', [AdController::class, 'edit'])->name('edit-ad');
-    Route::patch('/update-ad/{ad:id}', [AdController::class, 'update'])->name('update-ad');
-    Route::delete('/delete-ad/{ad:id}/', [AdController::class, 'delete'])->name('delete-ad');
+    Route::get('/create-ad', [AdController::class, 'index'])->name('create-ad')->can('edit_ad');
+    Route::post('/create-ad', [AdController::class, 'store'])->name('save-ad')->can('edit_ad');
+    Route::get('/edit-ad/{ad:id}', [AdController::class, 'edit'])->name('edit-ad')->can('edit_ad');
+    Route::patch('/update-ad/{ad:id}', [AdController::class, 'update'])->name('update-ad')->can('edit_ad');
+    Route::delete('/delete-ad/{ad:id}/', [AdController::class, 'delete'])->name('delete-ad')->can('edit_ad');
     Route::get('/post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('/post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');
