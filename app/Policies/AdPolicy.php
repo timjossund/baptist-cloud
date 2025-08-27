@@ -11,8 +11,8 @@ class AdPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function edit_ad(): bool
-    {
-        return auth()->user()->is_admin;
-    }
+//    public function edit_ad(): bool
+//    {
+//        return auth()->user()->is_admin;
+//    }
 }

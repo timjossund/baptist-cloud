@@ -36,8 +36,25 @@
                 @else
                     Free
                 @endif
+                <div class="mt-2">
+                    @if(! $user->is_admin)
+                        <form action="/admin/users/{{ $user->id }}/make-admin" method="post">
+                            @csrf
+                            <button type="submit" class="flex items-center bg-green-100 p-2 rounded-md">
+                                Make Admin
+                            </button>
+                        </form>
+                    @else
+                        <form action="/admin/users/{{ $user->id }}/revoke-admin" method="post">
+                            @csrf
+                            <button type="submit" class="flex items-center bg-red-100 p-2 rounded-md">
+                                Revoke Admin
+                            </button>
+                        </form>
+                    @endif
+                </div>
             </td>
-            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0 flex gap-2">
                 <form action="/admin/users/{{ $user->id }}/delete" method="post" class="text-blue-500 hover:underline text-sm">
                     @csrf
                     @method('delete')

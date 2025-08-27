@@ -24,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::automaticallyEagerLoadRelationships();
 
-        Gate::define('edit_ad', function (User $user) {
+        Gate::define('is-admin', function (User $user) {
             return $user->is_admin;
+//            return false;
         });
     }
 }
