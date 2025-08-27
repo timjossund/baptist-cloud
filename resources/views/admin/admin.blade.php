@@ -19,19 +19,19 @@
                     <li class="col-span-1 divide-y divide-gray-200 rounded-lg w-60 bg-white shadow-md">
                         <div class="flex items-center justify-center flex-col space-x-6 p-6">
                             <h3>Total Users</h3>
-                            <h4>{{ $users->count() }}</h4>
+                            <h4>{{ $userCount }}</h4>
                         </div>
                     </li>
                     <li class="col-span-1 divide-y divide-gray-200 rounded-lg w-60 bg-white shadow-md">
                         <div class="flex items-center justify-center flex-col space-x-6 p-6">
                             <h3>Total Posts</h3>
-                            <h4>{{ $posts->count() }}</h4>
+                            <h4>{{ $postCount }}</h4>
                         </div>
                     </li>
                     <li class="col-span-1 divide-y divide-gray-200 rounded-lg w-60 bg-white shadow-md">
                         <div class="flex items-center justify-center flex-col space-x-6 p-6">
                             <h3>Total Likes</h3>
-                            <h4>{{ $likes->count() }}</h4>
+                            <h4>{{ $likesCount }}</h4>
                         </div>
                     </li>
                 </ul>
