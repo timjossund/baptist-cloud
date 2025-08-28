@@ -22,9 +22,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/report-post/{post:id}', [ReportingController::class, 'index'])->name('report-form');
     Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report');
     Route::get('/search', [PostController::class, 'search'])->name('search');
-    Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
+    Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow')->middleware(['throttle:followLimit']);
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
-    Route::post('/like/{post:id}', [LikeController::class, 'like'])->name('like');
+    Route::post('/like/{post:id}', [LikeController::class, 'like'])->middleware(['throttle:likeLimit']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

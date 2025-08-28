@@ -55,18 +55,18 @@ class PostController extends Controller
         $data = $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:6048',
             'title' => 'required|max:255',
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => ['required', 'exists:categories,id', 'integer'],
             'content' => 'required',
-            'tags' => 'nullable',
+            'tags' => ['nullable', 'max:255'],
             'ad_heading' => 'nullable',
             'ad_description' => 'nullable',
             'ad_link' => 'nullable',
-            'published_at' => ['nullable', 'timestamp'],
+            'published_at' => ['nullable', 'date'],
         ]);
 
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
-        $data['category_id'] = strip_tags($data['category_id']);
+        $data['category_id'] = (int) $data['category_id'];
         $data['tags'] = strip_tags($data['tags']);
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);

@@ -28,7 +28,7 @@ class AdController extends Controller
             'description' => 'nullable',
             'link' => 'nullable',
             'int' =>  'required',
-            'published_at' => ['nullable', 'timestamp'],
+            'published_at' => ['nullable', 'date'],
         ]);
 
         $data['title'] = strip_tags($data['title']);

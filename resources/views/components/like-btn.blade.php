@@ -1,7 +1,7 @@
 @props(['post'])
 
 <div class="flex border-t border-b mb-4 gap-2 py-2" x-data="{
-    hasLiked: {{ auth()->user()->hasLiked($post) ? 'true' : 'false' }},
+    hasLiked: {{ auth()->check() && auth()->user()->hasLiked($post) ? 'true' : 'false' }},
     likesCount: {{ $post->likes()->count() }},
     like() {
         axios.post('/like/{{ $post->id }}')

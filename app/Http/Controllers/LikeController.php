@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 
 class LikeController extends Controller
 {
@@ -17,9 +18,7 @@ class LikeController extends Controller
             $post->likes()->create(['user_id' => auth()->id()]);
         }
 
-
-
-        return response()->json(['likesCount' => $post->likes()->count() ]);
+        return response(['likesCount' => $post->likes()->count() ]);
     }
     public function unlike(Post $post) {
         $post->likes()->delete(['user_id' => auth()->id()]);
