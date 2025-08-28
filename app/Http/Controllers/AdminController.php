@@ -6,7 +6,6 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\Reporting;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -35,16 +34,17 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Promoted To Admin');
     }
 
-    public function makeAuthor(User $user)
-    {
-        if (!auth()->user() || !auth()->user()->is_admin) {
-            abort(403);
-        }
-        $user->is_author = true;
-        $user->save();
+//    public function makeAuthor(User $user)
+//    {
+//        if (!auth()->user() || !auth()->user()->is_admin) {
+//            abort(403);
+//        }
+//        $user->is_author = true;
+//        $user->save();
+//
+//        return redirect()->back()->with('success', 'promoted to author');
+//    }
 
-        return redirect()->back()->with('success', 'promoted to author');
-    }
     public function revokeAdmin(User $user)
     {
         if (auth()->user()->username != 'timjossund' || auth()->user()->id === $user->id) {
@@ -55,16 +55,18 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'demoted from admin');
     }
-    public function revokeAuthor(User $user)
-    {
-        if (!auth()->user() || !auth()->user()->is_admin) {
-            abort(403);
-        }
-        $user->is_author = false;
-        $user->save();
 
-        return redirect()->back()->with('success', 'demoted from author');
-    }
+//    public function revokeAuthor(User $user)
+//    {
+//        if (!auth()->user() || !auth()->user()->is_admin) {
+//            abort(403);
+//        }
+//        $user->is_author = false;
+//        $user->save();
+//
+//        return redirect()->back()->with('success', 'demoted from author');
+//    }
+
     public function deleteUser(User $user)
     {
         if (!$user->is_admin) {

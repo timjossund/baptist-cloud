@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\BcAd;
+use Illuminate\Http\Request;
 
 class AdController extends Controller
 {
@@ -27,21 +26,22 @@ class AdController extends Controller
             'title' => 'nullable',
             'description' => 'nullable',
             'link' => 'nullable',
-            'int' =>  'required',
+            'int' => 'required',
             'published_at' => ['nullable', 'date'],
         ]);
 
         $data['title'] = strip_tags($data['title']);
         $data['description'] = strip_tags($data['description']);
         $data['link'] = strip_tags($data['link']);
-        $data['int'] = (int) $data['int'];
+        $data['int'] = (int)$data['int'];
 
         BcAd::create($data);
 
         return redirect("/create-ad")->with('success', 'Ad Created');
     }
 
-    public function edit(BcAd $ad) {
+    public function edit(BcAd $ad)
+    {
 //        if (!auth()->user()->is_admin) {
 //            abort(403);
 //        }
@@ -57,13 +57,13 @@ class AdController extends Controller
             'title' => 'required',
             'description' => 'required',
             'link' => 'required',
-            'int' =>  'required'
+            'int' => 'required'
         ]);
 
         $data['title'] = strip_tags($data['title']);
         $data['description'] = strip_tags($data['description']);
         $data['link'] = strip_tags($data['link']);
-        $data['int'] = (int) $data['int'];
+        $data['int'] = (int)$data['int'];
 
         $ad->update($data);
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BcAd;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\BcAd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,7 +14,7 @@ use Intervention\Image\ImageManager;
 
 class PostController extends Controller
 {
-/**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -27,6 +27,7 @@ class PostController extends Controller
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
+        
         $posts = $query->with('user', 'category')->withCount('likes')->cursorPaginate(5);
 
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
@@ -36,15 +37,6 @@ class PostController extends Controller
     public function indexHome()
     {
         return redirect('/');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $categories = Category::get();
-        return view('create-post', ['categories' => $categories]);
     }
 
     /**
@@ -66,7 +58,7 @@ class PostController extends Controller
 
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
-        $data['category_id'] = (int) $data['category_id'];
+        $data['category_id'] = (int)$data['category_id'];
         $data['tags'] = strip_tags($data['tags']);
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);
@@ -81,14 +73,23 @@ class PostController extends Controller
         $manager = new ImageManager(new Driver());
         $image = $manager->read($data['image']);
         $imgNew = $image->cover(1200, 400)->toJpeg();
-        Storage::disk('public')->put("images/".$featureImage, $imgNew);
+        Storage::disk('public')->put("images/" . $featureImage, $imgNew);
 
         $data['image'] = $featureImage;
         $data['user_id'] = auth()->id();
 
         Post::create($data);
 
-        return redirect("/post/".$data['slug']."/edit")->with('success', 'Draft Saved');
+        return redirect("/post/" . $data['slug'] . "/edit")->with('success', 'Draft Saved');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = Category::get();
+        return view('create-post', ['categories' => $categories]);
     }
 
     /**
@@ -149,8 +150,8 @@ class PostController extends Controller
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
-            Storage::disk('public')->put("images/".$featureImage, $imgNew);
-            Storage::disk('public')->delete("images/".$oldImage);
+            Storage::disk('public')->put("images/" . $featureImage, $imgNew);
+            Storage::disk('public')->delete("images/" . $oldImage);
             $data['image'] = $featureImage;
         }
 
@@ -160,7 +161,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved');
+        return redirect('/@' . auth()->user()->username)->with('success', 'Draft Saved');
     }
 
     public function publish(Request $request, Post $post)
@@ -195,8 +196,8 @@ class PostController extends Controller
             $manager = new ImageManager(new Driver());
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
-            Storage::disk('public')->put("images/".$featureImage, $imgNew);
-            Storage::disk('public')->delete("images/".$oldImage);
+            Storage::disk('public')->put("images/" . $featureImage, $imgNew);
+            Storage::disk('public')->delete("images/" . $oldImage);
             $data['image'] = $featureImage;
         }
 
@@ -207,7 +208,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@'.auth()->user()->username)->with('success', 'Post Published');
+        return redirect('/@' . auth()->user()->username)->with('success', 'Post Published');
     }
 
     /**
@@ -219,18 +220,20 @@ class PostController extends Controller
             abort(403);
         }
         $postImage = $post->getRawOriginal('image');
-        Storage::disk('public')->delete("images/".$postImage);
+        Storage::disk('public')->delete("images/" . $postImage);
         $post->delete();
-        return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted');
+        return redirect('/@' . auth()->user()->username)->with('success', 'Post Deleted');
     }
 
-    public function category(Category $category) {
+    public function category(Category $category)
+    {
         $posts = $category->posts()->withCount('likes')->whereNotNull('published_at')->latest('published_at')->cursorPaginate(5);
         $ads = BcAd::all();
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
     }
 
-    public function searchAuthor(User $user) {
+    public function searchAuthor(User $user)
+    {
         $users = User::query()->cursorPaginate(5);
         return view('search-authors', ['users' => $users]);
     }
@@ -242,7 +245,7 @@ class PostController extends Controller
 
     public function markdownSandbox()
     {
-        return view('learn-markdown' );
+        return view('learn-markdown');
     }
 
     public function search()
