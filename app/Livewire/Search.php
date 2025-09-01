@@ -17,7 +17,7 @@ class Search extends Component
         }
         return view('livewire.search', [
             'users' => User::query()->where('name', 'LIKE', "%{$this->search}%")->get(),
-            'posts' => Post::query()->where('title', 'LIKE', "%{$this->search}%")->orWhere('tags', 'LIKE', "%{$this->search}%")->get(),
+            'posts' => Post::query()->where('title', 'LIKE', "%{$this->search}%")->orWhere('tags', 'LIKE', "%{$this->search}%")->get()->whereNotNull('published_at'),
         ]);
     }
 }
