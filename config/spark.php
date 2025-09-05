@@ -43,10 +43,10 @@ return [
     |
     */
 
-     'brand' =>  [
-         'logo' => realpath(__DIR__.'/../public/logo.svg'),
-         'color' => 'bg-blue-700',
-     ],
+    'brand' => [
+        'logo' => realpath(__DIR__ . '/../public/logo.svg'),
+        'color' => 'bg-blue-700',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -105,11 +105,11 @@ return [
     */
 
     'invoice_data' => [
-        'vendor' => 'Your Product',
-        'product' => 'Your Product',
-        'street' => '111 Example St.',
-        'location' => 'Los Angeles, CA',
-        'phone' => '555-555-5555',
+        'vendor' => 'Baptist Cloud Author Subscription',
+        'product' => 'Author Ad Space',
+        'street' => '410 Indian Hills Drive',
+        'location' => 'Conway, AR 72034',
+        'phone' => '(501) 470-6806',
     ],
 
     /*
@@ -132,20 +132,21 @@ return [
         'user' => [
             'model' => User::class,
 
-            'trial_days' => 5,
+            'trial_days' => 0,
 
             'default_interval' => 'monthly',
 
             'plans' => [
                 [
                     'name' => 'Baptist Cloud Author Subscription',
-                    'short_description' => 'This is a short, human friendly description of the plan.',
+                    'short_description' => 'Unlimited Ads on your posts for books, services, or affiliate links.',
                     'monthly_id' => env('SPARK_STANDARD_MONTHLY_PLAN', 'price_id'),
                     //'yearly_id' => env('SPARK_STANDARD_YEARLY_PLAN', 'price_id'),
                     'features' => [
-                        'Unlimited Publishing',
-                        'Access To Our Readers',
-                        'Highlight Books & Services',
+                        'Unlimited publishing',
+                        'Ads on post feed and on your article',
+                        'Advertise your books, services, or affiliate links',
+                        'List your church in the directory'
                     ],
                 ],
             ],
