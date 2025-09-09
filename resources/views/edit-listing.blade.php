@@ -17,38 +17,38 @@
                     {{-- Church Name --}}
                     <div class="w-full mt-4">
                         <x-input-label for="church" :value="__('Church Name:')" />
-                        <x-text-input id="church" class="border mt-1 w-full text-xl p-2" type="church" name="church" value="{{ $listing->church}}" />
+                        <x-text-input id="church" class="border mt-1 w-full text-xl p-2" type="church" name="church" value="{{ $listing->church }}" />
                         <x-input-error :messages="$errors->get('church')" class="mt-2" />
                     </div>
                     <div class="w-5/12 mt-4">
                         <x-input-label for="email" :value="__('Contact Email:')" />
-                        <x-text-input id="email" class="border mt-1 w-full text-xl p-2" type="email" name="email" value="{{$listing->email}}" />
+                        <x-text-input id="email" class="border mt-1 w-full text-xl p-2" type="email" name="email" value="{{ $listing->email }}" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
                     {{-- Contact Phone --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="phone" :value="__('Contact Phone:')" />
-                        <x-text-input id="phone" class="border mt-1 w-full text-xl p-2" type="phone" name="phone" value="{{$listing->phone}}" />
+                        <x-text-input id="phone" class="border mt-1 w-full text-xl p-2" type="phone" name="phone" value="{{ $listing->phone }}" />
                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                     </div>
                     {{-- Facebook URL --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="facebook" :value="__('Facebook URL:')" />
-                        <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" value="{{$listing->facebook}}" placeholder="https://yourfacebookurl"/>
+                        <x-text-input id="facebook" class="border mt-1 w-full text-xl p-2" type="facebook" name="facebook" value="{{ $listing->facebook }}" placeholder="https://yourfacebookurl"/>
                         <x-input-error :messages="$errors->get('facebook')" class="mt-2" />
                     </div>
                     {{-- Church Website --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="website" :value="__('Church Website:')" />
                         <x-text-input id="website" class="border mt-1 w-full text-xl p-2" type="website"
-                                      name="website" value="{{$listing->website}}" placeholder="https://yourchurchwebsite"/>
+                                      name="website" value="{{ $listing->website }}" placeholder="https://yourchurchwebsite"/>
                         <x-input-error :messages="$errors->get('website')" class="mt-2" />
                     </div>
                     {{-- Church City --}}
                     <div class="w-5/12 mt-4">
                         <x-input-label for="city" :value="__('City:')" />
                         <x-text-input id="city" class="border mt-1 w-full text-xl p-2" type="city"
-                                      name="city" value="{{$listing->city}}" />
+                                      name="city" value="{{ $listing->city }}" />
                         <x-input-error :messages="$errors->get('city')" class="mt-2" />
                     </div>
                     {{-- State --}}
