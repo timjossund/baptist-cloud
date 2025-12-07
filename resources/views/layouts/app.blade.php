@@ -38,11 +38,11 @@
 </div>
 <footer>
     <div class="bg-white shadow relative">
-        <div
+        {{-- <div
             class="text-center text-white p-6 w-full md:w-1/4 fixed md:bottom-10 bottom-0 md:left-10 bg-blue-800 rounded-lg">
             This site is under construction. Feel free to look around, but expect some dummy content and rough edges.
             <span class="font-bold">We will be officially launching soon!</span>
-        </div>
+        </div> --}}
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <p class="text-center text-gray-500">
                 © {{ date('Y') }} {{ config('app.name') }}.
