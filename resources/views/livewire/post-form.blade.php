@@ -78,7 +78,7 @@
         </div>
     @endif
     {{-- Post Submit --}}
-    <x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg" type="submit">Save
-        Draft
+    <x-primary-button class="text-white max-w-52 flex justify-center text-center py-2 rounded-lg" type="submit"> 
+        Save Draft
     </x-primary-button>
 </form>
