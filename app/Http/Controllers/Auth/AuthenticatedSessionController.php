@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
     {
         if (!app()->environment(['local', 'testing'])) {
             $request->validate([
-                'cf-turnstile-response' => ['required', new Turnstile],
+                'cf-turnstile-response' => ['required', Rule::turnstile()],
             ]);
         }
         $request->authenticate();
