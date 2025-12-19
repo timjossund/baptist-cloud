@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'Culture',
             'History',
             'Evangelism',
-            'Humor',
+            'Illustrations',
         ];
 
         foreach ($categories as $category) {

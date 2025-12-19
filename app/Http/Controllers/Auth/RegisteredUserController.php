@@ -70,7 +70,7 @@ class RegisteredUserController extends Controller
     {
         if (!app()->environment(['local', 'testing'])) {
             $request->validate([
-                'cf-turnstile-response' => ['required', Rule::turnstile()],
+                'cf-turnstile-response' => ['required', new Turnstile],
             ]);
         }
 
