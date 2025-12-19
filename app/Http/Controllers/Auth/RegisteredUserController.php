@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
     // }
     public function store(Request $request): RedirectResponse
     {
-        if (!app()->environment(['local', 'testing'])) {
+        if (app()->environment(['production'])) {
             $request->validate([
                 'cf-turnstile-response' => ['required', Rule::turnstile()],
             ]);
