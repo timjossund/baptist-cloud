@@ -51,7 +51,7 @@
         {{--        <livewire:jodit-text-editor wire:model="content" />--}}
         <x-input-error :messages="$errors->get('content')" class="mt-2"/>
     </div>
-    @if (auth()->user()->subscribed() || auth()->user()->is_author)
+    @if (auth()->user()->subscribed() || auth()->user()->is_author || auth()->user()->is_admin)
         <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
             {{--    Post Ad Heading --}}
             <div>
