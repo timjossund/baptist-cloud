@@ -67,15 +67,15 @@
                         </div>
                         {{--    Post Ad Description --}}
                         <div>
-                            <x-input-label for="ad_description" :value="__('Ad Desription:')" />
+                            <x-input-label for="ad_description" :value="__('Ad Description:')" />
                             <x-text-input id="ad_description" class="block border mt-1 w-full text-xl p-2" type="ad_description" name="ad_description" :value="$post->ad_description"/>
-                            <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('ad_description')" class="mt-2" />
                         </div>
                         {{--    Post Ad Link --}}
                         <div>
                             <x-input-label for="ad_link" :value="__('Ad Link:')" />
                             <x-text-input id="ad_link" class="block border mt-1 w-full text-xl p-2" type="ad_link" name="ad_link" :value=" $post->ad_link" placeholder="https://example.com"/>
-                            <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('ad_link')" class="mt-2" />
                         </div>
                     </div>
                     {{-- Post Submit --}}
