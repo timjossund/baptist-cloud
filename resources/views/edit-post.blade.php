@@ -60,7 +60,7 @@
                     <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
                         {{--    Post Ad Heading --}}
                         <div>
-                            <h4>Add and advertisement to the top of the post. (Optional)</h4>
+                            <h4>Add an advertisement to the top of the post. (Optional)</h4>
                             <x-input-label for="ad_heading" :value="__('Ad Heading:')" />
                             <x-text-input id="ad_heading" class="block border mt-1 w-full text-xl p-2" type="ad_heading" name="ad_heading" :value="$post->ad_heading"/>
                             <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
