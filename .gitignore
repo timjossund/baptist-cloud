@@ -31,3 +31,4 @@ auth.json
 *.iml
 .idea/inspectionProfiles/Project_Default.xml
 .idea
+QA_REPORT.md

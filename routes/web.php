@@ -40,9 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 //Auth, Verified, Subscribed Routes
-Route::middleware(['auth', 'verified'
-//    'subscribed'
-])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('/post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');

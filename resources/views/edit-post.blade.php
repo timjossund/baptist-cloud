@@ -57,6 +57,7 @@
 {{--                        <div id="bodycontent">{!! $post->content !!}</div>--}}
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
+                    @if (auth()->user()->subscribed() || auth()->user()->is_author || auth()->user()->is_admin)
                     <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
                         {{--    Post Ad Heading --}}
                         <div>
@@ -75,9 +76,10 @@
                         <div>
                             <x-input-label for="ad_link" :value="__('Ad Link:')" />
                             <x-text-input id="ad_link" class="block border mt-1 w-full text-xl p-2" type="ad_link" name="ad_link" :value=" $post->ad_link" placeholder="https://example.com"/>
-                            <x-input-error :messages="$errors->get('ad_link')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('ad_link')" class="mt-2" />
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     {{-- Post Submit --}}
                     <div class="flex gap-4">
                         @if (!$post->published_at)
