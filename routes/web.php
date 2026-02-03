@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\SermonController;
 
 //Open Routes
 Route::get('/', [PostController::class, 'index'])->name('home-page');
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 //Auth, Verified, Subscribed Routes
 Route::middleware(['auth', 'verified'])->group(function () {
+    //Posts
     Route::get('/post/create-post', [PostController::class, 'create'])->name('create-post');
     Route::post('/post/create-post', [PostController::class, 'store'])->name('save-post');
     Route::get('/post/{post:slug}/edit', [PostController::class, 'edit'])->name('edit-post');
@@ -52,17 +54,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 //Auth, Verified, Admin Routes
 Route::middleware(['auth', 'verified', 'can:is-admin'])->group(function () {
+    //Ads
     Route::get('/create-ad', [AdController::class, 'index'])->name('create-ad');
     Route::post('/create-ad', [AdController::class, 'store'])->name('save-ad');
     Route::get('/edit-ad/{ad:id}', [AdController::class, 'edit'])->name('edit-ad');
     Route::patch('/update-ad/{ad:id}', [AdController::class, 'update'])->name('update-ad');
     Route::delete('/delete-ad/{ad:id}/', [AdController::class, 'delete'])->name('delete-ad');
+    //Admin
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::post('/admin/users/{user:id}/make-admin', [AdminController::class, 'makeAdmin'])->name('make-admin');
     Route::post('/admin/users/{user:id}/revoke-admin', [AdminController::class, 'revokeAdmin'])->name('revoke-admin');
     Route::get('/admin/reported-posts', [AdminController::class, 'reported'])->name('admin.reported');
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
     Route::delete("/delete-report/{report:id}", [ReportingController::class, 'delete'])->name('delete-report');
+    //Sermons
+    Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.index');
+    Route::get('/sermons/create', [SermonController::class, 'create'])->name('create-sermon');
+    Route::post('/sermons', [SermonController::class, 'store'])->name('sermons.store');
 });
 
 require __DIR__ . '/auth.php';

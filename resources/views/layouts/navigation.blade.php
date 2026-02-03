@@ -45,6 +45,10 @@
                                 {{ __('Article') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link wire:navigate :href="route('create-sermon')">
+                                {{ __('Sermon') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link wire:navigate :href="route('create-listing')">
                                 {{ __('Position') }}
                             </x-dropdown-link>
