@@ -53,7 +53,7 @@ class PostForm extends Component
         $this->ad_description = strip_tags($this->ad_description);
         $this->ad_link = strip_tags($this->ad_link);
         $category_id = $this->category_id;
-        $featureImage = "image" . uniqid(10) . ".jpg";
+        $featureImage = "image" . uniqid() . ".jpg";
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($this->image);

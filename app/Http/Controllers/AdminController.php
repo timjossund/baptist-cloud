@@ -28,7 +28,7 @@ class AdminController extends Controller
 //        if (!auth()->user() || !auth()->user()->is_admin) {
 //            abort(403);
 //        }
-        $user->is_admin = 1;
+        $user->is_admin = true;
         $user->save();
 
         return redirect()->back()->with('success', 'Promoted To Admin');

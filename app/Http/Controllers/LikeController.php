@@ -13,7 +13,7 @@ class LikeController extends Controller
         $hasLiked = auth()->user()->hasLiked($post);
 
         if ($hasLiked) {
-            $post->likes()->delete(['user_id' => auth()->id()]);
+            $post->likes()->where('user_id', auth()->id())->delete();
         } else {
             $post->likes()->create(['user_id' => auth()->id()]);
         }
@@ -23,7 +23,7 @@ class LikeController extends Controller
 
     public function unlike(Post $post)
     {
-        $post->likes()->delete(['user_id' => auth()->id()]);
+        $post->likes()->where('user_id', auth()->id())->delete();
 
         return response()->json(['likesCount' => $post->likes()->count()]);
     }

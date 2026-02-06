@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property-read User|null $user
+ */
 class Post extends Model
 {
     //use HasFactory;
@@ -46,19 +49,19 @@ class Post extends Model
         return $minutes;
     }
 
-    public function category() {
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
         return $this->belongsTo(Category::class);
     }
 
-    public function user() {
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
         return $this->belongsTo(User::class);
     }
 
-    public function likes() {
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Like::class);
     }
 
-    public function reports() {
+    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Reporting::class);
     }
 }
