@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description');
-            $table->string('audio_url');
-            $table->string('video_url');
-            $table->string('image_url');
+            $table->string('audio');
+            $table->string('video');
+            $table->string('image');
+            $table->dateTime('published_at');
             $table->timestamps();
         });
     }
