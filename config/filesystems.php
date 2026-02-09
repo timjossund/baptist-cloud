@@ -59,6 +59,15 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        'Wasabi' => [
+            'driver' => 's3',
+            'root' => 'https://s3.us-east-1.wasabisys.com/sermons/images/',
+            'key' => env('WAS_ACCESS_KEY_ID'),
+            'secret' => env('WAS_SECRET_ACCESS_KEY'),
+            'region' => env('WAS_DEFAULT_REGION'),
+            'bucket' => env('WAS_BUCKET'),
+            'endpoint' => env('WAS_URL'),
+        ],
 
     ],
 

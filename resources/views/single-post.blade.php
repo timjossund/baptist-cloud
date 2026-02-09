@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto mt-10 px-5" x-data="{showForm: true}">
+    <div class="max-w-7xl mx-auto mt-10 px-5" x-data="{ showForm: true }">
         <div class="bg-white py-12 md:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col ">
             <div class="mx-auto max-w-2xl lg:max-w-6xl">
                 <div class="flex w-full flex-wrap">
@@ -26,7 +26,9 @@
                                 <x-follow-container :user="$post->user">
                                     @if (auth()->user() && auth()->user()->id !== $post->user->id)
                                         <div class="w-full flex justify-center">
-                                            <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'text-white bg-red-500' : 'text-white bg-blue-800'" class="px-6 -mt-5 ml-6 rounded-md py-2"></button>
+                                            <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'"
+                                                :class="following ? 'text-white bg-red-500' : 'text-white bg-blue-800'"
+                                                class="px-6 -mt-5 ml-6 rounded-md py-2"></button>
                                         </div>
                                     @endif
                                 </x-follow-container>
@@ -44,17 +46,19 @@
                         @else
                             <x-bc_ad :ads="$ads" />
                         @endif
-                            <x-bc_ad :ads="$ads" />
+                        <x-bc_ad :ads="$ads" />
                     </div>
                 </div>
 
                 <x-like-btn :post="$post" />
-                <img src="{{ $post->image }}" alt="Featured Image" class="w-full aspect-[3/1] rounded-xl object-cover mb-12">
+                <img src="{{ $post->image }}" alt="Featured Image"
+                    class="w-full aspect-[3/1] rounded-xl object-cover mb-12">
                 <div class="text-lg" id="markdown-body">{!! $post->content !!}</div>
             </div>
             <x-tags :tags="$post->tags" />
             <div class="flex justify-between my-10">
-                <a href="{{ url()->previous() }}" wire:navigate class="flex items-center gap-2 text-gray-700 hover:text-gray-700">
+                <a href="{{ url()->previous() }}" wire:navigate
+                    class="flex items-center gap-2 text-gray-700 hover:text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -62,7 +66,7 @@
                     </svg>
                     Go Back
                 </a>
-                <a href="/report-post/{{$post->id}}" class="text-red-600">Report This Article</a>
+                <a href="/report-post/{{ $post->id }}" class="text-red-600">Report This Article</a>
             </div>
         </div>
     </div>
