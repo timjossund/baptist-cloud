@@ -59,6 +59,15 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        'postImages' => [
+            'driver' => 's3',
+            'key' => env('IONOS_ACCESS_KEY_ID'),
+            'secret' => env('IONOS_SECRET_ACCESS_KEY'),
+            'region' => env('IONOS_DEFAULT_REGION'),
+            'bucket' => env('IONOS_BUCKET'),
+            'url' => env('IONOS_URL'),
+            'endpoint' => env('IONOS_ENDPOINT'),
+        ],
 
     ],
 

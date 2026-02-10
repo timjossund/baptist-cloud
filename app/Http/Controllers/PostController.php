@@ -27,7 +27,7 @@ class PostController extends Controller
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
-        
+
         $posts = $query->with('user', 'category')->withCount('likes')->cursorPaginate(5);
 
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
@@ -73,7 +73,7 @@ class PostController extends Controller
         $manager = new ImageManager(new Driver());
         $image = $manager->read($data['image']);
         $imgNew = $image->cover(1200, 400)->toJpeg();
-        Storage::disk('public')->put("images/" . $featureImage, $imgNew);
+        Storage::disk('postImages')->put("post-images/" . $featureImage, $imgNew);
 
         $data['image'] = $featureImage;
         $data['user_id'] = auth()->id();

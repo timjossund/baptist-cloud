@@ -39,7 +39,7 @@ class Post extends Model
 
     public function image(): Attribute {
         return Attribute::make(get: function($value) {
-            return $value ? '/storage/images/' . $value : '/default-avatar.png';
+            return $value ? 'https://s3.us-central-1.ionoscloud.com/post-images/post-images/' . $value : '/default-avatar.png';
         });
     }
 
