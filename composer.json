@@ -17,6 +17,8 @@
         "laravel/spark-stripe": "^5.0",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
+        "laravel/ui": "^4.6",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "ryangjchandler/laravel-cloudflare-turnstile": "^2.0"
     },
     "require-dev": {
