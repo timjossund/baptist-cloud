@@ -58,29 +58,29 @@ class PostController extends Controller
 
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
-        $data['category_id'] = (int)$data['category_id'];
+        $data['category_id'] = (int) $data['category_id'];
         $data['tags'] = strip_tags($data['tags']);
         $data['ad_heading'] = strip_tags($data['ad_heading']);
         $data['ad_description'] = strip_tags($data['ad_description']);
         $data['ad_link'] = strip_tags($data['ad_link']);
 
-//        $image = $data['image'];
-        //unset($data['image']);
-        $data['slug'] = Str::slug($data['title'] . '-' . Str::random(3));
+        //        $image = $data['image'];
+        // unset($data['image']);
+        $data['slug'] = Str::slug($data['title'].'-'.Str::random(3));
 
-        $featureImage = "image" . '-' . $data['slug'] . ".jpg";
+        $featureImage = 'image'.'-'.$data['slug'].'.jpg';
 
-        $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(new Driver);
         $image = $manager->read($data['image']);
         $imgNew = $image->cover(1200, 400)->toJpeg();
-        Storage::disk('postImages')->put("post-images/" . $featureImage, $imgNew);
+        Storage::disk('postImages')->put('post-images/'.$featureImage, $imgNew);
 
         $data['image'] = $featureImage;
         $data['user_id'] = auth()->id();
 
         Post::create($data);
 
-        return redirect("/post/" . $data['slug'] . "/edit")->with('success', 'Draft Saved');
+        return redirect('/post/'.$data['slug'].'/edit')->with('success', 'Draft Saved');
     }
 
     /**
@@ -89,6 +89,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::get();
+
         return view('create-post', ['categories' => $categories]);
     }
 
@@ -100,6 +101,7 @@ class PostController extends Controller
         $post['content'] = Str::markdown($post->content);
         $ads = BcAd::all();
         $maxAd = $ads->max('int');
+
         return view('single-post', ['post' => $post, 'ads' => $ads, 'maxAd' => $maxAd]);
     }
 
@@ -108,10 +110,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
             abort(403);
         }
         $categories = Category::get();
+
         return view('edit-post', ['post' => $post, 'categories' => $categories]);
     }
 
@@ -120,7 +123,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
             abort(403);
         }
         $data = $request->validate([
@@ -134,7 +137,7 @@ class PostController extends Controller
             'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
-        //dd($data);
+        // dd($data);
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
@@ -146,27 +149,26 @@ class PostController extends Controller
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
-            $featureImage = "post-image-" . $data['slug'] . '-' . Str::random(3) . ".jpg";
-            $manager = new ImageManager(new Driver());
+            $featureImage = 'post-image-'.$data['slug'].'-'.Str::random(3).'.jpg';
+            $manager = new ImageManager(new Driver);
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
-            Storage::disk('public')->put("images/" . $featureImage, $imgNew);
-            Storage::disk('public')->delete("images/" . $oldImage);
+            Storage::disk('postImages')->put('post-images/'.$featureImage, $imgNew);
+            Storage::disk('postImages')->delete('post-images/'.$oldImage);
             $data['image'] = $featureImage;
         }
-
 
         $data['user_id'] = auth()->id();
 
         $post->fill($data);
         $post->save();
 
-        return redirect('/@' . auth()->user()->username)->with('success', 'Draft Saved');
+        return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved');
     }
 
     public function publish(Request $request, Post $post)
     {
-        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
             abort(403);
         }
         $data = $request->validate([
@@ -180,9 +182,9 @@ class PostController extends Controller
             'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
-        //dd($data);
+        // dd($data);
         $data['title'] = strip_tags($data['title']);
-//        $data['content'] = strip_tags($data['content']);
+        //        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['tags'] = strip_tags($data['tags']);
         $data['ad_heading'] = strip_tags($data['ad_heading']);
@@ -192,15 +194,14 @@ class PostController extends Controller
 
         if ($request->file('image') != null) {
             $oldImage = $post->getRawOriginal('image');
-            $featureImage = "post-image-" . $data['slug'] . '-' . Str::random(3) . ".jpg";
-            $manager = new ImageManager(new Driver());
+            $featureImage = 'post-image-'.$data['slug'].'-'.Str::random(3).'.jpg';
+            $manager = new ImageManager(new Driver);
             $image = $manager->read($data['image']);
             $imgNew = $image->cover(1200, 400)->toJpeg();
-            Storage::disk('public')->put("images/" . $featureImage, $imgNew);
-            Storage::disk('public')->delete("images/" . $oldImage);
+            Storage::disk('postImages')->put('post-images/'.$featureImage, $imgNew);
+            Storage::disk('postImages')->delete('post-images/'.$oldImage);
             $data['image'] = $featureImage;
         }
-
 
         $data['user_id'] = auth()->id();
         $data['published_at'] = now();
@@ -208,7 +209,7 @@ class PostController extends Controller
         $post->fill($data);
         $post->save();
 
-        return redirect('/@' . auth()->user()->username)->with('success', 'Post Published');
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Published');
     }
 
     /**
@@ -216,25 +217,28 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post->user_id != auth()->id() && !auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
             abort(403);
         }
         $postImage = $post->getRawOriginal('image');
-        Storage::disk('public')->delete("images/" . $postImage);
+        Storage::disk('postImages')->delete('post-images/'.$postImage);
         $post->delete();
-        return redirect('/@' . auth()->user()->username)->with('success', 'Post Deleted');
+
+        return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted');
     }
 
     public function category(Category $category)
     {
         $posts = $category->posts()->withCount('likes')->whereNotNull('published_at')->latest('published_at')->cursorPaginate(5);
         $ads = BcAd::all();
+
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
     }
 
     public function searchAuthor(User $user)
     {
         $users = User::query()->cursorPaginate(5);
+
         return view('search-authors', ['users' => $users]);
     }
 
@@ -252,6 +256,4 @@ class PostController extends Controller
     {
         return view('search');
     }
-
-
 }
