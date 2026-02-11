@@ -16,6 +16,7 @@ use App\Http\Controllers\SermonController;
 Route::get('/', [PostController::class, 'index'])->name('home-page');
 Route::get('/home', [PostController::class, 'indexHome']);
 Route::get('/category/{category:title}', [PostController::class, 'category'])->name('byCategory');
+Route::get('/sermons', [SermonController::class, 'welcome'])->name('sermons.index');
 
 //Auth, Verified Routes
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -51,9 +52,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/post/{post:id}/delete', [PostController::class, 'destroy'])->name('delete-post');
     Route::get('/learn-markdown', [PostController::class, 'markdownSandbox'])->name('markdown-sandbox');
     //Sermons
-    Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.index');
+    Route::get('/sermons/feed', [SermonController::class, 'index'])->name('sermons.feed');
     Route::get('/sermons/create', [SermonController::class, 'create'])->name('create-sermon');
-    Route::post('/sermons', [SermonController::class, 'store'])->name('sermons.store');
+    Route::post('/sermons/feed', [SermonController::class, 'store'])->name('sermons.store');
 });
 
 //Auth, Verified, Admin Routes

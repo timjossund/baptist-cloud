@@ -18,10 +18,8 @@ class Sermon extends Model
         'updated_at',
     ];
 
-//    public function audio(): Attribute {
-//        return Attribute::make(get: function($value) {
-//            $str = 'https://s3.us-central-1.ionoscloud.com/sermons-bc/sermons/';
-//            return $value ? '' . $str . '' . $value : '';
-//        });
-//    }
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
