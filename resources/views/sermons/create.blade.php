@@ -10,29 +10,59 @@
                         class="space-y-4 p-6 flex flex-col gap-4">
                         @csrf
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="image">Sermon Graphic (Optional)</label>
-                            <input type="file" name="image" id="image">
+                            <label for="image_url">Sermon Graphic (Optional)</label>
+                            <input type="file" name="image_url" id="image_url">
                         </div>
+                        @error('image_url')
+                        <div class="text-red-500 mt-2">
+                            {{ $message }}
+                        </div>
+                        @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="series_title">Sermon Series (Optional)</label>
                             <input type="text" name="series_title" id="series_title">
                         </div>
+                        @error('series_title')
+                        <div class="text-red-500 mt-2">
+                            {{ $message }}
+                        </div>
+                        @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="title">Title (Required)</label>
                             <input type="text" name="title" id="title" required>
                         </div>
+                        @error('title')
+                        <div class="text-red-500 mt-2">
+                            {{ $message }}
+                        </div>
+                        @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="description">Description (Required)</label>
                             <textarea name="description" id="description" cols="30" rows="10" required></textarea>
                         </div>
-                        <div class="mb-4 flex flex-col gap-2">
-                            <label for="audio">Sermon Audio (Required)</label>
-                            <input type="file" name="audio" id="audio" required>
+                        @error('description')
+                        <div class="text-red-500 mt-2">
+                            {{ $message }}
                         </div>
+                        @enderror
+                        <div class="mb-4 flex flex-col gap-2">
+                            <label for="audio_url">Sermon Audio (Required)</label>
+                            <input type="file" name="audio_url" id="audio_url" required>
+                        </div>
+                        @error('audio')
+                            <div class="text-red-500 mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="published_at">Sermon Date (Required)</label>
                             <input type="date" name="published_at" id="published_at" required>
                         </div>
+                        @error('published_at')
+                        <div class="text-red-500 mt-2">
+                            {{ $message }}
+                        </div>
+                        @enderror
                         <button type="submit"
                             class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-300 ease-in-out uppercase font-medium w-1/4">
                             Create Sermon

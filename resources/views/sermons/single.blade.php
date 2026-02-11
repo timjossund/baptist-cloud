@@ -3,13 +3,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <img src="{{ sermon->image }}" alt="{{ sermon->title }}">
+                    <img src="{{ $sermon->image_url }}" alt="{{ $sermon->title }}">
                     <h2 class="font-semibold text-4xl text-gray-800 leading-tight ml-6">
-                        {{ sermon->title }}
+                        {{ $sermon->title }}
                     </h2>
-                    <p class="text-gray-600">{{ sermon->description }}</p>
+                    <p class="text-gray-600">{{ $sermon->description }}</p>
                     <audio controls>
-                        <source src="{{ sermon->audio }}" type="audio/mpeg">
+                        <source src="{{ $sermon->audio_url }}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                 </div>

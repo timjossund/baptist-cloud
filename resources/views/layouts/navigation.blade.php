@@ -12,6 +12,9 @@
                     <x-nav-link wire:navigate :href="route('home-page')" class="hidden md:block" :active="request()->routeIs(['home-page', 'byCategory'])">
                         {{ __('Articles') }}
                     </x-nav-link>
+                    <x-nav-link wire:navigate :href="route('sermons.index')" class="hidden md:block" :active="request()->routeIs('sermons.index')">
+                        {{ __('Sermons') }}
+                    </x-nav-link>
                     <x-nav-link wire:navigate :href="route('positions')" class="hidden md:block" :active="request()->routeIs('positions')">
                         {{ __('Open Positions') }}
                     </x-nav-link>

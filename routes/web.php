@@ -50,6 +50,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/post/{post:slug}', [PostController::class, 'update'])->name('update-post');
     Route::delete('/post/{post:id}/delete', [PostController::class, 'destroy'])->name('delete-post');
     Route::get('/learn-markdown', [PostController::class, 'markdownSandbox'])->name('markdown-sandbox');
+    //Sermons
+    Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.index');
+    Route::get('/sermons/create', [SermonController::class, 'create'])->name('create-sermon');
+    Route::post('/sermons', [SermonController::class, 'store'])->name('sermons.store');
 });
 
 //Auth, Verified, Admin Routes
@@ -67,10 +71,6 @@ Route::middleware(['auth', 'verified', 'can:is-admin'])->group(function () {
     Route::get('/admin/reported-posts', [AdminController::class, 'reported'])->name('admin.reported');
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
     Route::delete("/delete-report/{report:id}", [ReportingController::class, 'delete'])->name('delete-report');
-    //Sermons
-    Route::get('/sermons', [SermonController::class, 'index'])->name('sermons.index');
-    Route::get('/sermons/create', [SermonController::class, 'create'])->name('create-sermon');
-    Route::post('/sermons', [SermonController::class, 'store'])->name('sermons.store');
 });
 
 require __DIR__ . '/auth.php';

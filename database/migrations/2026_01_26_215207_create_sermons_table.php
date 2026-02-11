@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description');
+            $table->string('series_title')->nullable();
             $table->string('audio_url');
-            $table->string('video_url');
-            $table->string('image_url');
+            $table->string('video_url')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }
