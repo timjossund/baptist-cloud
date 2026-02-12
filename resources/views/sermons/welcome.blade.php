@@ -4,12 +4,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h2 class="font-semibold text-4xl text-gray-800 leading-tight ml-6">
-                        Welcome to Baptist.Cloud Sermons
-                        <p>Upload your sermons and share them with the world</p>
-
-                        @foreach($sermons as $sermon)
-                            <x-sermon-item :sermon="$sermon" />
-                        @endforeach
+                        Latest Sermons from those you follow:
+                        @if ($sermons->count() == 0)
+                            <p class="text-gray-600">No sermons found</p>
+                        @else
+                            @foreach ($sermons as $sermon)
+                                <x-sermon-item :sermon="$sermon" :ads="$ads" />
+                            @endforeach
+                        @endif
                     </h2>
                 </div>
             </div>

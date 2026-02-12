@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 use Spark\Billable;
 
-class User extends Authenticatable implements MustVerifyEmail {
+class User extends Authenticatable implements MustVerifyEmail
+{
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, Billable;
+    use Billable, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail {
         'email',
         'password',
         'bio',
-        'username'
+        'username',
     ];
 
     /**
@@ -45,44 +45,53 @@ class User extends Authenticatable implements MustVerifyEmail {
      *
      * @return array<string, string>
      */
-    protected function casts(): array {
+    protected function casts(): array
+    {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
 
-    public function avatar(): Attribute {
-        return Attribute::make(get: function($value) {
-            return $value ? '/storage/avatars/' . $value : '/default-avatar.png';
+    public function avatar(): Attribute
+    {
+        return Attribute::make(get: function ($value) {
+            return $value ? '/storage/avatars/'.$value : '/default-avatar.png';
         });
     }
 
-    public function posts() {
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
 
-    public function following() {
+    public function following()
+    {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 
-    public function followers() {
+    public function followers()
+    {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 
-    public function isFollowedBy(User $user) {
+    public function isFollowedBy(User $user)
+    {
         return $this->followers()->where('follower_id', $user->id)->exists();
     }
 
-    public function reports() {
+    public function reports()
+    {
         return $this->hasMany(Reporting::class);
     }
 
-    public function hasLiked(Post $post) {
+    public function hasLiked(Post $post)
+    {
         return $post->likes()->where('user_id', $this->id)->exists();
     }
 
-    public function sermons(): \Illuminate\Database\Eloquent\Relations\HasMany {
+    public function sermons(): HasMany
+    {
         return $this->hasMany(Sermon::class);
     }
 }
