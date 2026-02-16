@@ -19,8 +19,8 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="series_title">Sermon Series (Optional)</label>
-                            <input type="text" name="series_title" id="series_title">
+                            <label for="series_title">Preached By (Optional)</label>
+                            <input type="text" name="series_title" id="series_title" value="{{ old('series_title') }}">
                         </div>
                         @error('series_title')
                             <div class="text-red-500 mt-2">
@@ -29,7 +29,7 @@
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="title">Title (Required)</label>
-                            <input type="text" name="title" id="title" required>
+                            <input type="text" name="title" id="title" required value="{{ old('title') }}">
                         </div>
                         @error('title')
                             <div class="text-red-500 mt-2">
@@ -38,25 +38,31 @@
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="description">Main Scripture Text (Required)</label>
-                            <input type="text" name="description" id="description" required>
+                            <input type="text" name="description" id="description" required value="{{ old('description') }}">
                         </div>
                         @error('description')
                             <div class="text-red-500 mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
+                        {{-- Sermon Tags --}}
+                        <div>
+                            <label for="tags">Tags: (comma separated)</label>
+                            <input type="text" name="tags" id="tags" class="block border mt-1 w-full text-xl p-2" value="{{ old('tags') }}">
+                            <x-input-error :messages="$errors->get('tags')" class="mt-2"/>
+                        </div>
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="audio_url">Sermon Audio (Required)</label>
                             <input type="file" name="audio_url" id="audio_url" required>
                         </div>
-                        @error('audio')
+                        @error('audio_url')
                             <div class="text-red-500 mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="published_at">Sermon Date (Required)</label>
-                            <input type="date" name="published_at" id="published_at" required>
+                            <label for="published_at">Preached Date (Required)</label>
+                            <input type="date" name="published_at" id="published_at" required value="{{ old('published_at') }}">
                         </div>
                         @error('published_at')
                             <div class="text-red-500 mt-2">

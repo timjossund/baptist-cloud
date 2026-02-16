@@ -13,12 +13,12 @@
                 {{ Str::words($sermon->title, 9, '...') }}
             </h3>
             <p class="text-gray-600 text-sm">
-                Main text: {{ Str::words($sermon->description, 20, '...') }}<br>
-                Posted by: {{ $sermon->user->name }}
+                <span class="font-bold">Main text: {{ Str::words($sermon->description, 20, '...') }}</span><br>
+                Posted by:{{ $sermon->user->name }}
             </p>
             @if ($sermon->series_title)
                 <p class="text-gray-600 text-sm">
-                    Series: {{ Str::words($sermon->series_title, 20, '...') }}
+                    Series:{{ Str::words($sermon->series_title, 20, '...') }}
                 </p>
             @endif
             <div class="flex gap-2 mt-2 items-center">

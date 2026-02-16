@@ -13,15 +13,21 @@ class SermonController extends Controller
 {
     public function welcome(Sermon $sermon)
     {
-        $sermons = $sermon->all();
+        $user = auth()->user();
+        $sermons = $sermon->latest()->take(10)->get();
         $ads = BcAd::all();
+
+        if ($user) {
+            $userIds = $user->following()->pluck('users.id');
+            $sermons = $sermons->whereIn('user_id', $userIds);
+        }
 
         return view('sermons.welcome', compact('sermons', 'ads'));
     }
 
     public function index()
     {
-        $sermons = Sermon::all();
+        $sermons = Sermon::latest()->take(10)->get();
 
         return view('sermons.index', compact('sermons'));
     }
