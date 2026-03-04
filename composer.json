@@ -16,9 +16,11 @@
         "laravel/scout": "^10.15",
         "laravel/spark-stripe": "^5.0",
         "laravel/tinker": "^2.10.1",
-        "livewire/livewire": "^3.6",
         "laravel/ui": "^4.6",
         "league/flysystem-aws-s3-v3": "^3.0",
+        "livewire/flux": "^2.13",
+        "livewire/flux-pro": "^2.13",
+        "livewire/livewire": "^4.0",
         "ryangjchandler/laravel-cloudflare-turnstile": "^2.0"
     },
     "require-dev": {
@@ -88,6 +90,11 @@
         }
     },
     "repositories": [
+        {
+            "name": "flux-pro",
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        },
         {
             "type": "composer",
             "url": "https://spark.laravel.com"

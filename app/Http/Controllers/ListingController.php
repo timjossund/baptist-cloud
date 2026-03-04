@@ -74,7 +74,6 @@ class ListingController extends Controller
         }
 
         $listing = Listing::findOrFail($id);
-        //dd($position);
         return view('edit-listing', ['listing' => $listing]);
     }
 

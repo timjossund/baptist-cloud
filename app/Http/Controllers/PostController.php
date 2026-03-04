@@ -137,7 +137,6 @@ class PostController extends Controller
             'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
-        // dd($data);
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
@@ -182,7 +181,6 @@ class PostController extends Controller
             'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
-        // dd($data);
         $data['title'] = strip_tags($data['title']);
         //        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);

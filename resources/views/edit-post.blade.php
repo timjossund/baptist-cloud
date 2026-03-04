@@ -1,12 +1,15 @@
 <x-app-layout>
-    <section class="container mx-auto px-6 py-8 flex justify-center" x-data="{publish: false}">
+    <section class="container mx-auto px-6 py-8 flex justify-center" x-data="{ publish: false }">
         <div class="max-w-7xl mx-auto px-5 w-full">
-            <div class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg relative">
+            <div
+                class="bg-white flex flex-col items-center justify-center sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg relative">
                 <h2 class="text-4xl font-bold mb-8 max-w-6xl w-full">Publish Your Post</h2>
-                <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'" method="post" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">
+                <form :action="publish ? '/post/{{ $post->slug }}/publish' : '/post/{{ $post->slug }}'"
+                    method="post" enctype="multipart/form-data" class="m-auto w-full max-w-6xl flex flex-col gap-4">
                     @csrf
                     @method('patch')
-                    <div class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 absolute top-12 right-12 cursor-pointer" @click="publish = true">
+                    <div class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 absolute top-12 right-12 cursor-pointer"
+                        @click="publish = true">
                         Publish
                     </div>
                     {{-- Post Image --}}
@@ -47,35 +50,66 @@
                     {{-- Post Tags --}}
                     <div>
                         <x-input-label for="tags" :value="__('Tags: (comma separated)')" />
-                        <input type="text" name="tags" id="tags" class="block border mt-1 w-full text-xl p-2" value="{{ $post->tags }}">
+                        <input type="text" name="tags" id="tags" class="block border mt-1 w-full text-xl p-2"
+                            value="{{ $post->tags }}">
                         <x-input-error :messages="$errors->get('tags')" class="mt-2" />
                     </div>
                     {{-- Post Body --}}
                     <div class="mt-2 w-full flex flex-col">
-                        <label for="content" class="text-lg text-gray-700 mb-2">Body Content: <span class="text-md text-gray-500">This text will be converted to markdown. <a class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn Markdown</a></span></label>
-                        <textarea id="content" rows="10" name="content">{{ $post->content }} </textarea>
-{{--                        <div id="bodycontent">{!! $post->content !!}</div>--}}
+                        <label for="content" class="text-lg text-gray-700 mb-2">Body Content:
+                            {{-- <span
+                                class="text-md text-gray-500">This text will be converted to markdown. <a
+                                    class="underline text-blue-600" target="_blank" href="/learn-markdown">Learn
+                                    Markdown</a></span> --}}
+                        </label>
+                        <div class="rounded border border-gray-300">
+                            <flux:editor name="content" id="content" :value="$post->content">
+                                <flux:editor.toolbar class="bg-gray-50">
+                                    <flux:editor.heading />
+                                    <flux:editor.separator />
+                                    <flux:editor.bold />
+                                    <flux:editor.italic />
+                                    <flux:editor.strike />
+                                    <flux:editor.separator />
+                                    <flux:editor.bullet />
+                                    <flux:editor.ordered />
+                                    <flux:editor.blockquote />
+                                    <flux:editor.separator />
+                                    <flux:editor.link />
+                                    <flux:editor.separator />
+                                    <flux:editor.align />
+                                </flux:editor.toolbar>
+                                <flux:editor.content>
+                                    {{ $post->content }}
+                                </flux:editor.content>
+                            </flux:editor>
+                        </div>
+                        {{-- <textarea id="content" rows="10" name="content">{{ $post->content }} </textarea> --}}
+                        {{--                        <div id="bodycontent">{!! $post->content !!}</div> --}}
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
                     @if (auth()->user()->subscribed() || auth()->user()->is_author || auth()->user()->is_admin)
-                    <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
-                        {{--    Post Ad Heading --}}
-                        <div>
-                            <h4>Add an advertisement to the top of the post. (Optional)</h4>
-                            <x-input-label for="ad_heading" :value="__('Ad Heading:')" />
-                            <x-text-input id="ad_heading" class="block border mt-1 w-full text-xl p-2" type="ad_heading" name="ad_heading" :value="$post->ad_heading"/>
-                            <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
-                        </div>
-                        {{--    Post Ad Description --}}
-                        <div>
-                            <x-input-label for="ad_description" :value="__('Ad Description:')" />
-                            <x-text-input id="ad_description" class="block border mt-1 w-full text-xl p-2" type="ad_description" name="ad_description" :value="$post->ad_description"/>
-                            <x-input-error :messages="$errors->get('ad_description')" class="mt-2" />
-                        </div>
-                        {{--    Post Ad Link --}}
-                        <div>
-                            <x-input-label for="ad_link" :value="__('Ad Link:')" />
-                            <x-text-input id="ad_link" class="block border mt-1 w-full text-xl p-2" type="ad_link" name="ad_link" :value=" $post->ad_link" placeholder="https://example.com"/>
+                        <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
+                            {{--    Post Ad Heading --}}
+                            <div>
+                                <h4>Add an advertisement to the top of the post. (Optional)</h4>
+                                <x-input-label for="ad_heading" :value="__('Ad Heading:')" />
+                                <x-text-input id="ad_heading" class="block border mt-1 w-full text-xl p-2"
+                                    type="ad_heading" name="ad_heading" :value="$post->ad_heading" />
+                                <x-input-error :messages="$errors->get('ad_heading')" class="mt-2" />
+                            </div>
+                            {{--    Post Ad Description --}}
+                            <div>
+                                <x-input-label for="ad_description" :value="__('Ad Description:')" />
+                                <x-text-input id="ad_description" class="block border mt-1 w-full text-xl p-2"
+                                    type="ad_description" name="ad_description" :value="$post->ad_description" />
+                                <x-input-error :messages="$errors->get('ad_description')" class="mt-2" />
+                            </div>
+                            {{--    Post Ad Link --}}
+                            <div>
+                                <x-input-label for="ad_link" :value="__('Ad Link:')" />
+                                <x-text-input id="ad_link" class="block border mt-1 w-full text-xl p-2" type="ad_link"
+                                    name="ad_link" :value="$post->ad_link" placeholder="https://example.com" />
                                 <x-input-error :messages="$errors->get('ad_link')" class="mt-2" />
                             </div>
                         </div>
@@ -83,24 +117,32 @@
                     {{-- Post Submit --}}
                     <div class="flex gap-4">
                         @if (!$post->published_at)
-                        <x-primary-button class="text-white max-w-44 flex justify-center text-center py-2 rounded-lg" type="submit">
-                            Save Draft
-                        </x-primary-button>
+                            <x-primary-button
+                                class="text-white max-w-44 flex justify-center text-center py-2 rounded-lg"
+                                type="submit">
+                                Save Draft
+                            </x-primary-button>
                         @endif
-                        <div class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" @click="publish = true">
+                        <div class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer"
+                            @click="publish = true">
                             Publish
                         </div>
                     </div>
-                    <div x-show="publish" x-cloak class="flex gap-4 fixed justify-center items-center w-full h-full z-50 bg-black bg-opacity-20 top-0 left-0">
-                        <div class="bg-white flex flex-col justify-center items-center text-center py-20 px-40 rounded-lg gap-2">
+                    <div x-show="publish" x-cloak
+                        class="flex gap-4 fixed justify-center items-center w-full h-full z-50 bg-black bg-opacity-20 top-0 left-0">
+                        <div
+                            class="bg-white flex flex-col justify-center items-center text-center py-20 px-40 rounded-lg gap-2">
                             <div class="flex flex-col">
                                 <h3>Ready to publish?</h3>
                                 <p>Once published, this post will be visible to all users.</p>
                             </div>
-                            <x-primary-button class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg cursor-pointer hover:bg-blue-700 !bg-blue-800" type="submit">
+                            <x-primary-button
+                                class="text-white max-w-32 flex justify-center text-center py-2 rounded-lg cursor-pointer hover:bg-blue-700 !bg-blue-800"
+                                type="submit">
                                 Publish
                             </x-primary-button>
-                            <div class="flex justify-center items-center text-center py-2 rounded-lg  cursor-pointer  hover:text-underline" @click="publish = false">
+                            <div class="flex justify-center items-center text-center py-2 rounded-lg  cursor-pointer  hover:text-underline"
+                                @click="publish = false">
                                 Cancel
                             </div>
                         </div>

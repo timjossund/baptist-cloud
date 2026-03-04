@@ -60,8 +60,6 @@ class RegisteredUserController extends Controller
 
     //     event(new Registered($user));
 
-    //     //dd($user->avatar);
-
     //     Auth::login($user);
 
     //     return redirect(route('home-page', absolute: false));
