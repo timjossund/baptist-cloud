@@ -28,8 +28,9 @@ class SermonController extends Controller
     public function index()
     {
         $sermons = Sermon::latest()->take(10)->get();
+        $ads = BcAd::all();
 
-        return view('sermons.index', compact('sermons'));
+        return view('sermons.index', compact('sermons', 'ads'));
     }
 
     public function create()
@@ -39,7 +40,7 @@ class SermonController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $data = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
@@ -122,7 +123,7 @@ class SermonController extends Controller
             $imgNew = $image->cover(400, 400)->toJpeg();
             Storage::disk('postImages')->put('sermon-images/'.$sermonImage, $imgNew);
             Storage::disk('postImages')->delete('sermon-images/'.$oldImage);
-      
+
             $data['image_url'] = 'https://s3.us-central-1.ionoscloud.com/post-images/sermon-images/'.$sermonImage;
         }
 

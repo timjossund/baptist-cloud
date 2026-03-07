@@ -90,7 +90,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $post->likes()->where('user_id', $this->id)->exists();
     }
 
-    public function sermons(): HasMany
+    public function sermons()
     {
         return $this->hasMany(Sermon::class);
     }
