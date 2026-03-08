@@ -14,7 +14,7 @@
                         </a>
                     </div>
                     @if ($sermons->count() == 0)
-                        <p class="text-gray-600">No sermons found</p>
+                        <p class="text-gray-600">No sermons found here.</p>
                     @else
                         @foreach ($sermons as $sermon)
                             <x-sermon-item :sermon="$sermon" :ads="$ads" />
