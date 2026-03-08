@@ -5,7 +5,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center">
                         <h2 class="font-semibold text-4xl text-gray-800 leading-tight">
-                            Latest Sermons from those you follow:
+                            Latest Uploads From Those You Follow:
                         </h2>
                         <a href="/search-sermons" class="px-2 py-2 text-white bg-gray-200 rounded-md">
                             <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

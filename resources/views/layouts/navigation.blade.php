@@ -10,10 +10,10 @@
                         <h2 class="text-2xl text-black !hover:no-underline">Baptist.Cloud</h2>
                     </a>
                     <x-nav-link wire:navigate :href="route('home-page')" class="hidden md:block" :active="request()->routeIs(['home-page', 'byCategory'])">
-                        {{ __('Articles') }}
+                        {{ __('Read') }}
                     </x-nav-link>
                     <x-nav-link wire:navigate :href="route('sermons.index')" class="hidden md:block" :active="request()->routeIs('sermons.index')">
-                        {{ __('Sermons') }}
+                        {{ __('Listen') }}
                     </x-nav-link>
                     <x-nav-link wire:navigate :href="route('positions')" class="hidden md:block" :active="request()->routeIs('positions')">
                         {{ __('Open Positions') }}
