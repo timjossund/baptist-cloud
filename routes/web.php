@@ -58,7 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sermons/{sermon}', [SermonController::class, 'show'])->name('sermons.show');
     Route::get('/sermons/{sermon}/edit', [SermonController::class, 'edit'])->name('sermons.edit');
     Route::patch('/sermons/{sermon}/update', [SermonController::class, 'update'])->name('sermons.update');
-    Route::delete('/sermons/{sermon}/delete', [SermonController::class, 'delete'])->name('sermons.delete');
+    Route::delete('/sermons/{sermon}/delete', [SermonController::class, 'destroy'])->name('sermons.delete');
 });
 
 // Auth, Verified, Admin Routes

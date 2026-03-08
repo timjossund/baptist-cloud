@@ -42,7 +42,6 @@
                         Go Back
                     </a>
                     <a href="/report-post/{{ $sermon->id }}" class="text-red-600">Report This Sermon</a>
-
                 </div>
             </div>
         </div>

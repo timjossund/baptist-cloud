@@ -37,12 +37,8 @@
                     </div>
                 </div>
                 <div class="px-4 w-full flex items-center pb-5 mb-4 gap-4">
-                    <x-primary-button @click="showPosts = true, showSermons = false">
-                        Latest Posts
-                    </x-primary-button>
-                    <x-primary-button @click="showPosts = false, showSermons = true">
-                        Latest Sermons
-                    </x-primary-button>
+                    <x-primary-button @click="showPosts = true, showSermons = false">Latest Posts</x-primary-button>
+                    <x-primary-button @click="showPosts = false, showSermons = true">Latest Sermons</x-primary-button>
                 </div>
                 <div class="px-4 w-full" id="posts" x-show="showPosts">
                     <h4 class="text-3xl my-3">Latest Posts:</h4>
@@ -66,29 +62,6 @@
                         {{ $sermons->links() }}
                     </div>
                 </div>
-                {{-- <div class="w-1/4 px-5 hidden flex-col border-l items-center">
-                    <img src="{{ $user->avatar }}" alt="{{ $user->username }}" class="rounded-full h-24 w-24">
-                    <div class="flex flex-col mt-4">
-                        <h4 class="text-2xl text-center">{{ $user->name }}</h4>
-                        <p class="text-md text-center">{{ $user->bio }}</p>
-                        <x-follow-container :user="$user">
-                            <p class="text-lg text-center"
-                                x-text="followersCount === 1 ? followersCount + ' Follower' : followersCount + ' Followers'">
-                            </p>
-                            @if (auth()->user() && auth()->user()->id !== $user->id)
-                                <div class="mt-4 w-full flex justify-center">
-                                    <button @click="follow()" x-text="following ? 'Unfollow' : 'Follow'"
-                                        :class="following ? 'bg-red-500' : 'bg-blue-800'"
-                                        class="px-8 py-2 text-white rounded-lg text-center"></button>
-                                </div>
-                            @endif
-                        </x-follow-container>
-                        @if (auth()->user()->id === $user->id)
-                            <a href="{{ route('follower-list') }}" wire:navigate><x-primary-button
-                                    class="mt-4 w-full flex justify-center">See Followers</x-primary-button></a>
-                        @endif
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
