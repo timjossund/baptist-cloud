@@ -1,15 +1,15 @@
-@props(['tags'])
+@props(['sermon_tags'])
 
 @php
     $newTags = [];
-    if ($tags) {
-        $newTags = array_values(array_filter(array_map('trim', explode(',', $tags)), fn($t) => $t !== ''));
+    if ($sermon_tags) {
+        $newTags = array_values(array_filter(array_map('trim', explode(',', $sermon_tags)), fn($t) => $t !== ''));
     }
 @endphp
 
 @if ($newTags && $newTags != [])
-    <p class="my-10 font-bold">
-        Article Tags:
+    <p class="font-bold">
+        Audio Tags:
     </p>
     <div class="flex flex-wrap gap-2">
         @foreach ($newTags as $tag)

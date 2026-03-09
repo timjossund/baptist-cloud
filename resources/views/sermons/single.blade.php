@@ -21,6 +21,7 @@
                             <source src="{{ $sermon->audio_url }}" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
+                        <x-sermon-tags :sermon_tags="$sermon->tags" />
                     </div>
                     <div class="flex flex-col w-1/4 gap-y-2">
                         @if ($sermon->ad_heading)

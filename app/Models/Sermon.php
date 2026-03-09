@@ -15,6 +15,7 @@ class Sermon extends Model
         'video_url',
         'image_url',
         'user_id',
+        'tags',
     ];
 
     public function user(): BelongsTo

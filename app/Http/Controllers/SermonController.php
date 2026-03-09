@@ -48,6 +48,7 @@ class SermonController extends Controller
             'audio_url' => ['required', 'file', 'mimes:mp3,audio/mpeg,audio/mpga'],
             'video_url' => ['nullable'],
             'image_url' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
+            'tags' => ['nullable'],
         ]);
 
         $sermonSlug = str()->slug($data['title']);
@@ -77,6 +78,7 @@ class SermonController extends Controller
             'video_url' => $data['video_url'] ?? '',
             'image_url' => $sermonImage,
             'user_id' => auth()->id(),
+            'tags' => $data['tags'] ?? null,
         ]);
 
         return redirect()->route('sermons.index')->with('success', 'Sermon created');
@@ -103,6 +105,7 @@ class SermonController extends Controller
             'audio_url' => ['nullable', 'file', 'mimes:mp3,audio/mpeg,audio/mpga'],
             'video_url' => ['nullable'],
             'image_url' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
+            'tags' => ['nullable'],
         ]);
 
         $sermonSlug = str()->slug($data['title']);
@@ -138,5 +141,10 @@ class SermonController extends Controller
         $sermon->delete();
 
         return redirect()->route('sermons.index')->with('success', 'Sermon deleted');
+    }
+
+    public function searchAudio()
+    {
+        return view('search-sermons');
     }
 }

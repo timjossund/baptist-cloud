@@ -1,4 +1,14 @@
 <x-app-layout>
+    <div class="max-w-7xl mx-auto mt-10 px-5 w-full">
+        <div class="bg-white p-10 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
+            <h2 class="text-4xl font-bold max-w-6xl w-full">Search Users & Sermons</h2>
+            <p class="mb-4 max-w-6xl w-full">This will return users and sermon titles matching your entry.</p>
+            <livewire:search-audio />
+        </div>
+    </div>
+</x-app-layout>
+
+{{-- <x-app-layout>
     <div class="max-w-7xl w-full mx-auto mt-10 px-5">
         <div class="bg-white sm:py-12 mx-auto px-6 lg:px-8 rounded-lg shadow-sm sm:rounded-lg flex flex-col">
             <div class="max-w-2xl lg:max-w-6xl flex flex-wrap">
@@ -21,8 +31,8 @@
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-300 bg-white">
-                                        @foreach($users as $user)
-                                            @if($user->is_author)
+                                        @foreach ($users as $user)
+                                            @if ($user->is_author)
                                                 <tr class="even:bg-gray-100">
                                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-0 flex items-center gap-2">
                                                         <img class="w-8 h-auto rounded-full" src="{{ $user->avatar }}" alt="{{ $user->name }}">
@@ -54,4 +64,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}

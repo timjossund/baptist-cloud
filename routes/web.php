@@ -24,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/report-post/{post:id}', [ReportingController::class, 'index'])->name('report-form');
     Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report');
     Route::get('/search', [PostController::class, 'search'])->name('search');
+    Route::get('/search-audio', [SermonController::class, 'searchAudio'])->name('search-audio');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow')->middleware(['throttle:followLimit']);
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
     Route::post('/like/{post:id}', [LikeController::class, 'like'])->middleware(['throttle:likeLimit']);
