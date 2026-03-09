@@ -6,7 +6,9 @@
                     <h2 class="font-semibold text-4xl text-gray-800 leading-tight ml-6">
                         Create Audio Post:
                     </h2>
-                    <p class="ml-6 text-gray-600">Audio uploaded on the Baptist Cloud is meant for others to research and learn from topically. You are more than welcome to upload all your sermons and audio from church, but it is not built to index, like other sermon hosting services offer.</p>
+                    <p class="ml-6 text-gray-600">Audio uploaded on the Baptist Cloud is meant for others to research and
+                        learn from topically. You are more than welcome to upload all your sermons and audio from
+                        church, but it is not built to index, like other sermon hosting services offer.</p>
                     <form action="{{ route('sermons.store') }}" method="POST" enctype="multipart/form-data"
                         class="space-y-4 p-6 flex flex-col gap-4">
                         @csrf
@@ -20,8 +22,9 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="series_title">Preached or hosted By (Optional)</label>
-                            <input type="text" name="series_title" id="series_title" value="{{ old('series_title') }}">
+                            <label for="series_title">Preached or Hosted By (Optional)</label>
+                            <input type="text" name="series_title" id="series_title"
+                                value="{{ old('series_title') }}">
                         </div>
                         @error('series_title')
                             <div class="text-red-500 mt-2">
@@ -39,7 +42,8 @@
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="description">Main Scripture Text or Short Description (Required)</label>
-                            <input type="text" name="description" id="description" required value="{{ old('description') }}">
+                            <input type="text" name="description" id="description" required
+                                value="{{ old('description') }}">
                         </div>
                         @error('description')
                             <div class="text-red-500 mt-2">
@@ -49,8 +53,9 @@
                         {{-- Sermon Tags --}}
                         <div>
                             <label for="tags">Tags: (comma separated)</label>
-                            <input type="text" name="tags" id="tags" class="block border mt-1 w-full text-xl p-2" value="{{ old('tags') }}">
-                            <x-input-error :messages="$errors->get('tags')" class="mt-2"/>
+                            <input type="text" name="tags" id="tags"
+                                class="block border mt-1 w-full text-xl p-2" value="{{ old('tags') }}">
+                            <x-input-error :messages="$errors->get('tags')" class="mt-2" />
                         </div>
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="audio_url">Audio Upload (Required)</label>

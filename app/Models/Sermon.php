@@ -11,6 +11,7 @@ class Sermon extends Model
         'title',
         'slug',
         'description',
+        'series_title',
         'audio_url',
         'video_url',
         'image_url',

@@ -12,7 +12,8 @@
                         @method('PATCH')
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="image_url">Graphic (Optional)</label>
-                            <input type="file" name="image_url" id="image_url">
+                            <input type="file" name="image_url" id="image_url"
+                                value="{{ old('image_url') ?? $sermon->image_url }}">
                         </div>
                         @error('image_url')
                             <div class="text-red-500 mt-2">
@@ -20,9 +21,9 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="series_title">Audio Series (Optional)</label>
+                            <label for="series_title">Preached or Hosted By (Optional)</label>
                             <input type="text" name="series_title" id="series_title"
-                                value="{{ $sermon->series_title }}">
+                                value="{{ old('series_title') ?? ($sermon->series_title ?? '') }}">
                         </div>
                         @error('series_title')
                             <div class="text-red-500 mt-2">
@@ -31,7 +32,8 @@
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="title">Title (Required)</label>
-                            <input type="text" name="title" id="title" required value="{{ $sermon->title }}">
+                            <input type="text" name="title" id="title" required
+                                value="{{ old('title') ?? $sermon->title }}">
                         </div>
                         @error('title')
                             <div class="text-red-500 mt-2">
@@ -41,7 +43,7 @@
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="description">Short Description (Required)</label>
                             <input type="text" name="description" id="description" required
-                                value="{{ $sermon->description }}">
+                                value="{{ old('description') ?? $sermon->description }}">
                         </div>
                         @error('description')
                             <div class="text-red-500 mt-2">
@@ -50,7 +52,8 @@
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
                             <label for="audio_url">Audio Upload</label>
-                            <input type="file" name="audio_url" id="audio_url" value="{{ $sermon->audio_url }}">
+                            <input type="file" name="audio_url" id="audio_url"
+                                value="{{ old('audio_url') ?? $sermon->audio_url }}">
                         </div>
                         @error('audio')
                             <div class="text-red-500 mt-2">
