@@ -4,13 +4,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h2 class="font-semibold text-4xl text-gray-800 leading-tight ml-6">
-                        Create Sermon
+                        Create Audio Post:
                     </h2>
+                    <p class="ml-6 text-gray-600">Audio uploaded on the Baptist Cloud is meant for others to research and learn from topically. You are more than welcome to upload all your sermons and audio from church, but it is not built to index, like other sermon hosting services offer.</p>
                     <form action="{{ route('sermons.store') }}" method="POST" enctype="multipart/form-data"
                         class="space-y-4 p-6 flex flex-col gap-4">
                         @csrf
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="image_url">Sermon Graphic (Optional)</label>
+                            <label for="image_url">Graphic (Optional)</label>
                             <input type="file" name="image_url" id="image_url">
                         </div>
                         @error('image_url')
@@ -19,7 +20,7 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="series_title">Preached By (Optional)</label>
+                            <label for="series_title">Preached or hosted By (Optional)</label>
                             <input type="text" name="series_title" id="series_title" value="{{ old('series_title') }}">
                         </div>
                         @error('series_title')
@@ -37,7 +38,7 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="description">Main Scripture Text (Required)</label>
+                            <label for="description">Main Scripture Text or Short Description (Required)</label>
                             <input type="text" name="description" id="description" required value="{{ old('description') }}">
                         </div>
                         @error('description')
@@ -52,7 +53,7 @@
                             <x-input-error :messages="$errors->get('tags')" class="mt-2"/>
                         </div>
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="audio_url">Sermon Audio (Required)</label>
+                            <label for="audio_url">Audio Upload (Required)</label>
                             <input type="file" name="audio_url" id="audio_url" required>
                         </div>
                         @error('audio_url')
@@ -60,7 +61,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <div class="mb-4 flex flex-col gap-2">
+                        {{-- <div class="mb-4 flex flex-col gap-2">
                             <label for="published_at">Preached Date (Required)</label>
                             <input type="date" name="published_at" id="published_at" required value="{{ old('published_at') }}">
                         </div>
@@ -68,10 +69,10 @@
                             <div class="text-red-500 mt-2">
                                 {{ $message }}
                             </div>
-                        @enderror
+                        @enderror --}}
                         <button type="submit"
                             class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-300 ease-in-out uppercase font-medium w-1/4">
-                            Create Sermon
+                            Create Audio Post
                         </button>
                     </form>
                 </div>

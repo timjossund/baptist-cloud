@@ -4,14 +4,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h2 class="font-semibold text-4xl text-gray-800 leading-tight ml-6">
-                        Edit Sermon
+                        Edit Audio Post:
                     </h2>
                     <form action="{{ route('sermons.update', $sermon) }}" method="POST" enctype="multipart/form-data"
                         class="space-y-4 p-6 flex flex-col gap-4">
                         @csrf
                         @method('PATCH')
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="image_url">Sermon Graphic (Optional)</label>
+                            <label for="image_url">Graphic (Optional)</label>
                             <input type="file" name="image_url" id="image_url">
                         </div>
                         @error('image_url')
@@ -20,7 +20,7 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="series_title">Sermon Series (Optional)</label>
+                            <label for="series_title">Audio Series (Optional)</label>
                             <input type="text" name="series_title" id="series_title"
                                 value="{{ $sermon->series_title }}">
                         </div>
@@ -39,7 +39,7 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="description">Main Scripture Text (Required)</label>
+                            <label for="description">Short Description (Required)</label>
                             <input type="text" name="description" id="description" required
                                 value="{{ $sermon->description }}">
                         </div>
@@ -49,7 +49,7 @@
                             </div>
                         @enderror
                         <div class="mb-4 flex flex-col gap-2">
-                            <label for="audio_url">Sermon Audio</label>
+                            <label for="audio_url">Audio Upload</label>
                             <input type="file" name="audio_url" id="audio_url" value="{{ $sermon->audio_url }}">
                         </div>
                         @error('audio')
@@ -57,19 +57,10 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <div class="mb-4 flex flex-col gap-2">
-                            <label for="published_at">Sermon Date</label>
-                            <input type="date" name="published_at" id="published_at"
-                                value="{{ $sermon->published_at }}">
-                        </div>
-                        @error('published_at')
-                            <div class="text-red-500 mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+
                         <button type="submit"
                             class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-300 ease-in-out uppercase font-medium w-1/4">
-                            Update Sermon
+                            Update Audio Post
                         </button>
                     </form>
                 </div>

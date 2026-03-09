@@ -13,7 +13,7 @@
                 {{ Str::words($sermon->title, 9, '...') }}
             </h3>
             <p class="text-gray-600 text-sm">
-                <span class="font-bold">Main text: {{ Str::words($sermon->description, 20, '...') }}</span><br>
+                <span class="font-bold">{{ Str::words($sermon->description, 20, '...') }}</span><br>
                 Posted by:{{ $sermon->user->name }}
             </p>
             @if ($sermon->series_title)

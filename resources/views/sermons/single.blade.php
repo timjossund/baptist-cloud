@@ -14,7 +14,7 @@
                             {{ $sermon->title }}
                         </h2>
                         <p class="text-gray-600">
-                            <span class="font-semibold text-lg">Main Scripture: {{ $sermon->description }}</span><br>
+                            <span class="font-semibold text-lg">{{ $sermon->description }}</span><br>
                             Posted by: {{ $sermon->user->name }}
                         </p>
                         <audio controls class="w-full mt-4">
