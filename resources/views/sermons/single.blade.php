@@ -41,7 +41,7 @@
                         </svg>
                         Go Back
                     </a>
-                    <a href="/report-post/{{ $sermon->id }}" class="text-red-600">Report This Sermon</a>
+                    <a href="/report-sermon/{{ $sermon->id }}" class="text-red-600">Report This Audio Post</a>
                 </div>
             </div>
         </div>

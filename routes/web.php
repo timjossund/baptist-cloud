@@ -23,6 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
     Route::get('/report-post/{post:id}', [ReportingController::class, 'index'])->name('report-form');
     Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report');
+    Route::get('/report-sermon/{sermon:id}', [ReportingController::class, 'sermonIndex'])->name('report-sermon-form');
+    Route::post('/report-sermon/{sermon:id}', [ReportingController::class, 'reportSermon'])->name('report-sermon');
     Route::get('/search', [PostController::class, 'search'])->name('search');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow')->middleware(['throttle:followLimit']);
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
