@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="py-4 md:py-12">
         <div class="max-w-7xl mx-auto px-6">
+            <div class="sm:hidden">
             @if (!auth()->user())
                 <div class="flex space-x-4 justify-between w-full pb-4">
                     <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">
@@ -13,6 +14,7 @@
                     @endif
                 </div>
             @endif
+            </div>
             <div class="bg-white shadow-sm rounded-lg flex justify-between items-center">
                 <nav class="flex space-x-4 p-4 items-center relative w-full md:w-auto" aria-label="Tabs">
                     <x-category-tabs />
