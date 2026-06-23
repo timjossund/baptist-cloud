@@ -15,7 +15,7 @@
                 </div>
             @endif
             </div>
-            <div class="bg-white shadow-sm rounded-lg flex justify-between items-center">
+            <div class="bg-white shadow-sm rounded-lg flex justify-between items-center pr-4">
                 <nav class="flex space-x-4 p-4 items-center relative w-full md:w-auto" aria-label="Tabs">
                     <x-category-tabs />
                 </nav>
