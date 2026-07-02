@@ -60,9 +60,15 @@ class PostController extends Controller
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = (int) $data['category_id'];
         $data['tags'] = strip_tags($data['tags']);
-        $data['ad_heading'] = strip_tags($data['ad_heading']);
-        $data['ad_description'] = strip_tags($data['ad_description']);
-        $data['ad_link'] = strip_tags($data['ad_link']);
+        if (isset($data['ad_heading'])) {
+            $data['ad_heading'] = strip_tags($data['ad_heading']);
+        }
+        if (isset($data['ad_description'])) {
+            $data['ad_description'] = strip_tags($data['ad_description']);
+        }
+        if (isset($data['ad_link'])) {
+            $data['ad_link'] = strip_tags($data['ad_link']);
+        }
 
         //        $image = $data['image'];
         // unset($data['image']);
@@ -142,9 +148,15 @@ class PostController extends Controller
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['tags'] = strip_tags($data['tags']);
-        $data['ad_heading'] = strip_tags($data['ad_heading']);
-        $data['ad_description'] = strip_tags($data['ad_description']);
-        $data['ad_link'] = strip_tags($data['ad_link']);
+        if (isset($data['ad_heading'])) {
+            $data['ad_heading'] = strip_tags($data['ad_heading']);
+        }
+        if (isset($data['ad_description'])) {
+            $data['ad_description'] = strip_tags($data['ad_description']);
+        }
+        if (isset($data['ad_link'])) {
+            $data['ad_link'] = strip_tags($data['ad_link']);
+        }
         $data['slug'] = $post->getRawOriginal('slug');
 
         if ($request->file('image') != null) {
@@ -187,9 +199,15 @@ class PostController extends Controller
         //        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['tags'] = strip_tags($data['tags']);
-        $data['ad_heading'] = strip_tags($data['ad_heading']);
-        $data['ad_description'] = strip_tags($data['ad_description']);
-        $data['ad_link'] = strip_tags($data['ad_link']);
+        if (isset($data['ad_heading'])) {
+            $data['ad_heading'] = strip_tags($data['ad_heading']);
+        }
+        if (isset($data['ad_description'])) {
+            $data['ad_description'] = strip_tags($data['ad_description']);
+        }
+        if (isset($data['ad_link'])) {
+            $data['ad_link'] = strip_tags($data['ad_link']);
+        }
         $data['slug'] = $post->getRawOriginal('slug');
 
         if ($request->file('image') != null) {
