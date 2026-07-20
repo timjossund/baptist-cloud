@@ -78,7 +78,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'bio' => ['nullable', 'string', 'max:255'],
-            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png'], // Removed SVG
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1200'], // Removed SVG
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
