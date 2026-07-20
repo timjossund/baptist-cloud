@@ -29,7 +29,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
     Route::post('/like/{post:id}', [LikeController::class, 'like'])->middleware(['throttle:likeLimit']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // POST (not PATCH): LiteSpeed often returns 405 on multipart forms that spoof PATCH
+    // via @method before the request reaches Laravel.
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/follower-list', [ProfileController::class, 'showFollowers'])->name('follower-list');
     Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
