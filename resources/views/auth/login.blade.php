@@ -32,7 +32,7 @@
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
-            <x-turnstile />
+            {{-- <x-turnstile /> --}}
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
