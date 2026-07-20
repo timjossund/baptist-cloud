@@ -24,7 +24,9 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id)
             ],
             'bio' => ['nullable', 'string', 'max:255'],
-            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,svg', 'max:6000'],
+            // Keep under typical shared-hosting post_max_size; oversized uploads
+            // empty $_POST (including _token) and surface as a 419 Page Expired.
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'email' => [
                 'required',
                 'string',

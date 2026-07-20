@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+    <form method="post" action="{{ route('profile.update', absolute: false) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
 
         <div>
@@ -24,7 +24,8 @@
             <x-input-label class="block mb-2" for="avatar">Current Avatar</x-input-label>
             <input
                 class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                aria-describedby="file_input_help" id="avatar" type="file" name="avatar">
+                aria-describedby="file_input_help" id="avatar" type="file" name="avatar" accept="image/jpeg,image/png,image/jpg">
+            <p id="file_input_help" class="mt-1 text-xs text-gray-500">JPG or PNG, max 2&nbsp;MB.</p>
             <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
         </div>
 
