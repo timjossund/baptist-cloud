@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessPostImage;
 use App\Models\BcAd;
 use App\Models\Category;
 use App\Models\Post;
@@ -9,8 +10,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 class PostController extends Controller
 {
@@ -59,7 +58,9 @@ class PostController extends Controller
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = (int) $data['category_id'];
-        $data['tags'] = strip_tags($data['tags']);
+        if (isset($data['tags'])) {
+            $data['tags'] = strip_tags($data['tags']);
+        }
         if (isset($data['ad_heading'])) {
             $data['ad_heading'] = strip_tags($data['ad_heading']);
         }
@@ -70,21 +71,15 @@ class PostController extends Controller
             $data['ad_link'] = strip_tags($data['ad_link']);
         }
 
-        //        $image = $data['image'];
-        // unset($data['image']);
         $data['slug'] = Str::slug($data['title'].'-'.Str::random(3));
-
-        $featureImage = 'image'.'-'.$data['slug'].'.jpg';
-
-        $manager = new ImageManager(new Driver);
-        $image = $manager->read($data['image']);
-        $imgNew = $image->cover(1200, 400)->toJpeg();
-        Storage::disk('postImages')->put('post-images/'.$featureImage, $imgNew);
-
-        $data['image'] = $featureImage;
         $data['user_id'] = auth()->id();
 
-        Post::create($data);
+        $tempImagePath = $request->file('image')->store('temp-post-images', 'local');
+        unset($data['image']);
+
+        $post = Post::create($data);
+
+        ProcessPostImage::dispatch($post, $tempImagePath);
 
         return redirect('/post/'.$data['slug'].'/edit')->with('success', 'Draft Saved');
     }
@@ -143,7 +138,7 @@ class PostController extends Controller
             'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
-        // dd($data);
+
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
@@ -158,22 +153,22 @@ class PostController extends Controller
             $data['ad_link'] = strip_tags($data['ad_link']);
         }
         $data['slug'] = $post->getRawOriginal('slug');
-
-        if ($request->file('image') != null) {
-            $oldImage = $post->getRawOriginal('image');
-            $featureImage = 'post-image-'.$data['slug'].'-'.Str::random(3).'.jpg';
-            $manager = new ImageManager(new Driver);
-            $image = $manager->read($data['image']);
-            $imgNew = $image->cover(1200, 400)->toJpeg();
-            Storage::disk('postImages')->put('post-images/'.$featureImage, $imgNew);
-            Storage::disk('postImages')->delete('post-images/'.$oldImage);
-            $data['image'] = $featureImage;
-        }
-
         $data['user_id'] = auth()->id();
 
-        $post->fill($data);
-        $post->save();
+        if ($request->hasFile('image')) {
+            $oldImage = $post->getRawOriginal('image');
+            $tempImagePath = $request->file('image')->store('temp-post-images', 'local');
+            unset($data['image']);
+
+            $post->fill($data);
+            $post->save();
+
+            ProcessPostImage::dispatch($post, $tempImagePath, $oldImage);
+        } else {
+            unset($data['image']);
+            $post->fill($data);
+            $post->save();
+        }
 
         return redirect('/@'.auth()->user()->username)->with('success', 'Draft Saved');
     }
@@ -194,9 +189,8 @@ class PostController extends Controller
             'ad_link' => 'nullable',
             'published_at' => ['nullable', 'timestamp'],
         ]);
-        // dd($data);
+
         $data['title'] = strip_tags($data['title']);
-        //        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
         $data['tags'] = strip_tags($data['tags']);
         if (isset($data['ad_heading'])) {
@@ -209,23 +203,23 @@ class PostController extends Controller
             $data['ad_link'] = strip_tags($data['ad_link']);
         }
         $data['slug'] = $post->getRawOriginal('slug');
-
-        if ($request->file('image') != null) {
-            $oldImage = $post->getRawOriginal('image');
-            $featureImage = 'post-image-'.$data['slug'].'-'.Str::random(3).'.jpg';
-            $manager = new ImageManager(new Driver);
-            $image = $manager->read($data['image']);
-            $imgNew = $image->cover(1200, 400)->toJpeg();
-            Storage::disk('postImages')->put('post-images/'.$featureImage, $imgNew);
-            Storage::disk('postImages')->delete('post-images/'.$oldImage);
-            $data['image'] = $featureImage;
-        }
-
         $data['user_id'] = auth()->id();
         $data['published_at'] = now();
 
-        $post->fill($data);
-        $post->save();
+        if ($request->hasFile('image')) {
+            $oldImage = $post->getRawOriginal('image');
+            $tempImagePath = $request->file('image')->store('temp-post-images', 'local');
+            unset($data['image']);
+
+            $post->fill($data);
+            $post->save();
+
+            ProcessPostImage::dispatch($post, $tempImagePath, $oldImage);
+        } else {
+            unset($data['image']);
+            $post->fill($data);
+            $post->save();
+        }
 
         return redirect('/@'.auth()->user()->username)->with('success', 'Post Published');
     }
