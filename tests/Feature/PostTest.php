@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
@@ -98,7 +99,6 @@ test('storing a post dispatches ProcessPostImage job', function () {
     ]);
 
     $response->assertSessionHasNoErrors();
-    // dd($response->status(), $response->headers->get('Location'));
 
     $post = Post::where('title', 'Test Post Title')->first();
     expect($post)->not->toBeNull();
@@ -135,4 +135,12 @@ test('ProcessPostImage job resizes and stores image', function () {
     expect($post->getRawOriginal('image'))->not->toBeNull();
     Storage::disk('postImages')->assertExists('post-images/' . $post->getRawOriginal('image'));
     Storage::disk('local')->assertMissing($tempPath);
+});
+
+test('viewHorizon gate allows admin users and denies non-admin users', function () {
+    $admin = User::factory()->create(['is_admin' => true]);
+    $regularUser = User::factory()->create(['is_admin' => false]);
+
+    expect(Gate::forUser($admin)->allows('viewHorizon'))->toBeTrue();
+    expect(Gate::forUser($regularUser)->allows('viewHorizon'))->toBeFalse();
 });

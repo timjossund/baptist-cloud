@@ -34,7 +34,10 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('is-admin', function (User $user) {
             return $user->is_admin;
-//            return false;
+        });
+
+        Gate::define('viewHorizon', function (User $user) {
+            return $user->is_admin;
         });
 
         RateLimiter::for('likeLimit', function (Request $request) {
