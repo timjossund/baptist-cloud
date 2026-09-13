@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center gap-10">
                     <a href="{{ route('home-page') }}" class="flex items-center" wire:navigate>
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <h2 class="text-2xl text-black !hover:no-underline">Baptist.Cloud</h2>
+                        <h2 class="text-2xl text-black !hover:no-underline mb-0">Baptist.Cloud</h2>
                     </a>
                     <x-nav-link wire:navigate :href="route('home-page')" class="hidden md:block" :active="request()->routeIs(['home-page', 'byCategory'])">
                         {{ __('Read') }}
