@@ -20,6 +20,9 @@
                             <div class="bg-cover bg-center">
                                 <x-input-label class="block mb-2" for="image">Current Featured Image</x-input-label>
                                 <img src="{{ $post->image }}" alt="Featured Image" class="rounded-lg aspect-[3/1]">
+                                @unless ($post->getRawOriginal('image'))
+                                    <p class="mt-2 text-sm text-gray-500">Your featured image is still processing. Refresh in a moment to see it.</p>
+                                @endunless
                             </div>
                             <div>
                                 <x-input-label class="block mb-2" for="image">

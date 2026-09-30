@@ -82,10 +82,6 @@ class PostController extends Controller
 
         ProcessPostImage::dispatch($post, $tempImagePath);
 
-        if (! app()->runningUnitTests()) {
-            sleep(3);
-        }
-
         return redirect('/post/'.$data['slug'].'/edit')->with('success', 'Draft Saved');
     }
 

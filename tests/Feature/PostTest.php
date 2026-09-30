@@ -144,3 +144,24 @@ test('viewHorizon gate allows admin users and denies non-admin users', function 
     expect(Gate::forUser($admin)->allows('viewHorizon'))->toBeTrue();
     expect(Gate::forUser($regularUser)->allows('viewHorizon'))->toBeFalse();
 });
+
+test('new post edit page explains the image is still processing', function () {
+    Queue::fake();
+
+    $user = User::factory()->create();
+    $category = Category::create(['title' => 'General']);
+
+    $this->actingAs($user)->post('/post/create-post', [
+        'title' => 'Processing test',
+        'content' => 'Body',
+        'category_id' => $category->id,
+        'image' => UploadedFile::fake()->image('featured.jpg', 1200, 400),
+    ])->assertRedirect();
+
+    $post = Post::where('title', 'Processing test')->firstOrFail();
+
+    $this->actingAs($user)
+        ->get('/post/'.$post->slug.'/edit')
+        ->assertOk()
+        ->assertSee('still processing');
+});
