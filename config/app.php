@@ -54,6 +54,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    // Only this user may revoke admin rights from other admins.
+    'super_admin_username' => env('SUPER_ADMIN_USERNAME', 'timjossund'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

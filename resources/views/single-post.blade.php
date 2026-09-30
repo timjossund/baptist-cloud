@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="flex flex-col w-full sm:w-[25%] gap-2 pb-4">
-                        @if ($post->ad_heading)
+                        @if ($post->ad_heading && $post->user->canRunAds())
                             <x-client_ad :post="$post" />
                         @else
                             <x-bc_ad :ads="$ads" />

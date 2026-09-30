@@ -18,19 +18,19 @@
                             {{-- Church Name --}}
                             <div class="w-full mt-4">
                                 <x-input-label for="church" :value="__('Church Name:')" />
-                                <x-text-input id="church" class="border mt-1 w-full text-xl p-2" type="church" name="church" :value="old('church')" autofocus />
+                                <x-text-input id="church" class="border mt-1 w-full text-xl p-2" type="church" name="church" :value="old('church')" />
                                 <x-input-error :messages="$errors->get('church')" class="mt-2" />
                             </div>
 
                             <div class="w-full sm:w-[48%] mt-4">
                                 <x-input-label for="email" :value="__('Contact Email:')" />
-                                <x-text-input id="email" class="border mt-1 w-full text-xl p-2" type="email" name="email" :value="old('email')" autofocus />
+                                <x-text-input id="email" class="border mt-1 w-full text-xl p-2" type="email" name="email" :value="old('email')" />
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             {{-- Contact Phone --}}
                             <div class="w-full sm:w-[48%] mt-4">
                                 <x-input-label for="phone" :value="__('Contact Phone:')" />
-                                <x-text-input id="phone" class="border mt-1 w-full text-xl p-2" type="phone" name="phone" :value="old('phone')" autofocus />
+                                <x-text-input id="phone" class="border mt-1 w-full text-xl p-2" type="phone" name="phone" :value="old('phone')" />
                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                             </div>
                             {{-- Facebook URL --}}
@@ -50,7 +50,7 @@
                             <div class="w-full sm:w-[48%] mt-4">
                                 <x-input-label for="city" :value="__('City:')" />
                                 <x-text-input id="city" class="border mt-1 w-full text-xl p-2" type="city"
-                                              name="city" :value="old('city')" autofocus />
+                                              name="city" :value="old('city')" />
                                 <x-input-error :messages="$errors->get('city')" class="mt-2" />
                             </div>
                             {{-- State --}}
@@ -58,57 +58,57 @@
                                 <x-input-label for="state" :value="__('State')" />
                                 <select name="state" id="state" class="border mt-1 w-full text-xl p-2">
                                     <option value="">Select a State:</option>
-                                    <option value="AL">Alabama</option>
-                                    <option value="AK">Alaska</option>
-                                    <option value="AZ">Arizona</option>
-                                    <option value="AR">Arkansas</option>
-                                    <option value="CA">California</option>
-                                    <option value="CO">Colorado</option>
-                                    <option value="CT">Connecticut</option>
-                                    <option value="DE">Delaware</option>
-                                    <option value="DC">District Of Columbia</option>
-                                    <option value="FL">Florida</option>
-                                    <option value="GA">Georgia</option>
-                                    <option value="HI">Hawaii</option>
-                                    <option value="ID">Idaho</option>
-                                    <option value="IL">Illinois</option>
-                                    <option value="IN">Indiana</option>
-                                    <option value="IA">Iowa</option>
-                                    <option value="KS">Kansas</option>
-                                    <option value="KY">Kentucky</option>
-                                    <option value="LA">Louisiana</option>
-                                    <option value="ME">Maine</option>
-                                    <option value="MD">Maryland</option>
-                                    <option value="MA">Massachusetts</option>
-                                    <option value="MI">Michigan</option>
-                                    <option value="MN">Minnesota</option>
-                                    <option value="MS">Mississippi</option>
-                                    <option value="MO">Missouri</option>
-                                    <option value="MT">Montana</option>
-                                    <option value="NE">Nebraska</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="NH">New Hampshire</option>
-                                    <option value="NJ">New Jersey</option>
-                                    <option value="NM">New Mexico</option>
-                                    <option value="NY">New York</option>
-                                    <option value="NC">North Carolina</option>
-                                    <option value="ND">North Dakota</option>
-                                    <option value="OH">Ohio</option>
-                                    <option value="OK">Oklahoma</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="PA">Pennsylvania</option>
-                                    <option value="RI">Rhode Island</option>
-                                    <option value="SC">South Carolina</option>
-                                    <option value="SD">South Dakota</option>
-                                    <option value="TN">Tennessee</option>
-                                    <option value="TX">Texas</option>
-                                    <option value="UT">Utah</option>
-                                    <option value="VT">Vermont</option>
-                                    <option value="VA">Virginia</option>
-                                    <option value="WA">Washington</option>
-                                    <option value="WV">West Virginia</option>
-                                    <option value="WI">Wisconsin</option>
-                                    <option value="WY">Wyoming</option>
+                                    <option value="AL" @selected(old('state') == "AL")>Alabama</option>
+                                    <option value="AK" @selected(old('state') == "AK")>Alaska</option>
+                                    <option value="AZ" @selected(old('state') == "AZ")>Arizona</option>
+                                    <option value="AR" @selected(old('state') == "AR")>Arkansas</option>
+                                    <option value="CA" @selected(old('state') == "CA")>California</option>
+                                    <option value="CO" @selected(old('state') == "CO")>Colorado</option>
+                                    <option value="CT" @selected(old('state') == "CT")>Connecticut</option>
+                                    <option value="DE" @selected(old('state') == "DE")>Delaware</option>
+                                    <option value="DC" @selected(old('state') == "DC")>District Of Columbia</option>
+                                    <option value="FL" @selected(old('state') == "FL")>Florida</option>
+                                    <option value="GA" @selected(old('state') == "GA")>Georgia</option>
+                                    <option value="HI" @selected(old('state') == "HI")>Hawaii</option>
+                                    <option value="ID" @selected(old('state') == "ID")>Idaho</option>
+                                    <option value="IL" @selected(old('state') == "IL")>Illinois</option>
+                                    <option value="IN" @selected(old('state') == "IN")>Indiana</option>
+                                    <option value="IA" @selected(old('state') == "IA")>Iowa</option>
+                                    <option value="KS" @selected(old('state') == "KS")>Kansas</option>
+                                    <option value="KY" @selected(old('state') == "KY")>Kentucky</option>
+                                    <option value="LA" @selected(old('state') == "LA")>Louisiana</option>
+                                    <option value="ME" @selected(old('state') == "ME")>Maine</option>
+                                    <option value="MD" @selected(old('state') == "MD")>Maryland</option>
+                                    <option value="MA" @selected(old('state') == "MA")>Massachusetts</option>
+                                    <option value="MI" @selected(old('state') == "MI")>Michigan</option>
+                                    <option value="MN" @selected(old('state') == "MN")>Minnesota</option>
+                                    <option value="MS" @selected(old('state') == "MS")>Mississippi</option>
+                                    <option value="MO" @selected(old('state') == "MO")>Missouri</option>
+                                    <option value="MT" @selected(old('state') == "MT")>Montana</option>
+                                    <option value="NE" @selected(old('state') == "NE")>Nebraska</option>
+                                    <option value="NV" @selected(old('state') == "NV")>Nevada</option>
+                                    <option value="NH" @selected(old('state') == "NH")>New Hampshire</option>
+                                    <option value="NJ" @selected(old('state') == "NJ")>New Jersey</option>
+                                    <option value="NM" @selected(old('state') == "NM")>New Mexico</option>
+                                    <option value="NY" @selected(old('state') == "NY")>New York</option>
+                                    <option value="NC" @selected(old('state') == "NC")>North Carolina</option>
+                                    <option value="ND" @selected(old('state') == "ND")>North Dakota</option>
+                                    <option value="OH" @selected(old('state') == "OH")>Ohio</option>
+                                    <option value="OK" @selected(old('state') == "OK")>Oklahoma</option>
+                                    <option value="OR" @selected(old('state') == "OR")>Oregon</option>
+                                    <option value="PA" @selected(old('state') == "PA")>Pennsylvania</option>
+                                    <option value="RI" @selected(old('state') == "RI")>Rhode Island</option>
+                                    <option value="SC" @selected(old('state') == "SC")>South Carolina</option>
+                                    <option value="SD" @selected(old('state') == "SD")>South Dakota</option>
+                                    <option value="TN" @selected(old('state') == "TN")>Tennessee</option>
+                                    <option value="TX" @selected(old('state') == "TX")>Texas</option>
+                                    <option value="UT" @selected(old('state') == "UT")>Utah</option>
+                                    <option value="VT" @selected(old('state') == "VT")>Vermont</option>
+                                    <option value="VA" @selected(old('state') == "VA")>Virginia</option>
+                                    <option value="WA" @selected(old('state') == "WA")>Washington</option>
+                                    <option value="WV" @selected(old('state') == "WV")>West Virginia</option>
+                                    <option value="WI" @selected(old('state') == "WI")>Wisconsin</option>
+                                    <option value="WY" @selected(old('state') == "WY")>Wyoming</option>
                                 </select>
                                 <x-input-error :messages="$errors->get('state')" class="mt-2" />
                             </div>

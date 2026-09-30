@@ -10,11 +10,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -29,7 +30,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     // public function store(Request $request): RedirectResponse
     // {
@@ -76,7 +77,7 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9._-]+$/', 'unique:'.User::class],
             'bio' => ['nullable', 'string', 'max:255'],
             'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1200'], // Removed SVG
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -87,13 +88,14 @@ class RegisteredUserController extends Controller
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             try {
-                $filename = $request->username . "-profile-pic.jpg";
-                $manager = new ImageManager(new Driver());
+                $filename = $request->username.'-profile-pic.jpg';
+                $manager = new ImageManager(new Driver);
                 $image = $manager->read($request->file('avatar')->getRealPath());
                 $imgNew = $image->cover(80, 80)->toJpeg();
-                Storage::disk('public')->put("avatars/".$filename, $imgNew);
+                Storage::disk('public')->put('avatars/'.$filename, $imgNew);
             } catch (\Exception $e) {
-                \Log::error('Avatar processing failed: ' . $e->getMessage());
+                \Log::error('Avatar processing failed: '.$e->getMessage());
+
                 // Optionally, redirect back with an error message
                 return redirect()->back()->withErrors(['avatar' => 'Failed to process avatar image.']);
             }

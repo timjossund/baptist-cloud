@@ -3,7 +3,7 @@ $ints = [];
 foreach($ads as $ad) {
     $ints[] = $ad->int;
 }
-$adRandomInt = rand(1, max($ints));
+$adRandomInt = $ints ? rand(1, max($ints)) : null;
 @endphp
 
 @foreach ($ads as $ad)

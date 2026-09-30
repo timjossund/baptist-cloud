@@ -9,9 +9,6 @@ class AdController extends Controller
 {
     public function index()
     {
-//        if (!auth()->user()->is_admin) {
-//            abort(403);
-//        }
         $ads = BcAd::all();
 
         return view('admin.ad-create', ['ads' => $ads]);
@@ -19,63 +16,52 @@ class AdController extends Controller
 
     public function store(Request $request)
     {
-//        if (!auth()->user()->is_admin) {
-//            abort(403);
-//        }
         $data = $request->validate([
             'title' => 'nullable',
             'description' => 'nullable',
-            'link' => 'nullable',
+            'link' => ['nullable', 'url:http,https', 'max:255'],
             'int' => 'required',
             'published_at' => ['nullable', 'date'],
         ]);
 
-        $data['title'] = strip_tags($data['title']);
-        $data['description'] = strip_tags($data['description']);
-        $data['link'] = strip_tags($data['link']);
-        $data['int'] = (int)$data['int'];
+        $data['title'] = strip_tags((string) ($data['title'] ?? ''));
+        $data['description'] = strip_tags((string) ($data['description'] ?? ''));
+        $data['link'] = strip_tags((string) ($data['link'] ?? ''));
+        $data['int'] = (int) $data['int'];
 
         BcAd::create($data);
 
-        return redirect("/create-ad")->with('success', 'Ad Created');
+        return redirect('/create-ad')->with('success', 'Ad Created');
     }
 
     public function edit(BcAd $ad)
     {
-//        if (!auth()->user()->is_admin) {
-//            abort(403);
-//        }
         return view('admin.ad-edit', ['ad' => $ad]);
     }
 
     public function update(Request $request, BcAd $ad)
     {
-//        if (!auth()->user()->is_admin) {
-//            abort(403);
-//        }
         $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'link' => 'required',
-            'int' => 'required'
+            'link' => ['required', 'url:http,https', 'max:255'],
+            'int' => 'required',
         ]);
 
-        $data['title'] = strip_tags($data['title']);
-        $data['description'] = strip_tags($data['description']);
-        $data['link'] = strip_tags($data['link']);
-        $data['int'] = (int)$data['int'];
+        $data['title'] = strip_tags((string) ($data['title'] ?? ''));
+        $data['description'] = strip_tags((string) ($data['description'] ?? ''));
+        $data['link'] = strip_tags((string) ($data['link'] ?? ''));
+        $data['int'] = (int) $data['int'];
 
         $ad->update($data);
 
-        return redirect("/create-ad")->with('success', 'Ad Updated');
+        return redirect('/create-ad')->with('success', 'Ad Updated');
     }
 
     public function delete(BcAd $ad)
     {
-//        if (!auth()->user()->is_admin) {
-//            abort(403);
-//        }
         $ad->delete();
-        return redirect("/create-ad")->with('success', 'Ad Deleted');
+
+        return redirect('/create-ad')->with('success', 'Ad Deleted');
     }
 }

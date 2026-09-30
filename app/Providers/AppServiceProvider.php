@@ -41,11 +41,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('likeLimit', function (Request $request) {
-            return Limit::perMinute(3)->by($request->user()?->id ?: $request->ip());
+            return Limit::perMinute(30)->by($request->user()?->id ?: $request->ip());
         });
 
         RateLimiter::for('followLimit', function (Request $request) {
-            return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
+            return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip());
         });
     }
 }

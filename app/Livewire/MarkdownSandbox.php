@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Str;
+use App\Support\Markdown;
 use Livewire\Component;
 
 class MarkdownSandbox extends Component
@@ -12,7 +12,8 @@ class MarkdownSandbox extends Component
     public function render()
     {
         $markdownText = $this->markdown;
-        $content = Str::markdown($markdownText);
-        return view('livewire.markdown-sandbox' , ['content' => $content]);
+        $content = Markdown::render($markdownText);
+
+        return view('livewire.markdown-sandbox', ['content' => $content]);
     }
 }

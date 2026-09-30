@@ -88,7 +88,7 @@
         @endauth
     </div>
     <div class="sm:w-[25%] flex flex-col gap-y-2">
-        @if ($post->ad_heading)
+        @if ($post->ad_heading && $post->user->canRunAds())
             <x-client_ad :post="$post" />
             @else
             <x-bc_ad :ads="$ads" />

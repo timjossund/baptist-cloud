@@ -13,7 +13,7 @@ class Reporting extends Model
         'post_title',
         'description',
         'post_slug',
-        'username'
+        'username',
     ];
 
     public function post()

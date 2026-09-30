@@ -10,6 +10,6 @@ class BcAd extends Model
         'title',
         'description',
         'link',
-        'int'
+        'int',
     ];
 }

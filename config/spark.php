@@ -44,7 +44,7 @@ return [
     */
 
     'brand' => [
-        'logo' => realpath(__DIR__ . '/../public/logo.svg'),
+        'logo' => realpath(__DIR__.'/../public/logo.svg'),
         'color' => 'bg-blue-700',
     ],
 
@@ -141,12 +141,12 @@ return [
                     'name' => 'Baptist Cloud Author Subscription',
                     'short_description' => 'Unlimited Ads on your posts for books, services, or affiliate links.',
                     'monthly_id' => env('SPARK_STANDARD_MONTHLY_PLAN', 'price_id'),
-                    //'yearly_id' => env('SPARK_STANDARD_YEARLY_PLAN', 'price_id'),
+                    // 'yearly_id' => env('SPARK_STANDARD_YEARLY_PLAN', 'price_id'),
                     'features' => [
                         'Unlimited publishing',
                         'Ads on post feed and on your article',
                         'Advertise your books, services, or affiliate links',
-                        'List your church in the directory'
+                        'List your church in the directory',
                     ],
                 ],
             ],

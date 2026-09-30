@@ -11,15 +11,15 @@ use Intervention\Image\ImageManager;
 
 class SermonController extends Controller
 {
-    public function welcome(Sermon $sermon)
+    public function welcome()
     {
         $user = auth()->user();
-        $sermons = $sermon->latest()->take(10)->get();
+        $sermons = Sermon::latest()->take(10)->get();
         $ads = BcAd::all();
 
         if ($user) {
             $userIds = $user->following()->pluck('users.id');
-            $sermons = $sermons->whereIn('user_id', $userIds);
+            $sermons = Sermon::whereIn('user_id', $userIds)->latest()->take(10)->get();
         }
 
         return view('sermons.welcome', compact('sermons', 'ads'));
@@ -45,9 +45,9 @@ class SermonController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'series_title' => ['nullable'],
-            'audio_url' => ['required', 'file', 'mimes:mp3,audio/mpeg,audio/mpga'],
+            'audio_url' => ['required', 'file', 'mimes:mp3,audio/mpeg,audio/mpga', 'max:102400'],
             'video_url' => ['nullable'],
-            'image_url' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
+            'image_url' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
             'tags' => ['nullable'],
         ]);
 
@@ -93,16 +93,24 @@ class SermonController extends Controller
 
     public function edit(Sermon $sermon)
     {
+        if ($sermon->user_id != auth()->id() && ! auth()->user()->is_admin) {
+            abort(403);
+        }
+
         return view('sermons.edit', compact('sermon'));
     }
 
     public function update(Request $request, Sermon $sermon)
     {
+        if ($sermon->user_id != auth()->id() && ! auth()->user()->is_admin) {
+            abort(403);
+        }
+
         $data = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
             'series_title' => ['nullable'],
-            'audio_url' => ['nullable', 'file', 'mimes:mp3,audio/mpeg,audio/mpga'],
+            'audio_url' => ['nullable', 'file', 'mimes:mp3,audio/mpeg,audio/mpga', 'max:102400'],
             'video_url' => ['nullable'],
             'image_url' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
             'tags' => ['nullable'],
@@ -114,7 +122,7 @@ class SermonController extends Controller
             $sermonName = $sermonSlug.'-'.uniqid('', true).'.mp3';
             $oldAudio = $sermon->audio_url;
             Storage::disk('sermons')->putFileAs('sermons/', $request->file('audio_url'), $sermonName);
-            Storage::disk('sermons')->delete('sermons/'.$oldAudio);
+            $this->deleteStored('sermons', 'sermons/', $oldAudio);
             $data['audio_url'] = 'https://s3.us-central-1.ionoscloud.com/sermons-bc/sermons/'.$sermonName;
         }
 
@@ -125,7 +133,7 @@ class SermonController extends Controller
             $image = $manager->read($request->file('image_url'));
             $imgNew = $image->cover(400, 400)->toJpeg();
             Storage::disk('postImages')->put('sermon-images/'.$sermonImage, $imgNew);
-            Storage::disk('postImages')->delete('sermon-images/'.$oldImage);
+            $this->deleteStored('postImages', 'sermon-images/', $oldImage);
 
             $data['image_url'] = 'https://s3.us-central-1.ionoscloud.com/post-images/sermon-images/'.$sermonImage;
         }
@@ -138,9 +146,26 @@ class SermonController extends Controller
 
     public function destroy(Sermon $sermon)
     {
+        if ($sermon->user_id != auth()->id() && ! auth()->user()->is_admin) {
+            abort(403);
+        }
+        $this->deleteStored('sermons', 'sermons/', $sermon->audio_url);
+        $this->deleteStored('postImages', 'sermon-images/', $sermon->getRawOriginal('image_url'));
         $sermon->delete();
 
         return redirect()->route('sermons.index')->with('success', 'Sermon deleted');
+    }
+
+    /**
+     * Delete a stored file given the public URL we saved for it.
+     */
+    private function deleteStored(string $disk, string $directory, ?string $url): void
+    {
+        $name = $url ? basename((string) parse_url($url, PHP_URL_PATH)) : '';
+
+        if ($name !== '') {
+            Storage::disk($disk)->delete($directory.$name);
+        }
     }
 
     public function searchAudio()

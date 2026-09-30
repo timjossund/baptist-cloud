@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//        User::factory()->create([
-//            'name' => 'Tim Jossund',
-//            'email' => 'timjossund@gmail.com',
-//            'username' => 'timjossund',
-//            'avatar' => 'default-avatar.jpg',
-//        ]);
+        //        User::factory()->create([
+        //            'name' => 'Tim Jossund',
+        //            'email' => 'timjossund@gmail.com',
+        //            'username' => 'timjossund',
+        //            'avatar' => 'default-avatar.jpg',
+        //        ]);
 
         $categories = [
             'Practice',
@@ -33,10 +33,10 @@ class DatabaseSeeder extends Seeder
 
         foreach ($categories as $category) {
             Category::create([
-                'title' => $category
+                'title' => $category,
             ]);
         }
 
-//        Post::factory(100)->create();
+        //        Post::factory(100)->create();
     }
 }

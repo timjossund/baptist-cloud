@@ -22,7 +22,7 @@ Route::get('/sermons', [SermonController::class, 'welcome'])->name('sermons.inde
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('single-post');
     Route::get('/report-post/{post:id}', [ReportingController::class, 'index'])->name('report-form');
-    Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report');
+    Route::post('/report/{post:id}', [ReportingController::class, 'report'])->name('report')->middleware('throttle:10,1');
     Route::get('/search', [PostController::class, 'search'])->name('search');
     Route::get('/search-audio', [SermonController::class, 'searchAudio'])->name('search-audio');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow')->middleware(['throttle:followLimit']);
@@ -32,7 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/follower-list', [ProfileController::class, 'showFollowers'])->name('follower-list');
-    Route::get('/search-authors', [PostController::class, 'searchAuthor'])->name('search-authors');
     Route::get('/search-posts', [PostController::class, 'searchPost'])->name('search-posts');
     Route::get('/positions', [ListingController::class, 'showPositions'])->name('positions');
     Route::get('/position/{position:id}', [ListingController::class, 'showPosition'])->name('show-position');

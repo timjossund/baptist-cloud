@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Spark\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use Billable, HasFactory, Notifiable;
 
     /**
@@ -58,6 +59,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::make(get: function ($value) {
             return $value ? '/storage/avatars/'.$value : '/default-avatar.png';
         });
+    }
+
+    /**
+     * Whether this user's own ads may be shown instead of the platform's.
+     */
+    public function canRunAds(): bool
+    {
+        return $this->is_admin || $this->is_author || $this->subscribed();
     }
 
     public function posts()

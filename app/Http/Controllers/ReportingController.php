@@ -8,15 +8,17 @@ use Illuminate\Http\Request;
 
 class ReportingController extends Controller
 {
-    public function index(Post $post) {
+    public function index(Post $post)
+    {
         return view('post-reporting', ['post' => $post]);
     }
 
-    public function report(Request $request, Post $post) {
+    public function report(Request $request, Post $post)
+    {
         $data = $request->validate([
             'description' => 'required',
-            'reporter_email' => 'required',
-            'reporter_name' => 'required',
+            'reporter_email' => 'required|email|max:255',
+            'reporter_name' => 'required|max:255',
         ]);
 
         $data['description'] = strip_tags($data['description']);
@@ -27,11 +29,10 @@ class ReportingController extends Controller
         $data['username'] = $post->user->name;
         $data['post_slug'] = $post->slug;
 
-
-//        $data['post_id'] = strip_tags($data['post_id']);
-//        $data['post_title'] = strip_tags($data['post_title']);
-//        $data['username'] = strip_tags($data['username']);
-//        $data['post_slug'] = strip_tags($data['post_slug']);
+        //        $data['post_id'] = strip_tags($data['post_id']);
+        //        $data['post_title'] = strip_tags($data['post_title']);
+        //        $data['username'] = strip_tags($data['username']);
+        //        $data['post_slug'] = strip_tags($data['post_slug']);
 
         Reporting::create($data);
 
@@ -42,6 +43,7 @@ class ReportingController extends Controller
     {
         abort_unless(auth()->user()->is_admin, 403);
         $report->delete();
+
         return redirect('/admin/reported-posts')->with('success', 'Report Deleted');
     }
 }

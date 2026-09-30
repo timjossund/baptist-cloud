@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
-
 class FollowerController extends Controller
 {
     /**
      * Toggle the follow/unfollow state for the authenticated user.
      *
-     * @param User $user The user to be followed or unfollowed.
+     * @param  User  $user  The user to be followed or unfollowed.
      * @return JsonResponse The response with the updated followers count.
      */
     public function followUnfollow(User $user)

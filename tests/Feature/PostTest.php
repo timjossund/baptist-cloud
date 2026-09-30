@@ -39,7 +39,7 @@ test('edit post screen can be rendered with markdown guide', function () {
         'image' => 'sample.jpg',
     ]);
 
-    $response = $this->actingAs($user)->get('/post/' . $post->slug . '/edit');
+    $response = $this->actingAs($user)->get('/post/'.$post->slug.'/edit');
 
     $response->assertStatus(200);
     $response->assertSee('Publish Your Post');
@@ -72,7 +72,7 @@ test('edit listing screen can be rendered with markdown guide', function () {
         'phone' => '555-123-4567',
     ]);
 
-    $response = $this->actingAs($user)->get('/position/' . $listing->id . '/edit');
+    $response = $this->actingAs($user)->get('/position/'.$listing->id.'/edit');
 
     $response->assertStatus(200);
     $response->assertSee('Edit Listing');
@@ -133,7 +133,7 @@ test('ProcessPostImage job resizes and stores image', function () {
 
     $post->refresh();
     expect($post->getRawOriginal('image'))->not->toBeNull();
-    Storage::disk('postImages')->assertExists('post-images/' . $post->getRawOriginal('image'));
+    Storage::disk('postImages')->assertExists('post-images/'.$post->getRawOriginal('image'));
     Storage::disk('local')->assertMissing($tempPath);
 });
 

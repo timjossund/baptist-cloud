@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Support\Markdown;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ListingController extends Controller
 {
@@ -23,8 +23,8 @@ class ListingController extends Controller
             'content' => 'required',
             'email' => 'required|max:255',
             'phone' => 'required|max:255',
-            'facebook' => 'required|max:255',
-            'website' => 'required|max:255',
+            'facebook' => 'nullable|max:255',
+            'website' => 'nullable|max:255',
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -32,13 +32,8 @@ class ListingController extends Controller
 
         Listing::create($data);
 
-        return redirect("/positions")->with('success', 'Listing Created Successfully');
+        return redirect('/positions')->with('success', 'Listing Created Successfully');
     }
-
-    /**
-     * @param array $data
-     * @return array
-     */
 
     public function getArr(array $data): array
     {
@@ -49,39 +44,43 @@ class ListingController extends Controller
         $data['church'] = strip_tags($data['church']);
         $data['email'] = strip_tags($data['email']);
         $data['phone'] = strip_tags($data['phone']);
-        $data['facebook'] = strip_tags($data['facebook']);
-        $data['website'] = strip_tags($data['website']);
+        $data['facebook'] = strip_tags((string) ($data['facebook'] ?? ''));
+        $data['website'] = strip_tags((string) ($data['website'] ?? ''));
+
         return $data;
     }
 
     public function showPositions()
     {
         $positions = Listing::latest()->cursorPaginate(10);
+
         return view('positions', ['positions' => $positions]);
     }
 
     public function showPosition(Listing $position)
     {
-//        $position = Listing::find($id);
-        $position['content'] = Str::markdown($position->content);
+        //        $position = Listing::find($id);
+        $position['content'] = Markdown::render($position->content);
+
         return view('single-position', ['position' => $position]);
     }
 
     public function edit($id)
     {
-        if (!auth()->user()->is_admin) {
+        if (! auth()->user()->is_admin) {
             abort(403);
         }
 
         $listing = Listing::findOrFail($id);
-        //dd($position);
+
+        // dd($position);
         return view('edit-listing', ['listing' => $listing]);
     }
 
     public function update(Request $request, $id)
     {
 
-        if (!auth()->user()->is_admin) {
+        if (! auth()->user()->is_admin) {
             abort(403);
         }
 
@@ -93,9 +92,9 @@ class ListingController extends Controller
             'content' => 'required',
             'email' => 'required|max:255',
             'phone' => 'required|max:255',
-            'facebook' => 'required|max:255',
-            'website' => 'required|max:255',
-            'published_at' => ['nullable', 'timestamp'],
+            'facebook' => 'nullable|max:255',
+            'website' => 'nullable|max:255',
+            'published_at' => ['nullable', 'date'],
         ]);
 
         $data = $this->getArr($data);
@@ -104,6 +103,6 @@ class ListingController extends Controller
 
         $position->update($data);
 
-        return redirect("/positions")->with('success', 'Listing Updated Successfully');
+        return redirect('/positions')->with('success', 'Listing Updated Successfully');
     }
 }

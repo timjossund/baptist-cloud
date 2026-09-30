@@ -6,8 +6,9 @@ use App\Jobs\ProcessPostImage;
 use App\Models\BcAd;
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\User;
+use App\Support\Markdown;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -51,16 +52,16 @@ class PostController extends Controller
             'tags' => ['nullable', 'max:255'],
             'ad_heading' => 'nullable',
             'ad_description' => 'nullable',
-            'ad_link' => 'nullable',
+            'ad_link' => ['nullable', 'url:http,https', 'max:255'],
             'published_at' => ['nullable', 'date'],
         ]);
+
+        $data = $this->withoutUnentitledAds($data);
 
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = (int) $data['category_id'];
-        if (isset($data['tags'])) {
-            $data['tags'] = strip_tags($data['tags']);
-        }
+        $data['tags'] = strip_tags((string) ($data['tags'] ?? ''));
         if (isset($data['ad_heading'])) {
             $data['ad_heading'] = strip_tags($data['ad_heading']);
         }
@@ -103,7 +104,11 @@ class PostController extends Controller
      */
     public function show(string $username, Post $post)
     {
-        $post['content'] = Str::markdown($post->content);
+        if ($post->published_at === null && $post->user_id !== auth()->id() && ! auth()->user()->is_admin) {
+            abort(404);
+        }
+
+        $post['content'] = Markdown::render($post->content);
         $ads = BcAd::all();
         $maxAd = $ads->max('int');
 
@@ -115,7 +120,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
         $categories = Category::get();
@@ -128,7 +133,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
         $data = $request->validate([
@@ -139,14 +144,15 @@ class PostController extends Controller
             'tags' => 'nullable',
             'ad_heading' => 'nullable',
             'ad_description' => 'nullable',
-            'ad_link' => 'nullable',
-            'published_at' => ['nullable', 'timestamp'],
+            'ad_link' => ['nullable', 'url:http,https', 'max:255'],
+            'published_at' => ['nullable', 'date'],
         ]);
+        $data = $this->withoutUnentitledAds($data);
 
         $data['title'] = strip_tags($data['title']);
         $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
-        $data['tags'] = strip_tags($data['tags']);
+        $data['tags'] = strip_tags((string) ($data['tags'] ?? ''));
         if (isset($data['ad_heading'])) {
             $data['ad_heading'] = strip_tags($data['ad_heading']);
         }
@@ -157,7 +163,6 @@ class PostController extends Controller
             $data['ad_link'] = strip_tags($data['ad_link']);
         }
         $data['slug'] = $post->getRawOriginal('slug');
-        $data['user_id'] = auth()->id();
 
         if ($request->hasFile('image')) {
             $oldImage = $post->getRawOriginal('image');
@@ -179,7 +184,7 @@ class PostController extends Controller
 
     public function publish(Request $request, Post $post)
     {
-        if ($post->user_id != auth()->id() && ! auth()->user()->is_admin) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
         $data = $request->validate([
@@ -190,13 +195,15 @@ class PostController extends Controller
             'tags' => 'nullable',
             'ad_heading' => 'nullable',
             'ad_description' => 'nullable',
-            'ad_link' => 'nullable',
-            'published_at' => ['nullable', 'timestamp'],
+            'ad_link' => ['nullable', 'url:http,https', 'max:255'],
+            'published_at' => ['nullable', 'date'],
         ]);
+        $data = $this->withoutUnentitledAds($data);
 
         $data['title'] = strip_tags($data['title']);
+        $data['content'] = strip_tags($data['content']);
         $data['category_id'] = strip_tags($data['category_id']);
-        $data['tags'] = strip_tags($data['tags']);
+        $data['tags'] = strip_tags((string) ($data['tags'] ?? ''));
         if (isset($data['ad_heading'])) {
             $data['ad_heading'] = strip_tags($data['ad_heading']);
         }
@@ -207,7 +214,6 @@ class PostController extends Controller
             $data['ad_link'] = strip_tags($data['ad_link']);
         }
         $data['slug'] = $post->getRawOriginal('slug');
-        $data['user_id'] = auth()->id();
         $data['published_at'] = now();
 
         if ($request->hasFile('image')) {
@@ -243,6 +249,19 @@ class PostController extends Controller
         return redirect('/@'.auth()->user()->username)->with('success', 'Post Deleted');
     }
 
+    /**
+     * Only subscribed authors (and authors/admins) may attach their own ad.
+     * Everyone else falls back to the platform ads.
+     */
+    private function withoutUnentitledAds(array $data): array
+    {
+        if (auth()->user()->canRunAds()) {
+            return $data;
+        }
+
+        return Arr::except($data, ['ad_heading', 'ad_description', 'ad_link']);
+    }
+
     public function category(Category $category)
     {
         $posts = $category->posts()->withCount('likes')->whereNotNull('published_at')->latest('published_at')->cursorPaginate(5);
@@ -251,16 +270,9 @@ class PostController extends Controller
         return view('home-page', ['posts' => $posts, 'ads' => $ads]);
     }
 
-    public function searchAuthor(User $user)
-    {
-        $users = User::query()->cursorPaginate(5);
-
-        return view('search-authors', ['users' => $users]);
-    }
-
     public function searchPost()
     {
-        return view('home-page');
+        return redirect()->route('search');
     }
 
     public function markdownSandbox()

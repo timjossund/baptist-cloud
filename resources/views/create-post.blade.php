@@ -44,10 +44,10 @@
                             <div class="mt-2 w-full flex flex-col">
                                 <label for="content" class="text-lg text-gray-700 mb-2">Body Content: <span class="text-md text-gray-500">This text will be converted to markdown.</span></label>
                                 <textarea rows="10" id="content" name="content">{{ old('content') }}</textarea>
-                                <div id="bodycontent">{!! old('content') !!}</div>
+                                <div id="bodycontent">{{ old('content') }}</div>
                                 <x-input-error :messages="$errors->get('content')" class="mt-2" />
                             </div>
-                            @if (auth()->user()->subscribed() || auth()->user()->is_author || auth()->user()->is_admin)
+                            @if (auth()->user()->canRunAds())
                                 <div class="flex flex-col gap-4 mt-4 bg-gray-100 p-6 rounded-lg">
                                     {{-- Post Ad Heading --}}
                                     <div>
