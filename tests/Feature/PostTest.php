@@ -191,3 +191,51 @@ test('post image preview polls until the processed image is saved', function () 
         ->assertDontSeeHtml('wire:poll')
         ->assertSeeHtml('post-image-preview-test-abc.jpg');
 });
+
+test('category page lists posts without the empty state for users who follow nobody', function () {
+    $user = User::factory()->create();
+    $category = Category::create(['title' => 'Practice']);
+    Post::create([
+        'title' => 'My category article',
+        'slug' => 'my-category-article-abc',
+        'content' => 'Body',
+        'category_id' => $category->id,
+        'user_id' => $user->id,
+        'published_at' => now(),
+    ]);
+
+    $this->actingAs($user)
+        ->get('/category/Practice')
+        ->assertOk()
+        ->assertSee('My category article')
+        ->assertDontSee('nothing here');
+});
+
+test('empty category page shows the empty state', function () {
+    $user = User::factory()->create();
+    Category::create(['title' => 'Practice']);
+
+    $this->actingAs($user)
+        ->get('/category/Practice')
+        ->assertOk()
+        ->assertSee('nothing here');
+});
+
+test('home feed shows the empty state for users who follow nobody', function () {
+    $user = User::factory()->create();
+    $category = Category::create(['title' => 'Practice']);
+    Post::create([
+        'title' => 'Someone else article',
+        'slug' => 'someone-else-article-abc',
+        'content' => 'Body',
+        'category_id' => $category->id,
+        'user_id' => User::factory()->create()->id,
+        'published_at' => now(),
+    ]);
+
+    $this->actingAs($user)
+        ->get('/')
+        ->assertOk()
+        ->assertSee('nothing here')
+        ->assertDontSee('Someone else article');
+});
