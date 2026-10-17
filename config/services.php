@@ -28,6 +28,11 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'stripe' => [
+        // Monthly author subscription price ID from the Stripe dashboard.
+        'author_price' => env('STRIPE_AUTHOR_PRICE'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

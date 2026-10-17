@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Stripe\Exception\ApiErrorException;
+
+class BillingController extends Controller
+{
+    private const UNAVAILABLE = 'Billing is unavailable right now. Please try again.';
+
+    /**
+     * Subscribers manage billing in the Stripe portal; everyone else sees the plan.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+
+        if (! $user->subscribed()) {
+            return view('billing');
+        }
+
+        try {
+            return $user->redirectToBillingPortal(route('home-page'));
+        } catch (ApiErrorException $e) {
+            report($e);
+
+            return redirect()->route('home-page')->with('error', self::UNAVAILABLE);
+        }
+    }
+
+    public function subscribe()
+    {
+        $user = auth()->user();
+
+        if ($user->subscribed()) {
+            return redirect()->route('billing');
+        }
+
+        $price = config('services.stripe.author_price');
+
+        if (! $price) {
+            return redirect()->route('billing')->with('error', self::UNAVAILABLE);
+        }
+
+        try {
+            return $user->newSubscription('default', $price)->checkout([
+                'success_url' => route('billing.success'),
+                'cancel_url' => route('billing'),
+            ]);
+        } catch (ApiErrorException $e) {
+            report($e);
+
+            return redirect()->route('billing')->with('error', self::UNAVAILABLE);
+        }
+    }
+
+    public function success()
+    {
+        return redirect()->route('home-page')->with('success', 'Thanks for subscribing! Your author features will be ready in a moment.');
+    }
+}

@@ -31,7 +31,7 @@
             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                 @if($user->is_admin)
                     Admin
-                @elseif($user->subscription_id)
+                @elseif($user->subscribed())
                     Author
                 @else
                     Free

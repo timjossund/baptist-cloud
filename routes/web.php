@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ListingController;
@@ -39,6 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/create-listing', [ListingController::class, 'store'])->name('save-listing');
     Route::get('/position/{position:id}/edit', [ListingController::class, 'edit'])->name('edit-listing');
     Route::patch('/position/{position:id}/save', [ListingController::class, 'update'])->name('update-listing');
+    Route::get('/billing', [BillingController::class, 'index'])->name('billing');
+    Route::post('/billing/subscribe', [BillingController::class, 'subscribe'])->name('billing.subscribe');
+    Route::get('/billing/success', [BillingController::class, 'success'])->name('billing.success');
 });
 
 // Auth, Verified, Subscribed Routes

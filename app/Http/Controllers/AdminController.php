@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::simplePaginate(10);
+        $users = User::with('subscriptions')->simplePaginate(10);
         $userCount = User::count();
         $postCount = Post::count();
         $likesCount = Like::count();
