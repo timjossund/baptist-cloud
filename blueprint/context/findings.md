@@ -7,14 +7,6 @@
 > finding is `open` or `fixed`, then archives resolved findings with the work
 > and resets this file.
 
-### F-01 [P3] open - Spark payment-confirmation emails stop with no replacement noted
-
-**File:** config/spark.php:91 (deleted in this change)
-**Found:** 2026-10-17 by /audit independent (scope: current; lens: quality)
-**Why it matters:** The removed Spark config enabled `Features::paymentNotificationEmails()`, so subscribers were emailed when a renewal needed extra payment confirmation (SCA/3DS). Cashier sends that notification only when `CASHIER_PAYMENT_NOTIFICATION` is set (vendor/laravel/cashier/src/Http/Controllers/WebhookController.php:292). Neither `.env.example` nor the spec's deploy actions mention it or Stripe's own customer emails. A renewal that needs confirmation would lapse to past_due/incomplete, and the author ad would disappear with no notice from the app.
-**Suggested fix:** Add one deploy action: either enable Stripe's "payment requires authentication" customer emails in the Stripe dashboard, or set `CASHIER_PAYMENT_NOTIFICATION=Laravel\Cashier\Notifications\ConfirmPayment` and list it in `.env.example`. No code change is required.
-**Resolution:**
-
 ### F-02 [P3] open - Portal error redirects to home, not /billing as the spec states
 
 **File:** app/Http/Controllers/BillingController.php:27

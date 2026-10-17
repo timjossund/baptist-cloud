@@ -2,6 +2,9 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Laravel\Cashier\Notifications\ConfirmPayment;
+use Laravel\Cashier\Payment;
+use Stripe\PaymentIntent;
 
 /**
  * Insert a subscription row shaped like the ones Spark wrote.
@@ -92,4 +95,19 @@ test('the admin users table labels subscribers as authors', function () {
     expect($html)->toMatch('/Paying Subscriber.*?Author/s')
         ->and($html)->toMatch('/Free Reader.*?Free/s')
         ->and($html)->not->toMatch('/Free Reader((?!<\/tr>).)*Author/s');
+});
+
+test('payment confirmation emails are on by default', function () {
+    expect(config('cashier.payment_notification'))->toBe(ConfirmPayment::class)
+        ->and(config('cashier.path'))->toBe('stripe');
+});
+
+test('the payment confirmation email links to the confirm page', function () {
+    $intent = PaymentIntent::constructFrom(['id' => 'pi_test123', 'amount' => 2000, 'currency' => 'usd']);
+
+    $mail = (new ConfirmPayment(new Payment($intent)))->toMail(User::factory()->create());
+
+    expect($mail->subject)->toBe('Confirm Payment')
+        ->and($mail->actionUrl)->toBe(url('/stripe/payment/pi_test123'))
+        ->and($mail->greeting)->toContain('20.00');
 });
