@@ -1,6 +1,6 @@
 # Baptist Cloud - Project Overview
 
-<!-- blueprint:source-hash 987cecac20392f0e066b3a0ff61356a0a5aeb3ae908bc34cc0214a8e2b23a69a -->
+<!-- blueprint:source-hash e16352b363ea8b2033e5866e05346407ae02490118b98544a3972eac71f328f3 -->
 
 > A publishing and community platform where Baptist pastors and writers publish
 > articles and sermons, readers follow them, and churches post open positions.
@@ -18,12 +18,12 @@ author following, and a position board.
 - **Readers** (signed in, verified) - follow authors, read posts, listen to sermons,
   like, report, search, and view positions.
 - **Authors** - publish articles and sermons. Author features in the post form
-  unlock with a Spark subscription, `is_author`, or `is_admin`.
-- **Churches** - post open positions.
+  (the per-post author ad) unlock with a paid subscription, `is_author`, or `is_admin`.
+- **Churches** - post open positions. Planned (feature 16): any verified user can
+  submit a listing, it stays hidden until an admin approves it, and posters edit
+  only their own listings.
 - **Admins** (`is_admin`) - manage users, admin roles, site ads, reported posts,
   and Horizon.
-
-> TODO: whether churches post listings themselves or admins post them.
 
 ## Usage model
 
@@ -32,7 +32,7 @@ author following, and a position board.
 
 ## Features
 
-Features 1-14 are shipped. Feature 15 is next.
+Features 1-15 are shipped. Feature 16 is next.
 
 1. **Accounts and auth** - Breeze registration, login, email verification, password reset.
 2. **Profiles** - profile editing with avatar, public author pages at `/@username`.
@@ -49,6 +49,8 @@ Features 1-14 are shipped. Feature 15 is next.
 13. **Subscriptions** - Spark (Stripe) billing that unlocks author features.
 14. **Queued image processing** - post images resized on the queue, Horizon for admins.
 15. **Re-enable Turnstile** - restore Cloudflare Turnstile on login and registration.
+16. **Position approval** - verified users submit positions, admins approve before they go live, posters edit their own.
+17. **Replace Spark with Cashier** - $20 author subscription via Laravel Cashier (Stripe) that unlocks per-article author ads.
 
 ## Data model
 
@@ -61,7 +63,7 @@ in production, so change them only with new migrations.
 - `username` (string, unique) - used in `/@username` URLs
 - `avatar` (string, nullable), `bio` (text, nullable)
 - `is_admin`, `is_author` (bool, default false)
-- Spark / Cashier billing columns
+- Spark / Cashier billing columns (`stripe_id`, `pm_type`, `pm_last_four`, `trial_ends_at`); Cashier reuses them after feature 17
 - has many Posts, Sermons, Likes; follows many Users through `followers`
 
 ### Post
@@ -103,7 +105,8 @@ in production, so change them only with new migrations.
 - `position`, `church`, `city`, `state`, `content` (longText)
 - `email`, `phone`, `facebook` (nullable), `website` (nullable)
 - `published_at` (nullable)
-- no owner column
+- no owner column today; feature 16 needs an owner (`user_id`) and an approval
+  state so pending listings stay hidden and posters can edit their own
 
 ### BcAd (`bc_ads`)
 
@@ -111,7 +114,8 @@ in production, so change them only with new migrations.
 
 ### Subscriptions
 
-- Spark / Cashier `subscriptions`, `subscription_items`, `tax_rates`
+- Spark / Cashier `subscriptions`, `subscription_items`, `tax_rates`; Cashier keeps
+  using these after feature 17, so existing Spark subscribers must carry over
 
 ## Tech stack
 
@@ -120,26 +124,26 @@ in production, so change them only with new migrations.
 - **Tailwind CSS + Vite** - styling and asset build
 - **MySQL** - primary database (SQLite in memory for tests)
 - **Breeze** - auth scaffolding (laravel/ui also installed)
-- **Laravel Spark (Stripe)** - subscriptions
+- **Laravel Spark (Stripe)** - subscriptions today; replaced by **Laravel Cashier (Stripe)** in feature 17
 - **Database queue + Horizon** - background jobs and monitoring
 - **Intervention Image (GD)** - post image resizing (1200x400 JPEG)
 - **Flysystem S3 on IONOS** - post images and sermon audio and images
 - **Laravel Scout** - installed; search currently uses `LIKE` queries
-- **Cloudflare Turnstile** - installed, currently disabled
+- **Cloudflare Turnstile** - on login and registration (feature 15)
 - **Pest, Larastan level 5, Pint** - tests, static analysis, formatting
 
 ## Monetization
 
-- Spark subscriptions that unlock author features
+- A $20 author subscription that lets authors place their own ad on their
+  articles. Spark bills it today; feature 17 moves it to Laravel Cashier.
 - Admin-managed site ads
 
-> TODO: Spark plan lineup, and whether authors pay for author ads.
+> TODO: billing interval for the $20 plan (the Spark config has a monthly price only).
 
 ## UI/UX
 
-Breeze-style Blade components styled with Tailwind.
-
-> TODO: the intended look and feel.
+Keep the current Breeze-style Blade components styled with Tailwind. No redesign
+is planned.
 
 Main routes:
 
@@ -159,17 +163,20 @@ Main routes:
 - A queue worker or Horizon process must run for post image processing.
 - S3 disks `postImages` and `sermons` (IONOS); temporary uploads on `local`.
 
-> TODO: hosting provider, deploy process, and queue worker supervision.
+- Hosted on xCloud today; a migration to Ploi is planned.
+
+> TODO: the Ploi deploy process and queue worker (Horizon) supervision, to be
+> defined during the move.
 
 ## Open questions
 
-- Listing ownership (above), Spark plans and author ad pricing, UI direction, and
-  hosting details are unconfirmed in the project plan.
+- Billing interval for the $20 author plan, and how existing Spark subscribers
+  move to Cashier (feature 17).
+- Ploi deploy and queue-worker details are not defined yet.
 - The plans list users reporting posts, but `reportings` stores the reporter's
   name and email with no `user_id`.
-- Listings have no owner column, so any verified user can edit any position.
-  This conflicts with "churches post open positions" if churches should only
-  edit their own listings.
 - Two tables are absent from both plans: an empty `author_ads` table (author ads
   live on `posts`) and a Spatie-style `media` table whose model code is
   commented out.
+- `project-plan.md` §5 still says Turnstile is "currently disabled"; feature 15
+  re-enabled it.

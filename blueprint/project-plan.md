@@ -1,8 +1,8 @@
 # Project Plan
 
 > Seeded by `/adopt` from the existing codebase on 2026-10-17. Sections 3, 4, 5,
-> and 8 describe what already exists. Anything marked `TODO (confirm)` is an
-> inference from the code; correct it before running `/overview`.
+> and 8 describe what already exists. Open questions were confirmed with the owner
+> on 2026-10-17.
 
 ## 1. Problem - What problem are we solving?
 
@@ -16,10 +16,10 @@ audio, author following, and a position board together in one place.
 - **Authors** - Baptist pastors and writers who publish articles and upload sermons.
 - **Readers** - members of the Baptist community who follow authors, read, listen,
   like, and report posts.
-- **Churches** - post open positions on the position board.
+- **Churches** - post open positions on the position board. Anyone with a verified
+  email can submit a listing; it stays hidden until an admin approves it, and
+  posters can edit their own listings (planned, feature 16).
 - **Admins** - manage users, ads, and reported posts.
-
-> TODO (confirm): whether churches post listings themselves or admins post on their behalf.
 
 ## 3. Features - What does the MVP need?
 
@@ -64,7 +64,8 @@ Already shipped:
 - Tailwind CSS with `@tailwindcss/forms`, built with Vite
 - MySQL
 - Breeze auth scaffolding (laravel/ui is also installed)
-- Laravel Spark (Stripe) for subscriptions
+- Laravel Spark (Stripe) for subscriptions, to be replaced by Laravel Cashier (Stripe)
+  (planned, feature 17)
 - Database queue with Laravel Horizon
 - Intervention Image (GD) for image resizing
 - Flysystem S3 for file storage on IONOS object storage
@@ -75,15 +76,15 @@ Already shipped:
 
 ## 6. Monetize - How will this make money?
 
-- Spark subscriptions that unlock author features
+- A $20 author subscription that lets authors place their own ad on their articles.
+  Spark currently handles billing; it will move to Laravel Cashier (Stripe)
+  (planned, feature 17)
 - Site ads managed by admins
-
-> TODO (confirm): whether authors pay for author ads, and which plans Spark offers.
 
 ## 7. UI/UX - How should this look and feel?
 
-> TODO (confirm): describe the intended look and feel. The current UI is Breeze-style
-> Blade components styled with Tailwind.
+Keep the current look for now: Breeze-style Blade components styled with Tailwind.
+No redesign is planned.
 
 ## 8. Deployment - Where and how will this ship?
 
@@ -92,8 +93,8 @@ Already shipped:
 - HTTPS is forced when `APP_URL` starts with `https://`
 - A queue worker or Horizon process must run for post image processing
 - Storage disks `postImages` and `sermons` point at IONOS S3
-
-> TODO (confirm): the hosting provider, the deploy process, and how the queue worker is supervised.
+- Hosted on xCloud today, with a migration to Ploi planned. The deploy process and
+  queue-worker supervision will be defined during the Ploi move.
 
 ## 9. Usage model and constraints (optional)
 
