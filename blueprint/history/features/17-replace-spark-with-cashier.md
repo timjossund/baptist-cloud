@@ -35,8 +35,9 @@ Customer Portal to manage or cancel.
 - `POST /billing/subscribe` starts Stripe Checkout for the `default`
   subscription. Success returns to `/billing/success`, which redirects to `/`
   with a "Thanks for subscribing" flash. Cancel returns to `/billing`.
-- Stripe API errors on checkout or the portal redirect back to `/billing` with
-  an error flash. They never show a 500 page.
+- Stripe API errors on checkout redirect back to `/billing`, and errors on the
+  portal redirect to `/` (since `/billing` would retry the portal). Both carry
+  an error flash and never show a 500 page.
 - Cashier's webhook at `POST /stripe/webhook` replaces Spark's
   `/spark/webhook`. It keeps local subscription rows in sync, using
   `STRIPE_WEBHOOK_SECRET` signature checks when that variable is set.

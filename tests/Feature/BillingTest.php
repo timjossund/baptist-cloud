@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Notifications\ConfirmPayment;
 use Laravel\Cashier\Payment;
 use Stripe\PaymentIntent;
@@ -40,8 +41,11 @@ test('a canceled subscription past its end date is not subscribed', function () 
         ->and($user->canRunAds())->toBeFalse();
 });
 
-test('the stripe webhook accepts posts without a csrf token', function () {
+test('the stripe webhook sits outside the web middleware group and accepts unknown events', function () {
     config(['cashier.webhook.secret' => null]);
+
+    // CSRF is skipped while tests run, so check the route's middleware directly.
+    expect(Route::getRoutes()->getByName('cashier.webhook')->gatherMiddleware())->not->toContain('web');
 
     $this->postJson('/stripe/webhook', ['type' => 'unknown.event', 'data' => ['object' => []]])
         ->assertOk();
