@@ -11,6 +11,7 @@ beforeEach(function () {
     $this->app->detectEnvironment(fn () => 'production');
     // CSRF checks are only skipped automatically in the testing environment.
     $this->withoutMiddleware(ValidateCsrfToken::class);
+    Http::preventStrayRequests();
 
     config([
         'services.turnstile.key' => TurnstileClient::SITEKEY_ALWAYS_PASSES_VISIBLE,
@@ -150,3 +151,22 @@ test('login and registration reject a non-string turnstile token without calling
     'login' => ['/login', ['email' => 'test@example.com', 'password' => 'password']],
     'register' => ['/register', registrationPayload()],
 ]);
+
+test('login and registration show a validation error when siteverify is unavailable', function (string $path, array $payload, string $outage) {
+    Http::fake([
+        SITEVERIFY_URL => $outage === 'server-error' ? Http::response([], 500) : Http::failedConnection(),
+    ]);
+
+    $response = $this->post($path, array_merge($payload, [
+        'cf-turnstile-response' => TurnstileClient::RESPONSE_DUMMY_TOKEN,
+    ]));
+
+    $this->assertGuest();
+    $this->assertDatabaseMissing('users', ['username' => 'testuser']);
+    $response->assertSessionHasErrors([
+        'cf-turnstile-response' => __('cloudflare-turnstile::errors.internal-error'),
+    ]);
+})->with([
+    'login' => ['/login', ['email' => 'test@example.com', 'password' => 'password']],
+    'register' => ['/register', registrationPayload()],
+])->with(['server-error', 'connection-failure']);

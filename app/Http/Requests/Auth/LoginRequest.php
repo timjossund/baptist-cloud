@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Rules\Turnstile;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
@@ -34,7 +34,7 @@ class LoginRequest extends FormRequest
         ];
 
         if (app()->environment('production')) {
-            $rules['cf-turnstile-response'] = ['bail', 'required', 'string', Rule::turnstile()];
+            $rules['cf-turnstile-response'] = ['bail', 'required', 'string', new Turnstile];
         }
 
         return $rules;
