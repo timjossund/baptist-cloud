@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\ProcessPostImage;
+use App\Livewire\PostImagePreview;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Models\Post;
@@ -9,6 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 
 test('create post screen can be rendered with markdown guide', function () {
     $user = User::factory()->create();
@@ -164,4 +166,28 @@ test('new post edit page explains the image is still processing', function () {
         ->get('/post/'.$post->slug.'/edit')
         ->assertOk()
         ->assertSee('still processing');
+});
+
+test('post image preview polls until the processed image is saved', function () {
+    $user = User::factory()->create();
+    $category = Category::create(['title' => 'General']);
+    $post = Post::create([
+        'title' => 'Preview test',
+        'slug' => 'preview-test-abc',
+        'content' => 'Body',
+        'category_id' => $category->id,
+        'user_id' => $user->id,
+    ]);
+
+    $component = Livewire::actingAs($user)
+        ->test(PostImagePreview::class, ['post' => $post])
+        ->assertSee('still processing')
+        ->assertSeeHtml('wire:poll');
+
+    $post->update(['image' => 'post-image-preview-test-abc.jpg']);
+
+    $component->call('$refresh')
+        ->assertDontSee('still processing')
+        ->assertDontSeeHtml('wire:poll')
+        ->assertSeeHtml('post-image-preview-test-abc.jpg');
 });
