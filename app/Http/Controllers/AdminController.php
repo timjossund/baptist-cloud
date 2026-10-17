@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Listing;
 use App\Models\Post;
 use App\Models\Reporting;
 use App\Models\User;
@@ -15,8 +16,9 @@ class AdminController extends Controller
         $userCount = User::count();
         $postCount = Post::count();
         $likesCount = Like::count();
+        $pendingPositionsCount = Listing::whereNull('approved_at')->count();
 
-        return view('admin.admin', ['users' => $users, 'postCount' => $postCount, 'userCount' => $userCount, 'likesCount' => $likesCount]);
+        return view('admin.admin', ['users' => $users, 'postCount' => $postCount, 'userCount' => $userCount, 'likesCount' => $likesCount, 'pendingPositionsCount' => $pendingPositionsCount]);
     }
 
     public function makeAdmin(User $user)
@@ -54,5 +56,27 @@ class AdminController extends Controller
         $reports = Reporting::paginate(10);
 
         return view('admin.reported-posts', ['reports' => $reports]);
+    }
+
+    public function pendingPositions()
+    {
+        $positions = Listing::whereNull('approved_at')->with('user')->oldest()->paginate(10);
+
+        return view('admin.pending-positions', ['positions' => $positions]);
+    }
+
+    public function approveListing(Listing $listing)
+    {
+        $listing->approved_at = now();
+        $listing->save();
+
+        return redirect()->back()->with('success', 'Position approved');
+    }
+
+    public function rejectListing(Listing $listing)
+    {
+        $listing->delete();
+
+        return redirect()->back()->with('success', 'Position rejected');
     }
 }

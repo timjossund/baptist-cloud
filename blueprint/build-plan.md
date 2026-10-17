@@ -24,5 +24,5 @@ Do not renumber completed features; their archived specs refer to those IDs.
 - [x] 13. **Subscriptions** - Spark (Stripe) billing that unlocks author features
 - [x] 14. **Queued image processing** - post images resized on the queue, Horizon for admins
 - [x] 15. **Re-enable Turnstile** - restore Cloudflare Turnstile on login and registration
-- [ ] 16. **Position approval** - verified users submit positions, admins approve before they go live, posters edit their own
+- [x] 16. **Position approval** - verified users submit positions, admins approve before they go live, posters edit their own
 - [ ] 17. **Replace Spark with Cashier** - $20 author subscription via Laravel Cashier (Stripe) that unlocks per-article author ads

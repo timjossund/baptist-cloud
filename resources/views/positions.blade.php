@@ -14,7 +14,10 @@
                                     <p class="text-sm text-gray-600 mt-1">
                                         {{ $position->created_at->format('n/j/Y') }}
                                     </p>
-                                    @if (auth()->user()->is_admin)
+                                    @if (! $position->isApproved())
+                                        <span class="self-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800">Pending review</span>
+                                    @endif
+                                    @if (auth()->user()->is_admin || $position->user_id === auth()->id())
                                         <a href="/position/{{ $position->id }}/edit"
                                             class="flex items-center gap-2 text-blue-500 bg-blue-100 rounded-md px-3 py-2 text-sm font-medium hover:bg-blue-200 w-10 h-10"
                                             wire:navigate>

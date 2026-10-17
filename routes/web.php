@@ -74,6 +74,9 @@ Route::middleware(['auth', 'verified', 'can:is-admin'])->group(function () {
     Route::post('/admin/users/{user:id}/make-admin', [AdminController::class, 'makeAdmin'])->name('make-admin');
     Route::post('/admin/users/{user:id}/revoke-admin', [AdminController::class, 'revokeAdmin'])->name('revoke-admin');
     Route::get('/admin/reported-posts', [AdminController::class, 'reported'])->name('admin.reported');
+    Route::get('/admin/pending-positions', [AdminController::class, 'pendingPositions'])->name('admin.pending-positions');
+    Route::post('/admin/positions/{listing}/approve', [AdminController::class, 'approveListing'])->name('approve-listing');
+    Route::delete('/admin/positions/{listing}', [AdminController::class, 'rejectListing'])->name('reject-listing');
     Route::delete('/admin/users/{user:id}/delete', [AdminController::class, 'deleteUser']);
     Route::delete('/delete-report/{report:id}', [ReportingController::class, 'delete'])->name('delete-report');
 });

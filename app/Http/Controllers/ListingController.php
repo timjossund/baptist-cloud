@@ -30,9 +30,11 @@ class ListingController extends Controller
 
         $data = $this->getArr($data);
 
-        Listing::create($data);
+        $listing = new Listing($data);
+        $listing->user_id = auth()->id();
+        $listing->save();
 
-        return redirect('/positions')->with('success', 'Listing Created Successfully');
+        return redirect('/positions')->with('success', 'Position submitted. It will appear once an admin approves it.');
     }
 
     public function getArr(array $data): array
@@ -52,14 +54,22 @@ class ListingController extends Controller
 
     public function showPositions()
     {
-        $positions = Listing::latest()->cursorPaginate(10);
+        $positions = Listing::query()
+            ->where(function ($query) {
+                $query->approved()->orWhere('user_id', auth()->id());
+            })
+            ->latest()
+            ->cursorPaginate(10);
 
         return view('positions', ['positions' => $positions]);
     }
 
     public function showPosition(Listing $position)
     {
-        //        $position = Listing::find($id);
+        if (! $position->isApproved() && $position->user_id !== auth()->id() && ! auth()->user()->is_admin) {
+            abort(404);
+        }
+
         $position['content'] = Markdown::render($position->content);
 
         return view('single-position', ['position' => $position]);
@@ -67,20 +77,20 @@ class ListingController extends Controller
 
     public function edit($id)
     {
-        if (! auth()->user()->is_admin) {
+        $listing = Listing::findOrFail($id);
+
+        if ($listing->user_id !== auth()->id() && ! auth()->user()->is_admin) {
             abort(403);
         }
 
-        $listing = Listing::findOrFail($id);
-
-        // dd($position);
         return view('edit-listing', ['listing' => $listing]);
     }
 
     public function update(Request $request, $id)
     {
+        $position = Listing::findOrFail($id);
 
-        if (! auth()->user()->is_admin) {
+        if ($position->user_id !== auth()->id() && ! auth()->user()->is_admin) {
             abort(403);
         }
 
@@ -99,10 +109,18 @@ class ListingController extends Controller
 
         $data = $this->getArr($data);
 
-        $position = Listing::findOrFail($id);
+        $position->fill($data);
 
-        $position->update($data);
+        // A poster's changes go back through review; admin edits keep the status.
+        $sentBackToReview = ! auth()->user()->is_admin && $position->isApproved();
+        if ($sentBackToReview) {
+            $position->approved_at = null;
+        }
 
-        return redirect('/positions')->with('success', 'Listing Updated Successfully');
+        $position->save();
+
+        return redirect('/positions')->with('success', $sentBackToReview
+            ? 'Changes saved. Your listing will reappear once an admin approves it.'
+            : 'Listing Updated Successfully');
     }
 }

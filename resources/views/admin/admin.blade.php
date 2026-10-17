@@ -11,6 +11,9 @@
                         <a href="{{ route('admin.reported') }}">
                             <x-primary-button class="text-white flex justify-center text-center py-2 rounded-lg" type="button">Reported Posts</x-primary-button>
                         </a>
+                        <a href="{{ route('admin.pending-positions') }}">
+                            <x-primary-button class="text-white flex justify-center text-center py-2 rounded-lg" type="button">Pending Positions ({{ $pendingPositionsCount }})</x-primary-button>
+                        </a>
                     </div>
 
                 </div>
