@@ -23,4 +23,14 @@ class Sermon extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * The audio file's path on the sermons disk, worked out from the stored URL.
+     */
+    public function audioPath(): ?string
+    {
+        $name = $this->audio_url ? basename((string) parse_url($this->audio_url, PHP_URL_PATH)) : '';
+
+        return $name !== '' ? 'sermons/'.$name : null;
+    }
 }

@@ -29,8 +29,11 @@ return [
     ],
 
     'stripe' => [
-        // Monthly author subscription price ID from the Stripe dashboard.
+        // Monthly price IDs from the Stripe dashboard.
+        'member_price' => env('STRIPE_MEMBER_PRICE'),
         'author_price' => env('STRIPE_AUTHOR_PRICE'),
+        // Old $20 author prices kept by existing subscribers, comma separated.
+        'author_legacy_prices' => env('STRIPE_AUTHOR_LEGACY_PRICES'),
     ],
 
     'slack' => [

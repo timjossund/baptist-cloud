@@ -6,6 +6,7 @@ use App\Jobs\ProcessPostImage;
 use App\Models\BcAd;
 use App\Models\Category;
 use App\Models\Post;
+use App\Support\ContentMeter;
 use App\Support\Markdown;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -104,11 +105,20 @@ class PostController extends Controller
             abort(404);
         }
 
-        $post['content'] = Markdown::render($post->content);
+        $meter = $post->published_at === null
+            ? null
+            : app(ContentMeter::class)->check(auth()->user(), $post);
+        $paywalled = $meter !== null && ! $meter->allowed;
+
+        // On the paywall only a short preview is rendered; the full body never reaches the view.
+        $body = $paywalled
+            ? Markdown::render($this->paywallPreview((string) $post->content))
+            : Markdown::render($post->content);
+
         $ads = BcAd::all();
         $maxAd = $ads->max('int');
 
-        return view('single-post', ['post' => $post, 'ads' => $ads, 'maxAd' => $maxAd]);
+        return view('single-post', ['post' => $post, 'body' => $body, 'meter' => $meter, 'paywalled' => $paywalled, 'ads' => $ads, 'maxAd' => $maxAd]);
     }
 
     /**
@@ -249,6 +259,22 @@ class PostController extends Controller
      * Only subscribed authors (and authors/admins) may attach their own ad.
      * Everyone else falls back to the platform ads.
      */
+    /**
+     * The first 3 Markdown blocks, at most 120 words, and never the whole post (then its first half).
+     */
+    private function paywallPreview(string $content): string
+    {
+        $content = trim($content);
+        $preview = Str::words(implode("\n\n", array_slice(preg_split('/\R{2,}/', $content), 0, 3)), 120);
+        $total = preg_match_all('/\S+/u', $content);
+
+        if (preg_match_all('/\S+/u', $preview) >= $total) {
+            $preview = $total > 1 ? Str::words($content, intdiv($total, 2)) : '';
+        }
+
+        return $preview;
+    }
+
     private function withoutUnentitledAds(array $data): array
     {
         if (auth()->user()->canRunAds()) {

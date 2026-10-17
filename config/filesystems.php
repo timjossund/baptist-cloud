@@ -76,6 +76,8 @@ return [
             'bucket' => env('IONOS_SERMONS_BUCKET'),
             'url' => env('IONOS_URL'),
             'endpoint' => env('IONOS_ENDPOINT'),
+            // Signed links use the endpoint/bucket/key form IONOS expects.
+            'use_path_style_endpoint' => true,
         ],
 
     ],

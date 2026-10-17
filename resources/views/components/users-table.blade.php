@@ -29,13 +29,7 @@
                 {{ $user->bio }}
             </td>
             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                @if($user->is_admin)
-                    Admin
-                @elseif($user->subscribed())
-                    Author
-                @else
-                    Free
-                @endif
+                {{ $user->planLabel() }}
                 <div class="mt-2">
                     @if(! $user->is_admin)
                         <form action="/admin/users/{{ $user->id }}/make-admin" method="post">
