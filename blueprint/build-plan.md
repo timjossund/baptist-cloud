@@ -23,4 +23,4 @@ Do not renumber completed features; their archived specs refer to those IDs.
 - [x] 12. **Admin dashboard** - promote or revoke admins, delete users, manage ads
 - [x] 13. **Subscriptions** - Spark (Stripe) billing that unlocks author features
 - [x] 14. **Queued image processing** - post images resized on the queue, Horizon for admins
-- [ ] 15. **Re-enable Turnstile** - restore Cloudflare Turnstile on login and registration
+- [x] 15. **Re-enable Turnstile** - restore Cloudflare Turnstile on login and registration

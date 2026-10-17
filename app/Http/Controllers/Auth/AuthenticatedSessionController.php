@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,11 +24,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        // if (app()->environment(['production'])) {
-        //     $request->validate([
-        //         'cf-turnstile-response' => ['required', Rule::turnstile()],
-        //     ]);
-        // }
         $request->authenticate();
 
         $request->session()->regenerate();

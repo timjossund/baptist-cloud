@@ -32,7 +32,10 @@
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
-            {{-- <x-turnstile /> --}}
+            @production
+                <x-turnstile />
+                <x-input-error :messages="$errors->get('cf-turnstile-response')" class="mt-2" />
+            @endproduction
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))

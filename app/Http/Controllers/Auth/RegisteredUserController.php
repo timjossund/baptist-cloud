@@ -69,20 +69,20 @@ class RegisteredUserController extends Controller
     // }
     public function store(Request $request): RedirectResponse
     {
-        // if (app()->environment(['production'])) {
-        //     $request->validate([
-        //         'cf-turnstile-response' => ['required', Rule::turnstile()],
-        //     ]);
-        // }
-
-        $request->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9._-]+$/', 'unique:'.User::class],
             'bio' => ['nullable', 'string', 'max:255'],
             'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1200'], // Removed SVG
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ];
+
+        if (app()->environment('production')) {
+            $rules['cf-turnstile-response'] = ['bail', 'required', 'string', Rule::turnstile()];
+        }
+
+        $request->validate($rules);
 
         $filename = 'default-avatar.jpg';
 

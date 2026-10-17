@@ -14,7 +14,34 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @turnstileScripts()
+    @production
+        {{-- Explicit rendering, because implicit rendering misses widgets swapped in by wire:navigate. --}}
+        <script>
+            (function () {
+                {{-- A WeakSet does not survive Livewire's HTML snapshot, so widgets restored by Back are re-rendered. --}}
+                const rendered = new WeakSet();
+
+                window.renderTurnstileWidgets = function () {
+                    if (! window.turnstile) {
+                        return;
+                    }
+
+                    document.querySelectorAll('.cf-turnstile').forEach(function (el) {
+                        if (rendered.has(el)) {
+                            return;
+                        }
+
+                        el.replaceChildren();
+                        window.turnstile.render(el);
+                        rendered.add(el);
+                    });
+                };
+
+                document.addEventListener('livewire:navigated', window.renderTurnstileWidgets);
+            })();
+        </script>
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=renderTurnstileWidgets" async defer></script>
+    @endproduction
     @livewireStyles
 </head>
 
