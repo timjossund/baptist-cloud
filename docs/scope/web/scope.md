@@ -100,12 +100,12 @@ A $15 monthly Member plan for reading and listening (website and mobile app), th
 **Done when:** a user can subscribe to Member or Author on `/billing`, switch or cancel in the billing portal, free users hit the paywall after their monthly free views, and one rule (`User::hasFullAccess()`) says who has full access that the API can check.
 spec [0001](../../specs/web/0001-member-plan-metered-access/index.md) · code in `app/Support/ContentMeter.php`, `app/Models/User.php`, `app/Http/Controllers/BillingController.php`
 - [x] Design it (spec): `/architect listener plan`
-- [ ] Build it: `/develop member plan`
+- [x] Build it: `/develop member plan`
   - [x] Plan rule: tiers from the Stripe price, author ads limited to Author, admin labels (AC-4, AC-5, AC-6, AC-15)
   - [x] Article meter and paywall: `content_views` table, `ContentMeter`, preview, near limit note, daily prune (AC-7, AC-9, AC-10, AC-11, AC-13, AC-14, AC-16)
   - [x] Two plan billing page and subscribe by plan (AC-1, AC-2, AC-3)
   - [x] Sermon meter, signed audio links, no players in the feed (AC-8, AC-12, AC-13)
-  - [ ] Rollout: Stripe prices and env, deploy, then make the sermons bucket private (AC-4, AC-12)
+  - [x] Rollout: Stripe prices and env, deploy, then make the sermons bucket private (AC-4, AC-12)
 - [x] Verify it: `/check verify member plan`
 - [x] Test it: `/test member plan`
 - [x] Review it (fresh model): `/check review member plan`

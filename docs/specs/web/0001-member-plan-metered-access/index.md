@@ -164,7 +164,7 @@ Tracer Bullet: the plan rule first, because everything depends on it. Then artic
 5. [x] Build the `plan-cards` component and the two plan `/billing` page. Add `plan` validation and the price mapping in `BillingController@subscribe`, plus the new success copy. Satisfies **AC-1**, **AC-2**, **AC-3**
 6. [x] Meter `SermonController@show`. Add `Sermon::audioPath()`, the path style setting on the `sermons` disk, and the signed link in `sermons/single.blade.php` (hidden when there's no audio). Add the sermon paywall. Remove the inline player from `sermons/index.blade.php` in favor of a Listen link. Satisfies **AC-8**, **AC-9**, **AC-11**, **AC-12**, **AC-13**
 7. [x] Write Pest feature tests for the scenarios above (`tests/Feature/MeteredAccessTest.php`) and update `BillingTest.php` and `PostAdsTest.php`. Satisfies **AC-1** to **AC-16**
-8. [ ] Rollout (manual, see the Migration plan): create the Stripe prices and set the env, deploy, check playback, then make the bucket private. Satisfies **AC-4**, **AC-12**
+8. [x] Rollout (manual, see the Migration plan): create the Stripe prices and set the env, deploy, check playback, then make the bucket private. Satisfies **AC-4**, **AC-12**
 
 ## Migration plan
 
