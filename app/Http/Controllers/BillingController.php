@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Stripe\Exception\ApiErrorException;
 
 class BillingController extends Controller
 {
     private const UNAVAILABLE = 'Billing is unavailable right now. Please try again.';
+
+    /**
+     * Each plan a user can pick, mapped to its price config key.
+     */
+    private const PLAN_PRICES = [
+        'member' => 'services.stripe.member_price',
+        'author' => 'services.stripe.author_price',
+    ];
 
     /**
      * Subscribers manage billing in the Stripe portal; everyone else sees the plan.
@@ -28,7 +37,7 @@ class BillingController extends Controller
         }
     }
 
-    public function subscribe()
+    public function subscribe(Request $request)
     {
         $user = auth()->user();
 
@@ -36,7 +45,11 @@ class BillingController extends Controller
             return redirect()->route('billing');
         }
 
-        $price = config('services.stripe.author_price');
+        $data = $request->validate([
+            'plan' => ['required', 'in:'.implode(',', array_keys(self::PLAN_PRICES))],
+        ]);
+
+        $price = trim((string) config(self::PLAN_PRICES[$data['plan']]));
 
         if (! $price) {
             return redirect()->route('billing')->with('error', self::UNAVAILABLE);
@@ -56,6 +69,6 @@ class BillingController extends Controller
 
     public function success()
     {
-        return redirect()->route('home-page')->with('success', 'Thanks for subscribing! Your author features will be ready in a moment.');
+        return redirect()->route('home-page')->with('success', 'Thanks for subscribing! Your plan will be ready in a moment.');
     }
 }

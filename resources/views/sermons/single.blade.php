@@ -17,10 +17,18 @@
                             <span class="font-semibold text-lg">{{ $sermon->description }}</span><br>
                             Posted by: {{ $sermon->user->name }}
                         </p>
-                        <audio controls class="w-full mt-4">
-                            <source src="{{ $sermon->audio_url }}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
+                        <div class="mt-4">
+                            <x-meter-note kind="sermon" :meter="$meter" />
+                        </div>
+                        @if ($audioUrl)
+                            <audio controls class="w-full">
+                                <source src="{{ $audioUrl }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        @endif
+                        @if ($paywalled)
+                            <x-subscribe-box kind="sermon" :resets-on="$meter->resetsOn" />
+                        @endif
                         <x-sermon-tags :sermon_tags="$sermon->tags" />
                     </div>
                     <div class="flex flex-col w-1/4 gap-y-2">

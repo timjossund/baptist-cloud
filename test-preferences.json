@@ -1,0 +1,9 @@
+{
+  "tool": "pest",
+  "gate": null,
+  "additionalTools": ["pestphp/pest-plugin-laravel"],
+  "e2eTool": "none",
+  "testDir": "tests/Feature",
+  "filePattern": "*Test.php",
+  "packageManager": "composer"
+}

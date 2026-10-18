@@ -8,8 +8,10 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -61,12 +63,79 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+    private ?string $planTier = null;
+
+    /**
+     * The plan tier, worked out once per request: admin, author, member, or free.
+     */
+    public function planTier(): string
+    {
+        return $this->planTier ??= $this->resolvePlanTier();
+    }
+
+    private function resolvePlanTier(): string
+    {
+        if ($this->is_admin) {
+            return 'admin';
+        }
+
+        if ($this->is_author) {
+            return 'author';
+        }
+
+        $subscription = $this->subscription('default');
+
+        if (! $subscription || ! $subscription->valid()) {
+            return 'free';
+        }
+
+        $price = $subscription->stripe_price;
+
+        if (in_array($price, self::configuredPrices('member_price'), true)) {
+            return 'member';
+        }
+
+        if (! in_array($price, [...self::configuredPrices('author_price'), ...self::configuredPrices('author_legacy_prices')], true)) {
+            Log::warning('Subscription on an unknown Stripe price counted as Author.', ['user_id' => $this->id, 'price' => $price]);
+        }
+
+        return 'author';
+    }
+
+    /**
+     * Price IDs from a comma separated config value, with blanks dropped so an unset env never matches.
+     *
+     * @return list<string>
+     */
+    private static function configuredPrices(string $key): array
+    {
+        return array_values(array_filter(array_map('trim', explode(',', (string) config('services.stripe.'.$key)))));
+    }
+
+    /**
+     * Whether this user can read and listen without the monthly free limit.
+     */
+    public function hasFullAccess(): bool
+    {
+        return $this->planTier() !== 'free';
+    }
+
     /**
      * Whether this user's own ads may be shown instead of the platform's.
      */
     public function canRunAds(): bool
     {
-        return $this->is_admin || $this->is_author || $this->subscribed();
+        return in_array($this->planTier(), ['admin', 'author'], true);
+    }
+
+    public function planLabel(): string
+    {
+        return ucfirst($this->planTier());
+    }
+
+    public function contentViews(): HasMany
+    {
+        return $this->hasMany(ContentView::class);
     }
 
     public function posts()

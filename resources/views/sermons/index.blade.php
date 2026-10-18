@@ -7,9 +7,7 @@
                         <div class="mb-4">
                             <h2 class="text-lg font-semibold">{{ $sermon->title }}</h2>
                             <p class="text-gray-600">{{ $sermon->description }}</p>
-                            <audio controls>
-                                <source src="{{ $sermon->audio_url }}" type="audio/mpeg">
-                            </audio>
+                            <a href="{{ route('sermons.show', $sermon) }}" class="text-blue-800 underline">Listen</a>
                         </div>
                     @endforeach
                 </div>

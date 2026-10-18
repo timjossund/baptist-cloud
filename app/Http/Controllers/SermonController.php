@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BcAd;
 use App\Models\Sermon;
+use App\Support\ContentMeter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -86,9 +87,18 @@ class SermonController extends Controller
 
     public function show(Sermon $sermon)
     {
+        $meter = app(ContentMeter::class)->check(auth()->user(), $sermon);
+        $paywalled = ! $meter->allowed;
+        $audioPath = $sermon->audioPath();
+
+        // A signed link only for someone allowed to listen; the bucket itself is private.
+        $audioUrl = ! $paywalled && $audioPath
+            ? Storage::disk('sermons')->temporaryUrl($audioPath, now()->addHours(6))
+            : null;
+
         $ads = BcAd::all();
 
-        return view('sermons.single', compact('sermon', 'ads'));
+        return view('sermons.single', compact('sermon', 'ads', 'meter', 'paywalled', 'audioUrl'));
     }
 
     public function edit(Sermon $sermon)

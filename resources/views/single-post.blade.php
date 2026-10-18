@@ -48,9 +48,15 @@
                     </div>
                 </div>
 
-                <x-like-btn :post="$post" />
+                <x-meter-note kind="post" :meter="$meter" />
+                @unless ($paywalled)
+                    <x-like-btn :post="$post" />
+                @endunless
                 <img src="{{ $post->image }}" alt="Featured Image" class="w-full aspect-[3/1] rounded-xl object-cover mb-12">
-                <div class="text-lg" id="markdown-body">{!! $post->content !!}</div>
+                <div class="text-lg" id="markdown-body">{!! $body !!}</div>
+                @if ($paywalled)
+                    <x-subscribe-box kind="post" :resets-on="$meter->resetsOn" />
+                @endif
             </div>
             <x-tags :tags="$post->tags" />
             <div class="flex justify-between my-10">
