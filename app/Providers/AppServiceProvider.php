@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,6 +50,16 @@ class AppServiceProvider extends ServiceProvider
 
         RateLimiter::for('followLimit', function (Request $request) {
             return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip());
+        });
+
+        // Shared across all of a user's devices (spec 0002, AC-12).
+        RateLimiter::for('api-user', function (Request $request) {
+            return Limit::perMinute(120)->by($request->user()?->id ?: $request->ip());
+        });
+
+        // Replaces Sanctum's own check, so keep $isValid and add the idle rule (spec 0002, AC-8).
+        Sanctum::authenticateAccessTokensUsing(function (PersonalAccessToken $token, bool $isValid) {
+            return $isValid && ($token->last_used_at ?? $token->created_at)->gte(now()->subDays(User::API_TOKEN_IDLE_DAYS));
         });
     }
 }

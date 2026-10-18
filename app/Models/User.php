@@ -13,11 +13,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use Billable, HasFactory, Notifiable;
+    use Billable, HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * An API token unused for longer than this stops working and is pruned (spec 0002, AC-8).
+     */
+    public const API_TOKEN_IDLE_DAYS = 90;
+
+    protected static function booted(): void
+    {
+        // Tokens are a morph with no foreign key, so remove them in code (spec 0002, AC-9).
+        static::deleting(function (User $user) {
+            $user->tokens()->delete();
+        });
+    }
 
     /**
      * The attributes that are mass assignable.

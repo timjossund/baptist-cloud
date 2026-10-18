@@ -24,6 +24,9 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        // A new password signs the phone app out everywhere.
+        $request->user()->tokens()->delete();
+
         return back()->with('status', 'password-updated');
     }
 }
