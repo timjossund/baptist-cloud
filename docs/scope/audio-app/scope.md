@@ -11,7 +11,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 | # | Feature | Phase | Status |
 |---|---------|-------|--------|
-| 1 | Stack & architecture | Foundation | planned |
+| 1 | Stack & architecture | Foundation | in-progress |
 | 2 | Coding standards & tooling | Foundation | planned |
 | 3 | API contract & local data | Foundation | planned |
 | 4 | Design system & UI foundation | Foundation | planned |
@@ -23,10 +23,14 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 ## Foundations
 
-### 1. Stack & architecture · needs a decision
+### 1. Stack & architecture · in-progress
 React Native is set; decide the rest of the app's stack (project setup, navigation, background audio playback, secure token storage, build and update path) and scaffold a runnable app in `audio-app/`.
 **Done when:** the stack is recorded in a spec, and the empty app boots on an iOS simulator and an Android emulator.
-- [ ] Decide the stack (spec): `/architect audio app stack & architecture`
+spec [0001](../../specs/audio-app/0001-stack-architecture/index.md) · code in `audio-app/`
+- [x] Decide the stack (spec): `/architect audio app stack & architecture`
+- [x] Scaffold from the decision: `/develop audio app stack & architecture`
+- [ ] Verify it: `/check verify audio app stack & architecture`
+- [ ] Test it: `/test audio app stack & architecture` (after feature 2 adds the test runner)
 
 ### 2. Coding standards & tooling
 Capture the app's conventions in `audio-app/AGENTS.md`, then install lint, format, type checks, and tests from the real scaffold.
