@@ -1,7 +1,7 @@
 # 0001. Member plan, author price change, and metered access
 
 **Date**: 2026-10-17
-**Status**: In Progress
+**Status**: Accepted
 
 ## Summary
 

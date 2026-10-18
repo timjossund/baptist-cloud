@@ -31,7 +31,7 @@ _The shipped features below are also tracked in `blueprint/build-plan.md` (same 
 | 16 | Position approval | Shipped | existing |
 | 17 | Author plan on Cashier | Shipped | existing |
 | 18 | Markdown sandbox | Shipped | existing |
-| 19 | Member plan | Foundation | in-progress |
+| 19 | Member plan | Foundation | done |
 | 20 | Mobile API and token sign in | Foundation | planned |
 | 21 | Sermon API | Slice 1 | planned |
 | 22 | Search and series API | Slice 3 | planned |
@@ -95,7 +95,7 @@ A page where authors practice Markdown before writing. code in `app/Livewire/Mar
 
 ## Foundations
 
-### 19. Member plan · in-progress · GA
+### 19. Member plan · done · GA
 A $15 monthly Member plan for reading and listening (website and mobile app), the Author plan raised to $25 for new subscribers (current $20 subscribers keep their price), and a metered website paywall: 5 free articles and 2 free sermons a month. People subscribe on the website only; the app just checks it.
 **Done when:** a user can subscribe to Member or Author on `/billing`, switch or cancel in the billing portal, free users hit the paywall after their monthly free views, and one rule (`User::hasFullAccess()`) says who has full access that the API can check.
 spec [0001](../../specs/web/0001-member-plan-metered-access/index.md) · code in `app/Support/ContentMeter.php`, `app/Models/User.php`, `app/Http/Controllers/BillingController.php`
@@ -109,7 +109,7 @@ spec [0001](../../specs/web/0001-member-plan-metered-access/index.md) · code in
 - [x] Verify it: `/check verify member plan`
 - [x] Test it: `/test member plan`
 - [x] Review it (fresh model): `/check review member plan`
-- [ ] Document it: `/document member plan`
+- [x] Document it: `/document member plan`
 
 ### 20. Mobile API and token sign in · needs a decision · GA
 Add the API layer to Laravel: versioned JSON routes, token sign in for the phone app, sign out that revokes the token, rate limits, and the listening access check from feature 19.
