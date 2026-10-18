@@ -32,7 +32,7 @@ _The shipped features below are also tracked in `blueprint/build-plan.md` (same 
 | 17 | Author plan on Cashier | Shipped | existing |
 | 18 | Markdown sandbox | Shipped | existing |
 | 19 | Member plan | Foundation | done |
-| 20 | Mobile API and token sign in | Foundation | planned |
+| 20 | Mobile API and token sign in | Foundation | done |
 | 21 | Sermon API | Slice 1 | planned |
 | 22 | Search and series API | Slice 3 | planned |
 | 23 | Following API | Slice 4 | planned |
@@ -111,10 +111,20 @@ spec [0001](../../specs/web/0001-member-plan-metered-access/index.md) · code in
 - [x] Review it (fresh model): `/check review member plan`
 - [x] Document it: `/document member plan`
 
-### 20. Mobile API and token sign in · needs a decision · GA
+### 20. Mobile API and token sign in · done · GA
 Add the API layer to Laravel: versioned JSON routes, token sign in for the phone app, sign out that revokes the token, rate limits, and the listening access check from feature 19.
 **Done when:** the app can trade an email and password for a token, call an authenticated route, and sign out; unverified users and users without listening access get a clear response the app can show; repeated failed sign ins are throttled.
-- [ ] Design it (spec): `/architect mobile API and token sign in`
+spec [0002](../../specs/web/0002-mobile-api-token-sign-in/index.md) · code in `routes/api.php`, `app/Http/Controllers/Api/`, `app/Exceptions/ApiException.php`, `bootstrap/app.php`
+- [x] Design it (spec): `/architect mobile API and token sign in`
+- [x] Build it: `/develop mobile API and token sign in`
+  - [x] Tracer thread: Sanctum installed, JSON error layer, sign in, `/me`, sign out (AC-1, AC-2, AC-3, AC-5, AC-6, AC-7, AC-10, AC-13, AC-14)
+  - [x] Sign in throttles and the per user API limit (AC-4, AC-12)
+  - [x] Token lifecycle: 90 day idle expiry and daily prune, revocation on password change, reset, and account deletion (AC-8, AC-9)
+  - [x] `full.access` gate ready for feature 21, plus the Pest feature suite (AC-11, AC-1 to AC-14)
+- [x] Verify it: `/check verify mobile API and token sign in`
+- [x] Test it: `/test mobile API and token sign in`
+- [x] Review it (fresh model): `/check review mobile API and token sign in`
+- [x] Document it: `/document mobile API and token sign in`
 
 ## Slice 1: Sign in and play a sermon
 

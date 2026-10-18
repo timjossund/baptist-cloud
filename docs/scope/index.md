@@ -8,7 +8,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 | Workspace | Scope | What it is | Rollup |
 |---|---|---|---|
-| web | [web/scope.md](web/scope.md) | The Laravel website at the repo root, plus the new mobile API and Member plan | 18 existing, 1 of 5 planned done |
+| web | [web/scope.md](web/scope.md) | The Laravel website at the repo root, plus the new mobile API and Member plan | 18 existing, 2 of 5 planned done |
 | audio-app | [audio-app/scope.md](audio-app/scope.md) | The React Native listening app for iOS and Android (greenfield) | 0 of 9 planned done |
 
 ## Suggested order across both apps
@@ -16,7 +16,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 The first slice runs end to end, from the website's billing through the API to the phone, so the work alternates between the two scopes. App foundations (audio-app 1 to 4) have no web dependency, so you can do them while the web pieces are in progress.
 
 1. web 19 · Member plan (done)
-2. web 20 · Mobile API and token sign in
+2. web 20 · Mobile API and token sign in (done)
 3. audio-app 1 to 4 · App foundations
 4. web 21 + audio-app 5 · Slice 1: sign in and play a sermon
 5. audio-app 6 · Slice 2: full player
