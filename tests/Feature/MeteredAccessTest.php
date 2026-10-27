@@ -482,8 +482,14 @@ test('the admin table labels admin, author, member, and free users', function ()
 
     $html = $this->actingAs($admin)->get('/admin')->assertOk()->getContent();
 
+    // Scope each check to the user's table row; a whole-page scan exhausts the PCRE JIT stack.
+    preg_match_all('/<tr\b.*?<\/tr>/s', $html, $rows);
+
     foreach (['Site Admin' => 'Admin', 'Flag Author' => 'Author', 'Legacy Payer' => 'Author', 'Member Reader' => 'Member', 'Free Reader' => 'Free'] as $name => $label) {
-        expect($html)->toMatch('/'.$name.'((?!<\/tr>).)*>\s*'.$label.'\s*</s');
+        $row = collect($rows[0])->filter(fn (string $row) => str_contains($row, $name));
+
+        expect($row)->toHaveCount(1)
+            ->and($row->first())->toMatch('/>\s*'.$label.'\s*</');
     }
 });
 
