@@ -19,6 +19,9 @@ class Sermon extends Model
         'tags',
     ];
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\FollowDigestController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ListingController;
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 // Open Routes
 Route::get('/', [PostController::class, 'index'])->name('home-page');
+Route::get('/follow-digest/unsubscribe/{user}', [FollowDigestController::class, 'unsubscribe'])
+    ->middleware('signed')
+    ->name('follow-digest.unsubscribe');
 Route::get('/home', [PostController::class, 'indexHome']);
 Route::get('/category/{category:title}', [PostController::class, 'category'])->name('byCategory');
 Route::get('/sermons', [SermonController::class, 'welcome'])->name('sermons.index');

@@ -76,6 +76,17 @@
             <x-input-error class="mt-2" :messages="$errors->get('bio')" />
         </div>
 
+        <div>
+            <input type="hidden" name="notify_follows" value="0">
+            <label for="notify_follows" class="inline-flex items-center">
+                <input id="notify_follows" type="checkbox"
+                    class="rounded border-gray-300 text-blue-800 shadow-sm focus:ring-blue-800" name="notify_follows"
+                    value="1" @checked((bool) old('notify_follows', $user->notify_follows))>
+                <span class="ms-2 text-sm text-gray-600">{{ __('Email me when people I follow publish') }}</span>
+            </label>
+            <x-input-error class="mt-2" :messages="$errors->get('notify_follows')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

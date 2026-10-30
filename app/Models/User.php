@@ -45,6 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'bio',
         'username',
+        'notify_follows',
     ];
 
     /**
@@ -67,6 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'notify_follows' => 'boolean',
         ];
     }
 
