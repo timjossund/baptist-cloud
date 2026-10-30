@@ -29,6 +29,26 @@ class Post extends Model
         'published_at',
     ];
 
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime',
+            'first_published_at' => 'datetime',
+        ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Post $post): void {
+            if (filled($post->published_at) && blank($post->first_published_at)) {
+                $post->first_published_at = $post->published_at;
+            }
+        });
+    }
+
     //    public function registerMediaConversions(?Media $media = null): void
     //    {
     //        $this
